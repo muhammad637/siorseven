@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('id_user');
+            $table->string('id_barang');
+            $table->date('tanggal_order');
+            $table->string('status');
+            $table->text('pesan_kerusakan');
+            $table->date('tanggal_selesai');
             $table->timestamps();
         });
     }
