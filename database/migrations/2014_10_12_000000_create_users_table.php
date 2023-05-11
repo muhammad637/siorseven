@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('id_notifikasi');
             $table->string('nama');
             $table->string('username');
-            $table->string('nik')->unique();
+            $table->string('nik')->unique()->nullable(); 
             $table->string('no_telephone');
             $table->string('password');
-            $table->enum('cekLevel',['admin','user'])->default('admin');
+            $table->enum('cekLevel',['admin','teknisi'])->default('admin');
             $table->rememberToken();
             $table->timestamps();
         });
