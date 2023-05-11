@@ -28,8 +28,12 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            if (auth()->user()->status == "aktif") {
+                $request->session()->regenerate();
+                # code...
+                return redirect()->intended('dashboard');
+            }
+            return back()->withErrors(['username' => 'status anda nonaktif']);
         }
 
         return back()->withErrors([

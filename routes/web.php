@@ -39,6 +39,16 @@ Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('gue
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::group(['middleware' => 'auth'], function () {
+	Route::group(['middleware' => 'cekLevel:admin'], function(){
+		Route::get('/coba',function(){
+			return 'test test';
+		});
+	});
+	Route::group(['middleware' => 'cekLevel:teknisi'], function(){
+		Route::get('/coba2',function(){
+			return 'test test2';
+		});
+	});
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
