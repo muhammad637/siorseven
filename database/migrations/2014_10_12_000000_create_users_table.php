@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('no_telephone');
             $table->string('password');
             $table->enum('cekLevel',['admin','teknisi'])->default('admin');
+            $table->enum('status',['aktif','nonaktif'])->default('aktif');
             $table->rememberToken();
             $table->timestamps();
         });

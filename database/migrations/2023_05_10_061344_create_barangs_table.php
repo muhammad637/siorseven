@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('tipe');
             $table->string('jenis');
             $table->string('merk');
+            $table->enum('status',['aktif','nonaktif'])->default('aktif');
             $table->timestamps();
         });
     }
