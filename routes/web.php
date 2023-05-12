@@ -29,6 +29,9 @@ use App\Http\Controllers\ChangePassword;
 Route::get('/', function () {
 	return redirect('/dashboard');
 })->middleware('auth');
+Route::get('/home', function () {
+	return redirect('/dashboard');
+})->middleware('auth');
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest')->name('register.perform');
 Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
@@ -39,16 +42,21 @@ Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('gue
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::group(['middleware' => 'auth'], function () {
+
 	Route::group(['middleware' => 'cekLevel:admin'], function(){
 		Route::get('/coba',function(){
-			return 'test test';
+			return 'ini buat admin';
 		});
 	});
+
 	Route::group(['middleware' => 'cekLevel:teknisi'], function(){
 		Route::get('/coba2',function(){
-			return 'test test2';
+			return 'ini buat teknisi';
 		});
 	});
+
+
+	
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');

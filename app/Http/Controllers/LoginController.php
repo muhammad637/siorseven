@@ -27,17 +27,25 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            if (auth()->user()->status == "aktif") {
+        if (Auth::attempt([...$credentials, "status" => "aktif"])) {
                 $request->session()->regenerate();
-                # code...
                 return redirect()->intended('dashboard');
-            }
-            return back()->withErrors(['username' => 'status anda nonaktif']);
+            
+        }
+        elseif (Auth::attempt([...$credentials, "status" => "nonaktif"])) {
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return back()->withErrors([
+                'username' => "status nonaktif",
+            ]);
         }
 
+        
+
         return back()->withErrors([
-            'username' => 'The provided credentials do not match our records.',
+            'username' => "username atau password salah",
         ]);
     }
 
