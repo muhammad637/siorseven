@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,7 @@ use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\MasterUserController;
 
 
+
 Route::get('/', function () {
 	return redirect('/dashboard');
 })->middleware('auth');
@@ -43,8 +45,11 @@ Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('gue
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-// master
 Route::resource('/master/user', MasterUserController::class);
+
+
+Route::post('/barang', [BarangController::class, 'store'])->name('store.barang');
+Route::get('/barang', [BarangController::class, 'index'])->name('barang');
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -72,4 +77,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+	Route::post('logcek', function(){return auth()->user();})->name('logcek');
 });
