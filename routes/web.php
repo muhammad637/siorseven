@@ -24,6 +24,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\MasterUserController;
 
 
 Route::get('/', function () {
@@ -41,12 +42,17 @@ Route::post('/reset-password', [ResetPassword::class, 'send'])->middleware('gues
 Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('guest')->name('change-password');
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
+
+// master
+Route::resource('/master/user', MasterUserController::class);
+
 Route::group(['middleware' => 'auth'], function () {
 
 	Route::group(['middleware' => 'cekLevel:admin'], function(){
 		Route::get('/coba',function(){
 			return 'ini buat admin';
 		});
+		
 	});
 
 	Route::group(['middleware' => 'cekLevel:teknisi'], function(){
