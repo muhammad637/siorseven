@@ -15,13 +15,15 @@ class MasterUserController extends Controller
     public function index()
     {
         //
-            $user = User::all();
-            return response(view('auth.admin.master.user.index', [
-                'users' => $user,
-                'title' => 'Create User'
-            ]));    
-        }
 
+
+        return view(
+            'auth.admin.master.user.index',
+            [
+                'users' => User::all()
+            ]
+        );
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -41,17 +43,18 @@ class MasterUserController extends Controller
     public function store(Request $request)
     {
         //
-        $validatedData = $request->validate([
-            'nama' => 'required',
-            'username' => 'required |unique:users,username',
-            'password' => 'required',
-            'nik' => 'required |unique:users,nik',
-            'no_telephone' => ''
+        $validatedData = $request->validate(
+            [
+                'nama' => 'required',
+                'username' => 'required |unique:users,username',
+                'password' => 'required',
+                'nik' => 'required |unique:users,nik',
+                'no_telephone' => ''
             ]
         );
 
         User::create($validatedData);
-        return $validatedData;
+        return redirect()->back()->with('toast_success','data berhasil ditambahkan');
     }
 
     /**
