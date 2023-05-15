@@ -47,8 +47,11 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 Route::resource('/master/user', MasterUserController::class);
 
-Route::post('/barang', [BarangController::class, 'store'])->name('store.barang');
-Route::get('/barang', [BarangController::class, 'index'])->name('barang');
+Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
+Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
+
+Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
+
 
 Route::group(['middleware' => 'auth'], function () {
 

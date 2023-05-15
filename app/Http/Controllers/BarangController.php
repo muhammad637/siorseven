@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {   public function index(){
-    return view('auth.admin.master.barang');
+    return view('auth.admin.master.barang', 
+['barangs' => Barang::all()]);
 }
     public function store(Request $request)
     {
@@ -34,5 +35,18 @@ class BarangController extends Controller
             // peanganan jika error pada column tabel 
         }
     }
+    public function update(Request $request, Barang $barang)
+    {
+        $request->validate([
+            'tipe' => 'required',
+            'jenis' => 'required',
+            'merk' => 'required',
+        ]);
+        
+        $barang->fill($request->post())->save();
+
+        return redirect()->back()->with('success','Company Has Been updated successfully');
+    }
+  
     
 }
