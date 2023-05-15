@@ -15,8 +15,12 @@ class MasterUserController extends Controller
     public function index()
     {
         //
-        return view('auth.admin.master.user.index');
-    }
+            $user = User::all();
+            return response(view('auth.admin.master.user.index', [
+                'users' => $user,
+                'title' => 'Create User'
+            ]));    
+        }
 
     /**
      * Show the form for creating a new resource.
@@ -69,8 +73,10 @@ class MasterUserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('auth.admin.master.user.edit');
+       
     }
+
 
     /**
      * Update the specified resource in storage.

@@ -47,7 +47,6 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 Route::resource('/master/user', MasterUserController::class);
 
-
 Route::post('/barang', [BarangController::class, 'store'])->name('store.barang');
 Route::get('/barang', [BarangController::class, 'index'])->name('barang');
 

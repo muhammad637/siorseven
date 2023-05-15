@@ -62,42 +62,47 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Level
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-0">Username
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        nik</th>
+                                        NIK</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        no hp</th>
+                                        No Hp</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        status</th>
+                                        Level</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Aksi</th>
+                                        Status</th>
                                 </tr>
+                                
                             </thead>
                             <tbody>
+                                @foreach ($users as $user)
                                 <tr>
                                     <td>
                                         <div class="d-flex px-3 py-1">
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">Admin</h6>
+                                                <h6 class="mb-0 text-sm">{{$user->nama}}</h6>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="text-sm font-weight-bold mb-0">Admin</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{$user->username}}</p>
                                     </td>
                                     <td>
-                                        <p class="text-sm font-weight-bold mb-0">Admin</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{$user->nik}}</p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <p class="text-sm font-weight-bold mb-0">22/03/2022</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{$user->no_telephone}}</p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <p class="text-sm font-weight-bold mb-0">22/03/2022</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{$user->cekLevel}}</p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-sm font-weight-bold mb-0">{{$user->status}}</p>
                                     </td>
                                     <td class="align-middle text-end">
                                         <div class="d-flex px-3 py-1 justify-content-center align-items-center gap-1">
@@ -106,6 +111,8 @@
                                         </div>
                                     </td>
                                 </tr>
+
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
