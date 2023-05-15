@@ -1,4 +1,4 @@
-@extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
+@extends('layouts.app',['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'Master Data'])
     {{-- <div class="card shadow-lg mx-4 card-profile-bottom">
@@ -64,24 +64,21 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Level
                                     </th>
-
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        NIK</th>
+                                        nik</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        No Hp</th>
+                                        no hp</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Level</th>
+                                        status</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Status</th>
+                                        Aksi</th>
                                 </tr>
-                                
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)     
                                 <tr>
                                     <td>
                                         <div class="d-flex px-3 py-1">
@@ -109,14 +106,13 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
+       
     </div>
 
     <!-- Modal Tambah User -->
@@ -130,14 +126,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{route('user.store')}}" method="post" >
-                    @csrf
+                <form>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Username" name="username" type="text">
+                                        <input class="form-control" placeholder="Username" type="text">
                                         <span class="input-group-text">@</span>
                                     </div>
                                 </div>
@@ -145,7 +140,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Password" name="password" type="password">
+                                        <input class="form-control" placeholder="Password" type="password">
                                         <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
@@ -156,7 +151,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Nama" name="nama" type="text">
+                                        <input class="form-control" placeholder="Nama" type="text">
                                         <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
@@ -164,9 +159,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="NIK" name="nik" type="text">
-                                        <span class="input-group-text"><i class="fa fa-id-card"
-                                                aria-hidden="true"></i></span>
+                                        <input class="form-control" placeholder="NIK" type="text">
+                                        <span class="input-group-text"><i class="fa fa-id-card" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -176,16 +170,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="no hp" name="no_telephone" type="text">
-                                        <span class="input-group-text"><i class="fa fa-mobile"
-                                                aria-hidden="true"></i></span>
+                                        <input class="form-control" placeholder="no hp" type="text">
+                                        <span class="input-group-text"><i class="fa fa-mobile" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button  type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn bg-gradient-primary">Save changes</button>
                     </div>
                 </form>
