@@ -51,6 +51,8 @@ Route::post('master/barang', [BarangController::class, 'store'])->name('store.ba
 Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
 
 Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
+Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
+Route::put('master/barang/{barang:id}/nonaktif', [BarangController::class, 'nonaktif'])->name('nonaktif.barang');
 
 
 Route::group(['middleware' => 'auth'], function () {

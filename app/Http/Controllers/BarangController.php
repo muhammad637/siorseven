@@ -47,6 +47,20 @@ class BarangController extends Controller
 
         return redirect()->back()->with('success','Company Has Been updated successfully');
     }
-  
+    public function nonaktif(Barang $barang)
+    {
+        //code...
+        
+        $status = 'nonaktif';
+      
+        Barang::where('id', $barang->id)->update(['status' => $status]);
+        return redirect()->back()->with('toast_success');
+    }
+    public function aktif(Barang $barang)
+    {
+        $status = 'aktif';
+        $barang->update(['status' => $status]);
+        return redirect()->back()->with('toast_success');
+    }
     
 }
