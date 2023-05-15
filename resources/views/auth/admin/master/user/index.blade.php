@@ -1,4 +1,4 @@
-@extends('layouts.app',['class' => 'g-sidenav-show bg-gray-100'])
+@extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'Master Data'])
     {{-- <div class="card shadow-lg mx-4 card-profile-bottom">
@@ -61,9 +61,13 @@
                         <table class="table align-items-center mb-0" id="myTable">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Level
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                     </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Level
+                                    </th>
+
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         nik</th>
@@ -79,40 +83,46 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-3 py-1">
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">Admin</h6>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-3 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ $user->nama }}</h6>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="text-sm font-weight-bold mb-0">Admin</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-sm font-weight-bold mb-0">Admin</p>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <p class="text-sm font-weight-bold mb-0">22/03/2022</p>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <p class="text-sm font-weight-bold mb-0">22/03/2022</p>
-                                    </td>
-                                    <td class="align-middle text-end">
-                                        <div class="d-flex px-3 py-1 justify-content-center align-items-center gap-1">
-                                            <a href="" class="badge bg-warning">edit</a>
-                                            <a href="" class="badge bg-success ">aktif</a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $user->username }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $user->cekLevel }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $user->nik }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-bold mb-0">{{$user->no_telephone}}</p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <p class="text-sm font-weight-bold mb-0">{{$user->status}}</p>
+                                        </td>
+                                        
+                                        <td class="align-middle text-end">
+                                            <div class="d-flex px-3 py-1 justify-content-center align-items-center gap-1">
+                                                <a href="" class="badge bg-warning">edit</a>
+                                                <a href="" class="badge bg-success ">aktif</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-       
+
     </div>
 
     <!-- Modal Tambah User -->
@@ -126,13 +136,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form>
+                <form action="{{route('user.store')}}" method="post" >
+                    @csrf
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Username" type="text">
+                                        <input class="form-control" placeholder="Username" name="username" type="text">
                                         <span class="input-group-text">@</span>
                                     </div>
                                 </div>
@@ -140,7 +151,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Password" type="password">
+                                        <input class="form-control" placeholder="Password" name="password" type="password">
                                         <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
@@ -151,7 +162,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Nama" type="text">
+                                        <input class="form-control" placeholder="Nama" name="nama" type="text">
                                         <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
@@ -159,8 +170,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="NIK" type="text">
-                                        <span class="input-group-text"><i class="fa fa-id-card" aria-hidden="true"></i></span>
+                                        <input class="form-control" placeholder="NIK" name="nik" type="text">
+                                        <span class="input-group-text"><i class="fa fa-id-card"
+                                                aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -170,15 +182,16 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="no hp" type="text">
-                                        <span class="input-group-text"><i class="fa fa-mobile" aria-hidden="true"></i></span>
+                                        <input class="form-control" placeholder="no hp" name="no_telephone" type="text">
+                                        <span class="input-group-text"><i class="fa fa-mobile"
+                                                aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button  type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn bg-gradient-primary">Save changes</button>
                     </div>
                 </form>

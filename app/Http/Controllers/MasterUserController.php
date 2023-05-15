@@ -15,7 +15,13 @@ class MasterUserController extends Controller
     public function index()
     {
         //
-        return view('auth.admin.master.user.index');
+
+        return view(
+            'auth.admin.master.user.index',
+            [
+                'users' => User::all()
+            ]
+        );
     }
 
     /**
@@ -37,17 +43,18 @@ class MasterUserController extends Controller
     public function store(Request $request)
     {
         //
-        $validatedData = $request->validate([
-            'nama' => 'required',
-            'username' => 'required |unique:users,username',
-            'password' => 'required',
-            'nik' => 'required |unique:users,nik',
-            'no_telephone' => ''
+        $validatedData = $request->validate(
+            [
+                'nama' => 'required',
+                'username' => 'required |unique:users,username',
+                'password' => 'required',
+                'nik' => 'required |unique:users,nik',
+                'no_telephone' => ''
             ]
         );
 
         User::create($validatedData);
-        return $validatedData;
+        return redirect()->back()->with('toast_success','data berhasil ditambahkan');
     }
 
     /**
