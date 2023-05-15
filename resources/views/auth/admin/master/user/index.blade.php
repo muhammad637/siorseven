@@ -52,66 +52,76 @@
     <div class="row mt-4 mx-4">
         <div class="card mb-4">
             <div class="card-header pb-0">
-                <h6>Users</h6>
-            </div>
-            <div class="card-body px-0 pt-0 pb-2">
-                <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0">
-                        <thead>
-                            <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Level
-                                </th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Create Date</th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex px-3 py-1">
-                                        <div>
-                                            <img src="{{asset('./img/team-1.jpg')}}" class="avatar me-3" alt="image">
+                <h5>List Users</h5>
+                <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
+                    Tambah
+                </button>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Level
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        nik</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        no hp</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        status</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-3 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">Admin</h6>
+                                            </div>
                                         </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">Admin</h6>
+                                    </td>
+                                    <td>
+                                        <p class="text-sm font-weight-bold mb-0">Admin</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-sm font-weight-bold mb-0">Admin</p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-sm font-weight-bold mb-0">22/03/2022</p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-sm font-weight-bold mb-0">22/03/2022</p>
+                                    </td>
+                                    <td class="align-middle text-end">
+                                        <div class="d-flex px-3 py-1 justify-content-center align-items-center gap-1">
+                                            <a href="" class="badge bg-warning">edit</a>
+                                            <a href="" class="badge bg-success ">aktif</a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="text-sm font-weight-bold mb-0">Admin</p>
-                                </td>
-                                <td class="align-middle text-center text-sm">
-                                    <p class="text-sm font-weight-bold mb-0">22/03/2022</p>
-                                </td>
-                                <td class="align-middle text-end">
-                                    <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                        <p class="text-sm font-weight-bold mb-0">Edit</p>
-                                        <p class="text-sm font-weight-bold mb-0 ps-2">Delete</p>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Tambah
-        </button>
+       
     </div>
 
     <!-- Modal Tambah User -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="modaltambahLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Form tambah User</h5>
+                    <h5 class="modal-title" id="modaltambahLabel">Form tambah User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -123,7 +133,7 @@
                                 <div class="form-group">
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="Username" type="text">
-                                        <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                                        <span class="input-group-text">@</span>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +141,7 @@
                                 <div class="form-group">
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="Password" type="password">
-                                        <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                                        <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -139,17 +149,33 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group has-success">
-                                    <input type="text" placeholder="Success" class="form-control is-valid" />
+                                <div class="form-group">
+                                    <div class="input-group mb-4">
+                                        <input class="form-control" placeholder="Nama" type="text">
+                                        <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <input type="email" placeholder="Error Input" class="form-control is-invalid" />
+                                <div class="form-group">
+                                    <div class="input-group mb-4">
+                                        <input class="form-control" placeholder="NIK" type="text">
+                                        <span class="input-group-text"><i class="fa fa-id-card" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group mb-4">
+                                        <input class="form-control" placeholder="no hp" type="text">
+                                        <span class="input-group-text"><i class="fa fa-mobile" aria-hidden="true"></i></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
