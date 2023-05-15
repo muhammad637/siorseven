@@ -17,18 +17,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'username',
-        'firstname',
-        'lastname',
-        'email',
-        'password',
-        'address',
-        'city',
-        'country',
-        'postal',
-        'about'
-    ];
+    // protected $fillable = [
+    //     'username',
+    //     'nama',
+    //     'no_telephone',
+    // ];
+
+    protected $guarded = ['id'];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -53,10 +49,23 @@ class User extends Authenticatable
      * Always encrypt the password when it is updated.
      *
      * @param $value
-    * @return string
-    */
+     * @return string
+     */
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
+
+    public function notifikasi(){
+        return $this->belongsToMany(Notifikasi::class);
+    }
+
+    public function order(){
+        return $this->hasMany(Order::class);
     }
 }

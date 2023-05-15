@@ -21,19 +21,31 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        // dd($request->all());
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'username' => ['required'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $request->session()->regenerate();
+        if (Auth::attempt([...$credentials, "status" => "aktif"])) {
+                $request->session()->regenerate();
+                return redirect()->intended('dashboard');
+            
+        }
+        elseif (Auth::attempt([...$credentials, "status" => "nonaktif"])) {
+            Auth::logout();
 
-            return redirect()->intended('dashboard');
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return back()->withErrors([
+                'username' => "status nonaktif",
+            ]);
         }
 
+        
+
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'username' => "username atau password salah",
         ]);
     }
 
