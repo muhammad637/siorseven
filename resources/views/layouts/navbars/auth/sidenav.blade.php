@@ -5,7 +5,7 @@
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="{{ route('home') }}"
             target="_blank">
-            <img src="./img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
+            <img src="{{asset('./img/logo-ct-dark.png')}}" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold">Argon Dashboard 2 Laravel</span>
         </a>
     </div>
@@ -126,7 +126,7 @@
                 </div>
             </div>
         </div>
-        <a href="/docs/bootstrap/overview/argon-dashboard/index.html" target="_blank"
+        <a href="/siorseven/public/docs/bootstrap/overview/argon-dashboard/index.html" target="_blank"
             class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
         <a class="btn btn-primary btn-sm mb-0 w-100"
             href="https://www.creative-tim.com/product/argon-dashboard-pro-laravel" target="_blank" type="button">Upgrade to PRO</a>

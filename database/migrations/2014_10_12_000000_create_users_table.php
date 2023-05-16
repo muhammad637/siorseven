@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('username');
             $table->string('nik')->unique()->nullable(); 
-            $table->string('no_telephone');
+            $table->string('no_telephone')->nullable();
             $table->string('password');
             $table->enum('cekLevel',['admin','teknisi'])->default('admin');
             $table->enum('status',['aktif','nonaktif'])->default('aktif');
