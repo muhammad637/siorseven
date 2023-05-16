@@ -45,7 +45,6 @@ Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('gue
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::resource('/master/user', MasterUserController::class);
 
 
 Route::post('/barang', [BarangController::class, 'store'])->name('store.barang');
@@ -53,21 +52,24 @@ Route::get('/barang', [BarangController::class, 'index'])->name('barang');
 
 Route::group(['middleware' => 'auth'], function () {
 
-	Route::group(['middleware' => 'cekLevel:admin'], function(){
-		Route::get('/coba',function(){
+	Route::group(['middleware' => 'cekLevel:admin'], function () {
+		Route::get('/coba', function () {
 			return 'ini buat admin';
 		});
-		
+		// master user
+		Route::resource('/master/user', MasterUserController::class);
+		Route::get('/master/user/{user:id}/nonaktif', [MasterUserController::class, 'nonaktif'])->name('user.nonaktif');
+		Route::get('/master/user/{user:id}/aktif', [MasterUserController::class, 'aktif'])->name('user.aktif');
 	});
 
-	Route::group(['middleware' => 'cekLevel:teknisi'], function(){
-		Route::get('/coba2',function(){
+	Route::group(['middleware' => 'cekLevel:teknisi'], function () {
+		Route::get('/coba2', function () {
 			return 'ini buat teknisi';
 		});
 	});
 
 
-	
+
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
@@ -77,5 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-	Route::post('logcek', function(){return auth()->user();})->name('logcek');
+	Route::post('logcek', function () {
+		return auth()->user();
+	})->name('logcek');
 });
