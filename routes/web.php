@@ -47,31 +47,31 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 Route::resource('/master/user', MasterUserController::class);
 
-Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
-Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
 
-Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
-Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
-Route::put('master/barang/{barang:id}/nonaktif', [BarangController::class, 'nonaktif'])->name('nonaktif.barang');
 
 
 Route::group(['middleware' => 'auth'], function () {
 
-	Route::group(['middleware' => 'cekLevel:admin'], function(){
-		Route::get('/coba',function(){
+	Route::group(['middleware' => 'cekLevel:admin'], function () {
+		Route::get('/coba', function () {
 			return 'ini buat admin';
 		});
-		
+		Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
+		Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
+
+		Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
+		Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
+		Route::put('master/barang/{barang:id}/nonaktif', [BarangController::class, 'nonaktif'])->name('nonaktif.barang');
 	});
 
-	Route::group(['middleware' => 'cekLevel:teknisi'], function(){
-		Route::get('/coba2',function(){
+	Route::group(['middleware' => 'cekLevel:teknisi'], function () {
+		Route::get('/coba2', function () {
 			return 'ini buat teknisi';
 		});
 	});
 
 
-	
+
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
@@ -81,5 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-	Route::post('logcek', function(){return auth()->user();})->name('logcek');
+	Route::post('logcek', function () {
+		return auth()->user();
+	})->name('logcek');
 });
