@@ -47,8 +47,7 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 
 
-Route::post('/barang', [BarangController::class, 'store'])->name('store.barang');
-Route::get('/barang', [BarangController::class, 'index'])->name('barang');
+
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -60,6 +59,13 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::resource('/master/user', MasterUserController::class);
 		Route::get('/master/user/{user:id}/nonaktif', [MasterUserController::class, 'nonaktif'])->name('user.nonaktif');
 		Route::get('/master/user/{user:id}/aktif', [MasterUserController::class, 'aktif'])->name('user.aktif');
+
+		Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
+		Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
+
+		Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
+		Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
+		Route::put('master/barang/{barang:id}/nonaktif', [BarangController::class, 'nonaktif'])->name('nonaktif.barang');
 	});
 
 	Route::group(['middleware' => 'cekLevel:teknisi'], function () {

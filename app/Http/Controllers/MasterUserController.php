@@ -18,6 +18,7 @@ class MasterUserController extends Controller
     {
         //
 
+
         return view(
             'auth.admin.master.user.index',
             [
@@ -25,7 +26,6 @@ class MasterUserController extends Controller
             ]
         );
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -84,8 +84,10 @@ class MasterUserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('auth.admin.master.user.edit');
+       
     }
+
 
     /**
      * Update the specified resource in storage.

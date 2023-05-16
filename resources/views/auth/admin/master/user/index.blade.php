@@ -61,26 +61,25 @@
                         <table class="table align-items-center mb-0" id="myTable">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Level
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Level
                                     </th>
 
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        nik</th>
+                                        NIK</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        no hp</th>
+                                        No Hp</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        status</th>
+                                        Level</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Aksi</th>
+                                        Status</th>
                                 </tr>
+                                
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
