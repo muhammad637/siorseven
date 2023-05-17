@@ -15,17 +15,17 @@
                             <thead>
                                 <tr class="text-center">
                                     <th
-                                    class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
-                                    Jenis
-                                    Barang</th>
+                                        class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Jenis
+                                        Barang</th>
                                     <th
-                                    class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7  ps-2">
-                                    Merk Barang
-                                </th>
-                                <th
-                                    class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
-                                    Tipe
-                                    Barang</th>
+                                        class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7  ps-2">
+                                        Merk Barang
+                                    </th>
+                                    <th
+                                        class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Tipe
+                                        Barang</th>
                                     <th
                                         class="text-center text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
                                         Status</th>
@@ -47,7 +47,8 @@
                                         </td>
 
                                         <td>
-                                            <p class="text-sm text-uppercase font-weight-bold mb-0">{{ $barang->merk }}</p>
+                                            <p class="text-sm text-uppercase font-weight-bold mb-0">
+                                                {{ $barang->merk->merk }}</p>
                                         </td>
 
                                         <td>
@@ -83,6 +84,8 @@
                                             </div>
                                         </td>
                                     </tr>
+
+                                    {{-- modal edit --}}
                                     <div class="modal fade" id="modaledit-{{ $barang->id }}" tabindex="-1" role="dialog"
                                         aria-labelledby="modaledittbarang" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -101,7 +104,7 @@
                                                     @csrf
                                                     <div class="modal-body">
                                                         <div class="row">
-                                           
+
                                                             <div class="col-md-6">
                                                                 <label for="">Jenis Barang</label>
                                                                 <div class="input-group mb-4">
@@ -123,14 +126,39 @@
                                                             <div class="col-md-6">
                                                                 <label for="">Merk Barang</label>
                                                                 <div class="input-group mb-4">
-                                                                    <input type="text" class="form-control"name="merk" value="{{$barang->merk}}">
+                                                                    {{-- <input type="text" class="form-control" name="merk" placeholder="merk barang .." > --}}
+                                                                    <select class="form-control text-capitalize"
+                                                                        name="merk_id" id="merk">
+                                                                        @foreach ($merks as $merk)
+                                                                            <option value="{{ $merk->id }}"
+                                                                                {{ $barang->merk->merk == $merk->merk ? 'selected' : '' }}
+                                                                                class="text-uppercase">
+                                                                                {{ $merk->merk }}</option>
+                                                                        @endforeach
+                                                                        <option value="other">lainnya ...</option>
+                                                                    </select>
                                                                     <span class="input-group-text">
-                                                                      <i class="fa fa-exchange" aria-hidden="true"></i></span>
+                                                                        <i class="fa fa-exchange"
+                                                                            aria-hidden="true"></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group" id="merk_other"
+                                                                    style="display:none;">
+                                                                    <label for="other" class="text-capitalize">merk
+                                                                        Barang Lainnya</label>
+                                                                    <div class="input-group mb-4">
+                                                                        <input class="form-control"
+                                                                            placeholder="Merk Barang ..." name="merk"
+                                                                            id="merk_other" type="text">
+                                                                        <span class="input-group-text">
+                                                                            <i class="fa fa-plus-square"
+                                                                                aria-hidden="true"></i>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
-                                                        </div>
-                                                        <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="tipe">Tipe Barang</label>
@@ -146,17 +174,8 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            {{-- <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <div class="input-group mb-4">
-                                                                    <input class="form-control" placeholder="S" name="status" type="text">
-                                                                    <span class="input-group-text"><i class="fa fa-id-card"
-                                                                            aria-hidden="true"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div> --}}
-
                                                         </div>
+
 
                                                     </div>
                                                     <div class="modal-footer">
@@ -194,59 +213,67 @@
                     @csrf
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-6">
-                                <label for="">Merk Barang</label>
-                                <div class="input-group mb-4">
-                                    <input type="text" class="form-control" name="merk" placeholder="merk barang .." >
-                                    {{-- <select class="form-control text-capitalize" name="merk" id="">
-                                        <option value="" selected>merk barang ..</option>
-                                        <option class="text-uppercase" value="samsung">samsung</option>
-                                        <option class="text-uppercase" value="epson">epson</option>
-                                        <option class="text-uppercase" value="canon">canon</option>
-                                        <option class="text-uppercase" value="hp">hp</option>
-                                        <option class="text-uppercase" value="dell">dell</option>
-                                        <option class="text-uppercase" value="lenovo">lenovo</option>
-                                        <option class="text-uppercase" value="asus">asus</option>
-                                    </select> --}}
-                                    <span class="input-group-text">
-                                        <i class="fa fa-exchange" aria-hidden="true"></i></span>
-                                </div>
-                            </div>
+
                             <div class="col-md-6">
                                 <label for="">Jenis Barang</label>
                                 <div class="input-group mb-4">
                                     <select class="form-control text-capitalize" name="jenis" id="">
                                         <option value="" selected>jenis barang ..</option>
-                                        <option class="text-uppercase" value="samsung">komputer</option>
-                                        <option class="text-uppercase" value="epson">printer</option>
+                                        <option class="text-uppercase" value="komputer">komputer</option>
+                                        <option class="text-uppercase" value="printer">printer</option>
                                     </select>
                                     <span class="input-group-text">
                                         <i class="fa fa-arrows-v" aria-hidden="true"></i></span>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="tipe">Tipe Barang</label>
+                                <label for="">Merk Barang</label>
+                                <div class="input-group mb-4">
+                                    {{-- <input type="text" class="form-control" name="merk" placeholder="merk barang .." > --}}
+                                    <select class="form-control text-capitalize" name="merk_id" id="merk">
+                                        <option value="" selected>merk barang ..</option>
+                                        @foreach ($merks as $merk)
+                                            <option value="{{ $merk->id }}" class="text-uppercase">
+                                                {{ $merk->merk }}</option>
+                                        @endforeach
+                                        <option value="other">lainnya ...</option>
+                                    </select>
+                                    <span class="input-group-text">
+                                        <i class="fa fa-exchange" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" id="merk_other" style="display:none;">
+                                    <label for="other" class="text-capitalize">merk Barang Lainnya</label>
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Tipe Barang" name="tipe"
-                                            id="tipe" type="text" placeholder="tipe barang .. ">
+                                        <input class="form-control" placeholder="Merk Barang ..." name="merk"
+                                            id="merk_other" type="text">
                                         <span class="input-group-text">
                                             <i class="fa fa-plus-square" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn bg-gradient-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn bg-gradient-primary">Save</button>
-                        </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tipe">Tipe Barang</label>
+                                    <div class="input-group mb-4">
+                                        <input class="form-control" placeholder="Tipe Barang" name="tipe"
+                                            id="tipe" type="text">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn bg-gradient-primary">Save</button>
+                            </div>
 
                 </form>
             </div>

@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('barangs', function (Blueprint $table) {
+        Schema::create('merk_barangs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('merk_id')->constrained('merk_barangs')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('tipe');
-            $table->string('jenis');
-            $table->enum('status',['aktif','nonaktif'])->default('aktif');
+            $table->string('merk')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barangs');
+        Schema::dropIfExists('merk_barangs');
     }
 };

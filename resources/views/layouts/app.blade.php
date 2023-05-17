@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     <script src="https://code.jquery.com/jquery-3.7.0.slim.js"
         integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
     <style>
@@ -77,11 +78,8 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets/js/argon-dashboard.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable();
-        });
-    </script>
+    <script src="{{asset('assets/js/script.js')}}"></script>
+        
     @stack('js');
 </body>
 
