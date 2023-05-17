@@ -26,8 +26,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\MasterUserController;
-
-
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
 	return redirect('/dashboard');
@@ -53,6 +52,9 @@ Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
 Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
 Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
 Route::put('master/barang/{barang:id}/nonaktif', [BarangController::class, 'nonaktif'])->name('nonaktif.barang');
+
+Route::get('pages/order', [OrderController::class, 'createorder'])->name('order');
+Route::post('pages/order', [OrderController::class, 'store'])->name('store.order');
 
 
 Route::group(['middleware' => 'auth'], function () {
