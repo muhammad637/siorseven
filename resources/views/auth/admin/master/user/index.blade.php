@@ -74,10 +74,10 @@
                                         No Hp</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Level</th>
+                                        Status</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Status</th>
+                                        Aksi</th>
                                 </tr>
                                 
                             </thead>

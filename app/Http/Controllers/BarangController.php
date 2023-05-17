@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class BarangController extends Controller
 {   public function index(){
     return view('auth.admin.master.barang', 
-['barangs' => Barang::all()]);
+['barangs' => Barang::orderBy('merk', 'asc')->get()]);
 }
     public function store(Request $request)
     {
