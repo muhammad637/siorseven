@@ -223,14 +223,10 @@
                                                                             <select class="form-control"
                                                                                 id="exampleFormControlSelect1"
                                                                                 name="cekLevel">
-                                                                                @if ($user->cekLevel == 'admin')
-                                                                                    <option selected value="admin">admin</option>
-                                                                                    <option value="teknisi">teknisi</option>
-                                                                                    @else
-                                                                                    <option value="admin">admin</option>
-                                                                                    <option selected value="teknisi">teknisi
-                                                                                    </option>
-                                                                                @endif
+                                                                               
+                                                                                    <option value="admin" {{$user->cekLevel == 'admin' ? 'selected' : ''}}>admin</option>
+                                                                                    <option value="teknisi" {{$user->cekLevel == 'teknisi' ? 'selected' : ''}}>teknisi</option>
+                                                                                    
                                                                             </select>
                                                                             <span class="input-group-text"><i
                                                                                     class="fa fa-user-secret"
