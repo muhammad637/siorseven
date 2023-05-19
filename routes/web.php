@@ -53,7 +53,7 @@ Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update
 Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
 Route::put('master/barang/{barang:id}/nonaktif', [BarangController::class, 'nonaktif'])->name('nonaktif.barang');
 
-Route::get('pages/order', [OrderController::class, 'createorder'])->name('order');
+Route::get('pages/order', [OrderController::class, 'index'])->name('order');
 Route::post('pages/order', [OrderController::class, 'store'])->name('store.order');
 
 
