@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="col-7 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-                        <div class="position-relative h-100 m-2 px-10 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" id="hero" style="background-image: url('https://svgshare.com/i/t8g.svg');
+                        <div class="position-relative h-100 m-2 px-10 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://svgshare.com/i/t8g.svg');
               background-size: contain;">
 
                         </div>
