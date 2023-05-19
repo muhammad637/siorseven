@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ResetPassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,14 +18,15 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
+use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\ResetPassword;
-use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\MasterUserController;
+use App\Http\Controllers\UserProfileController;
 
 
 
@@ -50,6 +51,8 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 
 Route::group(['middleware' => 'auth'], function () {
+
+	Route::get('/pages/history',[HistoryController::class,'index'])->name('history');
 
 	Route::group(['middleware' => 'cekLevel:admin'], function () {
 		Route::get('/coba', function () {

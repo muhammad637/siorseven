@@ -128,7 +128,7 @@
                                                                 <div class="input-group mb-4">
                                                                     {{-- <input type="text" class="form-control" name="merk" placeholder="merk barang .." > --}}
                                                                     <select class="form-control text-capitalize"
-                                                                        name="merk_id" id="merk">
+                                                                        name="merk_id" id="merk-{{ $barang->id }}">
                                                                         @foreach ($merks as $merk)
                                                                             <option value="{{ $merk->id }}"
                                                                                 {{ $barang->merk->merk == $merk->merk ? 'selected' : '' }}
@@ -143,14 +143,14 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <div class="form-group" id="merk_other"
+                                                                <div class="form-group" id="merk_other-{{ $barang->id }}"
                                                                     style="display:none;">
                                                                     <label for="other" class="text-capitalize">merk
                                                                         Barang Lainnya</label>
                                                                     <div class="input-group mb-4">
                                                                         <input class="form-control"
                                                                             placeholder="Merk Barang ..." name="merk"
-                                                                            id="merk_other" type="text">
+                                                                             type="text">
                                                                         <span class="input-group-text">
                                                                             <i class="fa fa-plus-square"
                                                                                 aria-hidden="true"></i>
@@ -188,6 +188,21 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    {{-- script form --}}
+                                    <script>
+                                        $(document).ready(function() {
+                                            $("#merk-{{ $barang->id }}").change(function() {
+                                                if ($(this).val() === 'other') {
+                                                    $("#merk_other-{{ $barang->id }}").show();
+                                                    alert('oke')
+                                                } else {
+                                                    $("#merk_other-{{ $barang->id }}").hide();
+                                                    alert("not oke {{ $barang->id }}")
+                                                }
+                                            });
+                                        });
+                                    </script>
                                 @endforeach
                             </tbody>
                         </table>
@@ -247,7 +262,7 @@
                                     <label for="other" class="text-capitalize">merk Barang Lainnya</label>
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="Merk Barang ..." name="merk"
-                                            id="merk_other" type="text">
+                                             type="text">
                                         <span class="input-group-text">
                                             <i class="fa fa-plus-square" aria-hidden="true"></i>
                                         </span>
@@ -274,7 +289,7 @@
                                     data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn bg-gradient-primary">Save</button>
                             </div>
-
+                            
                 </form>
             </div>
         </div>
