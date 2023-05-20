@@ -18,8 +18,13 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         Barang</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kerusakan</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Pesan Status</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Tanggal
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Tanggal Selesai
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         No HandPhone
@@ -47,20 +52,27 @@
                                         </td>
 
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $order->barang->kerusakan }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $order->pesan_kerusakan }}</p>
                                         </td>
 
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $order->barang->created_at }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $order->status }}</p>
                                         </td>
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $order->barang->created_at }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $order->pesan_status }}</p>
                                         </td>
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $order->barang->pesan }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $order->created_at }}</p>
                                         </td>
-                                        <td class="align-middle text-end">
-                                            
+                                        <td>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $order->tanggal_selesai }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-bold mb-0">{{$order->user->no_telephone}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-bold mb-0">{{$order->user->pesan_status
+                                            }}</p>
                                         </td>
                                     </tr>
                                   
@@ -110,7 +122,7 @@
                                             type="text">
                                         <option value="">Pilih Barang</option>
                                         @foreach ($barangs as $barang)
-                                            <option value="{{$barang->id}}">{{$barang->jenis}} {{$barang->tipe}} {{$barang->merk}}</option>
+                                            <option value="{{$barang->id}}">{{$barang->jenis}} {{$barang->tipe}} {{$barang->merk->merk}}</option>
                                         @endforeach
                                         </select>
                                         <span class="input-group-text"><i class="fa fa-key"
@@ -125,14 +137,14 @@
                                 <div class="form-group">
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="Kerusakan Barang" name="pesan_kerusakan"
-                                            type="text">
+                                            type="text" value="matot">
                                         <span class="input-group-text"><i class="fa fa-hand-rock-o" aria-hidden="true"></i></span>
                                     </div>
-                                    <div class="input-group mb-4">
+                                    {{-- <div class="input-group mb-4">
                                         <input class="form-control" placeholder="No Handphone" name="no_telephone"
                                             type="number">
                                         <span class="input-group-text"><i class="fa fa-mobile" aria-hidden="true"></i></i></span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             

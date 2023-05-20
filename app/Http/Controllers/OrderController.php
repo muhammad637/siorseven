@@ -31,6 +31,7 @@ class OrderController extends Controller
         //membuat notifikasi
         // $notif = Notifikasi::notif('produk', 'data produk berhasil ditambahkan', 'tambah', 'berhasil');
         // validasi requestan
+        // dd($request->all());
         
         $validatedData = $request->validate([
             'barang_id' => 'required',
@@ -42,7 +43,8 @@ class OrderController extends Controller
         try {
             // membuat pesan pada produk
             // membuat data pesan pada semua admin
-           Barang::create($validatedData);
+        //    Barang::create($validatedData);
+           Order::create([...$validatedData,'tanggal_order' => date('Y-m-d')]);
            return redirect()->back();
             // proses membuat product
         } catch (\Throwable $th) {
