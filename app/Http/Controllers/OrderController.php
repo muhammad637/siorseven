@@ -13,6 +13,8 @@ class OrderController extends Controller
     {
         //
         return view('auth.admin.pages.order', [
+            'barangs' => Barang::all(),
+            'users' => User::where('cekLevel', 'teknisi')->get(),
             'orders' => Order::all(),
         ]);
     }

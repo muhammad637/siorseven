@@ -92,8 +92,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Nama Teknisi" name="tipe"
+                                        <select class="form-control" name="user_id"
                                             type="text">
+                                        <option value="">Pilih Teknisi</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{$user->id}}">{{$user->nama}}</option>
+                                        @endforeach
+                                        </select>
                                         <span class="input-group-text"><i class="fa fa-user-o" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
@@ -101,8 +106,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Nama Barang" name="id_barang"
+                                        <select class="form-control" name="barang_id"
                                             type="text">
+                                        <option value="">Pilih Barang</option>
+                                        @foreach ($barangs as $barang)
+                                            <option value="{{$barang->id}}">{{$barang->jenis}} {{$barang->tipe}} {{$barang->merk}}</option>
+                                        @endforeach
+                                        </select>
                                         <span class="input-group-text"><i class="fa fa-key"
                                                 aria-hidden="true"></i></span>
                                     </div>
@@ -125,17 +135,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Tanggal" name="created_at"
-                                            type="date">
-                                        <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                    </div>
-                                </div>
-                               
-                               
-                            </div>
+                            
                             {{-- <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">

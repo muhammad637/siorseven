@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('status');
             $table->text('pesan_kerusakan');
             $table->text('pesan_status');
-            $table->date('tanggal_selesai');
+            $table->date('tanggal_selesai')->nullable();
             $table->timestamps();
         });
     }
