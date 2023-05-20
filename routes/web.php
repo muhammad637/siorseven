@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ResetPassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,15 +18,18 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
+use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\ResetPassword;
-use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\MasterUserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserProfileController;
+
+
 
 Route::get('/', function () {
 	return redirect('/dashboard');
@@ -44,14 +47,8 @@ Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('gue
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::resource('/master/user', MasterUserController::class);
 
-Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
-Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
 
-Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
-Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
-Route::put('master/barang/{barang:id}/nonaktif', [BarangController::class, 'nonaktif'])->name('nonaktif.barang');
 
 Route::get('pages/order', [OrderController::class, 'index'])->name('order');
 Route::post('pages/order', [OrderController::class, 'store'])->name('store.order');
@@ -59,21 +56,37 @@ Route::post('pages/order', [OrderController::class, 'store'])->name('store.order
 
 Route::group(['middleware' => 'auth'], function () {
 
-	Route::group(['middleware' => 'cekLevel:admin'], function(){
-		Route::get('/coba',function(){
+	Route::get('/pages/history',[HistoryController::class,'index'])->name('history');
+
+	Route::group(['middleware' => 'cekLevel:admin'], function () {
+
+		// history
+		Route::post('/pages/history/bulan',[HistoryController::class,'historyBulan'])->name('history.bulan');
+
+		Route::get('/coba', function () {
 			return 'ini buat admin';
 		});
-		
+		// master user
+		Route::resource('/master/user', MasterUserController::class);
+		Route::get('/master/user/{user:id}/nonaktif', [MasterUserController::class, 'nonaktif'])->name('user.nonaktif');
+		Route::get('/master/user/{user:id}/aktif', [MasterUserController::class, 'aktif'])->name('user.aktif');
+
+		Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
+		Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
+
+		Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
+		Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
+		Route::put('master/barang/{barang:id}/nonaktif', [BarangController::class, 'nonaktif'])->name('nonaktif.barang');
 	});
 
-	Route::group(['middleware' => 'cekLevel:teknisi'], function(){
-		Route::get('/coba2',function(){
+	Route::group(['middleware' => 'cekLevel:teknisi'], function () {
+		Route::get('/coba2', function () {
 			return 'ini buat teknisi';
 		});
 	});
 
 
-	
+
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
@@ -83,5 +96,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-	Route::post('logcek', function(){return auth()->user();})->name('logcek');
+	Route::post('logcek', function () {
+		return auth()->user();
+	})->name('logcek');
 });

@@ -22,5 +22,8 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('secret'),
             'no_telephone' => '085156327536'
         ]);
+        DB::table('merk_barangs')->insert([
+            'merk' => 'samsung'
+        ]);
     }
 }
