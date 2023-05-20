@@ -50,7 +50,7 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 
 
-Route::get('pages/order', [OrderController::class, 'createorder'])->name('order');
+Route::get('pages/order', [OrderController::class, 'index'])->name('order');
 Route::post('pages/order', [OrderController::class, 'store'])->name('store.order');
 
 
