@@ -46,25 +46,25 @@ class HistoryController extends Controller
         if (count($history) > 0) {
             # code...
             session()->flash('history', $history);
-            session()->flash('header', " List history Bulan $byBulan");
+            session()->flash('header', " History Bulan $byBulan");
         }
         return redirect()->back();
         // return 'tes';
     }
     public function historyBarang(Request $request)
     {
-        $barang = Barang::find($request->barang);
-        return $barang;
-        // $history = Order::whereNotNull('status')->where('barang_id', $request)->get();
-        // session()->flash('header', " List laporan Barang $request->nama_ruangan");
+        $barang = Barang::find($request->barang_id);
+        $merk = $barang->merk->merk;
+        $history = Order::where('status','selesai')->where('barang_id', $request->barang_id)->get();
+        session()->flash('header', " History Barang $barang->jenis $merk $barang->tipe");
         // session()->flash('teks', "orderan di ruangan $request->nama_ruangan masih kosong");
-        // session()->flash('orders', 'tidak ada');
-        // if (count($orders) > 0) {
-        //     # code...
-        //     $header = $orders[0]->ruangan->nama_ruangan;
-        //     session()->flash('orders', $orders);
-        // }
-        // session()->flash('pageTitle', 'ruangan');
-        // return redirect()->back();
+        session()->flash('history', 'tidak ada');
+        if (count($history) > 0) {
+            # code...
+            // $header = $history[0]->ruangan->nama_ruangan;
+            session()->flash('history', $history);
+        }
+        session()->flash('pageTitle', 'ruangan');
+        return redirect()->back();
     }
 }
