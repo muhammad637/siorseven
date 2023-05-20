@@ -51,19 +51,20 @@ class HistoryController extends Controller
         return redirect()->back();
         // return 'tes';
     }
-    // public function historyRuangan(Request $request)
-    // {
-    //     // $ruangan = Ruangan::where('nama_ruangan', $request->nama_ruangan)->first();
-    //     // $history = Order::whereNotNull('status')->where('ruangan_id', $ruangan->id)->get();
-    //     session()->flash('header', " List laporan Ruangan $request->nama_ruangan");
-    //     session()->flash('teks', "orderan di ruangan $request->nama_ruangan masih kosong");
-    //     session()->flash('orders', 'tidak ada');
-    //     if (count($orders) > 0) {
-    //         # code...
-    //         $header = $orders[0]->ruangan->nama_ruangan;
-    //         session()->flash('orders', $orders);
-    //     }
-    //     session()->flash('pageTitle', 'ruangan');
-    //     return redirect()->back();
-    // }
+    public function historyBarang(Request $request)
+    {
+        $barang = Barang::find($request->barang);
+        return $barang;
+        // $history = Order::whereNotNull('status')->where('barang_id', $request)->get();
+        // session()->flash('header', " List laporan Barang $request->nama_ruangan");
+        // session()->flash('teks', "orderan di ruangan $request->nama_ruangan masih kosong");
+        // session()->flash('orders', 'tidak ada');
+        // if (count($orders) > 0) {
+        //     # code...
+        //     $header = $orders[0]->ruangan->nama_ruangan;
+        //     session()->flash('orders', $orders);
+        // }
+        // session()->flash('pageTitle', 'ruangan');
+        // return redirect()->back();
+    }
 }

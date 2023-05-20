@@ -263,11 +263,12 @@
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <form>
+                        <form action="{{ route('history.barang') }}" method="post">
+                            @csrf
+                            <div class="modal-body">
                                 <div class="form-group">
                                     <label for="example-month-input" class="form-control-label">Barang</label>
-                                    <select name="barang" id="" class="form-control">
+                                    <select name="barang_id" id="" class="form-control">
                                         <option value="" selected>Pilih Barang ..</option>
                                         @foreach ($barangs as $barang)
                                             <option value="{{ $barang->id }}">{{ $barang->jenis }} -
@@ -275,13 +276,13 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn bg-gradient-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn bg-gradient-primary">Submit</button>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

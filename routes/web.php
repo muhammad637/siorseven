@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 		// history
 		Route::post('/pages/history/bulan',[HistoryController::class,'historyBulan'])->name('history.bulan');
+		Route::post('/pages/history/barang',[HistoryController::class,'historyBarang'])->name('history.barang');
 
 		Route::get('/coba', function () {
 			return 'ini buat admin';
