@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nik')->unique()->nullable(); 
             $table->string('no_telephone')->nullable();
             $table->string('password');
+            $table->string('alamat');
             $table->enum('cekLevel',['admin','teknisi'])->default('admin');
             $table->enum('status',['aktif','nonaktif'])->default('aktif');
             $table->rememberToken();
