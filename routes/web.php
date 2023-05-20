@@ -55,6 +55,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/pages/history',[HistoryController::class,'index'])->name('history');
 
 	Route::group(['middleware' => 'cekLevel:admin'], function () {
+
+		// history
+		Route::post('/pages/history/bulan',[HistoryController::class,'historyBulan'])->name('history.bulan');
+
 		Route::get('/coba', function () {
 			return 'ini buat admin';
 		});
