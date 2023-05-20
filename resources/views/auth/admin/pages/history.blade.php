@@ -75,12 +75,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="#laporanBulan" data-bs-toggle="modal">
                                     Bulan
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="#laporanBarang" data-bs-toggle="modal">
                                     Barang
                                 </a>
                             </li>
@@ -292,5 +292,67 @@
             </div>
         </div>
 
+         {{-- laporan bulan --}}
+         <div class="modal fade" id="laporanBulan" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pilih Bulan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('history.exportBulan') }}" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="example-month-input" class="form-control-label">Month</label>
+                                <input class="form-control" type="month" value="2018-11" id="example-month-input"
+                                    name="bulan">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        {{-- laporan barang--}}
+        <div class="modal fade" id="laporanBarang" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-capitalize" id="exampleModalLabel">pilih Barang</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('history.exportBarang') }}" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="example-month-input" class="form-control-label">Barang</label>
+                                <select name="barang_id" id="" class="form-control">
+                                    <option value="" selected>Pilih Barang ..</option>
+                                    @foreach ($barangs as $barang)
+                                        <option value="{{ $barang->id }}">{{ $barang->jenis }} -
+                                            {{ $barang->merk->merk }} - {{ $barang->tipe }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

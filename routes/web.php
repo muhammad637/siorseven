@@ -64,8 +64,8 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('/pages/history/bulan', [HistoryController::class, 'historyBulan'])->name('history.bulan');
 		Route::post('/pages/history/barang', [HistoryController::class, 'historyBarang'])->name('history.barang');
 		Route::get('/pages/history/exportAll', [HistoryController::class, 'exportAll'])->name('history.exportAll');
-		Route::get('/pages/history/exportAll', [HistoryController::class, 'exportBulan'])->name('history.exportAll');
-		Route::get('/pages/history/exportAll', [HistoryController::class, 'exportBarang'])->name('history.exportAll');
+		Route::post('/pages/history/exportBulan', [HistoryController::class, 'exportBulan'])->name('history.exportBulan');
+		Route::post('/pages/history/exportBarang', [HistoryController::class, 'exportBarang'])->name('history.exportBarang');
 
 
 		Route::get('/coba', function () {
