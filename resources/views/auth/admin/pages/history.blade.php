@@ -70,7 +70,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                             <li>
-                                <a href="{{ route('history') }}" class="dropdown-item">
+                                <a href="{{ route('history.exportAll') }}" class="dropdown-item">
                                     Semua
                                 </a>
                             </li>
@@ -113,9 +113,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         Barang
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Tanggal Order
-                                    </th>
+
 
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -126,6 +124,9 @@
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Keterangan</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Tanggal Order
+                                    </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Tanggal Selesai</th>
@@ -148,15 +149,13 @@
                                                     {{ $history->barang->jenis . ' ' . $history->barang->tipe }}</p>
                                             </td>
 
-                                            <td>
-                                                <p class="text-sm font-weight-bold mb-0">
-                                                    {{ Carbon::parse($history->tanggal_order)->format('d-M-Y') }}</p>
-                                            </td>
+                                            
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0"></i>
                                                     {{ $history->pesan_kerusakan }}
                                                 </p>
                                             </td>
+                                            
                                             <td>
                                                 <p
                                                     class="text-sm font-weight-bold mb-0 {{ $history->status_selesai == 'tidak bisa diperbaiki' ? 'text-danger' : 'text-success' }}">
@@ -212,6 +211,10 @@
                                                     </div>
                                                 </div>
 
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">
+                                                    {{ Carbon::parse($history->tanggal_order)->format('d-M-Y') }}</p>
                                             </td>
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">

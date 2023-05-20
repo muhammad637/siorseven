@@ -196,6 +196,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         // swetalert
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        // export
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
 
     ],
 

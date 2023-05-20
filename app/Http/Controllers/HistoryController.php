@@ -67,4 +67,15 @@ class HistoryController extends Controller
         session()->flash('pageTitle', 'ruangan');
         return redirect()->back();
     }
+
+
+    public function exportAll(){
+        return 'tes';
+    }
+    public function exportBulan(){
+        return 'tes';
+    }
+    public function exportBarang(){
+        return 'tes';
+    }
 }
