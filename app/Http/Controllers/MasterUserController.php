@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class MasterUserController extends Controller
 {
@@ -20,7 +22,7 @@ class MasterUserController extends Controller
         return view(
             'auth.admin.master.user.index',
             [
-                'users' => User::all()
+                'users' => User::orderBy('created_at','desc')->get()
             ]
         );
     }
@@ -49,12 +51,18 @@ class MasterUserController extends Controller
                 'username' => 'required |unique:users,username',
                 'password' => 'required',
                 'nik' => 'required |unique:users,nik',
-                'no_telephone' => ''
+                'no_telephone' => 'required',
+                'cekLevel' => 'required'
             ]
         );
-
-        User::create($validatedData);
-        return redirect()->back()->with('toast_success','data berhasil ditambahkan');
+        try{
+            User::create($validatedData);
+            return redirect()->back()->with('toast_success','data berhasil ditambahkan');
+        }
+        catch(\Throwable $th){
+            return $th->getMessage();
+        }
+       
     }
 
     /**
@@ -91,6 +99,27 @@ class MasterUserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'username' => 'required |' . Rule::unique('users')->ignore($user->id),
+            'password' => '',
+            'nik' => 'required|max:16',
+            'cekLevel' => 'required',
+            'no_telephone' => 'required'
+            // 'no_telephone' => 'required|min:10|regex:/^([0-9\s\-\+\(\)]*)$/',
+        ]);
+        try {
+            //code...
+            if (!$validatedData['password']) {
+            
+                $validatedData['password'] = $user->password;
+            }
+            $user->update($validatedData);
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;
+            return $th->getMessage();
+        }
     }
 
     /**
@@ -102,5 +131,14 @@ class MasterUserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function aktif(Request $request, User $user){
+        $user->update(['status' => 'aktif']);
+        return redirect()->back();
+    }
+    public function nonaktif(User $user){
+        $user->update(['status' => 'nonaktif']);
+        return redirect()->back();
     }
 }
