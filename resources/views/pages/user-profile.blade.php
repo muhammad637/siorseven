@@ -2,13 +2,13 @@
 
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Your Profile'])
-    <section class="section profile font-poppins">
+    <section class="section profile font-poppins py-lg-5 px-md-3">
         <div class="row">
-            <div class="col-xl-4">
+            <div class="col-xl-3 ps-4">
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                         <div class="rounded-circle">
-                            <i class="fa fa-user-circle text-dark " style="font-size: 100px;"></i>
+                            <i class="fa fa-user-circle text-dark " style="font-size: 400%;"></i>
                         </div>
                         <h2 class="text-dark" style="font-size: 36px;">{{ auth()->user()->nama }}</h2>
                         <p style="font-size: 22px;">{{ auth()->user()->cekLevel }}</p>
@@ -31,7 +31,7 @@
 
                             <li class="nav-item">
                                 <button class="nav-link active" data-bs-toggle="tab"
-                                    data-bs-target="#profile-overview">Profil</button>
+                                    data-bs-target="#profile-overview">Profile</button>
                             </li>
 
                             <li class="nav-item">
@@ -48,18 +48,18 @@
                         </ul>
                         <div class="tab-content pt-2">
 
-                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            <div class="tab-pane fade show active profile-overview py-2" id="profile-overview">
                                 <h5 class="card-title">Detail Profil</h5>
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label ">Nama</div>
+                                    <div class="col-lg-3 col-md-4 label py-2">Nama</div>
                                     <div class="col-lg-9 col-md-8">{{ auth()->user()->nama }}</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label ">Username</div>
+                                    <div class="col-lg-3 col-md-4 label py-2">Username</div>
                                     <div class="col-lg-9 col-md-8">{{ auth()->user()->username }} </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Status</div>
+                                    <div class="col-lg-3 col-md-4 label py-2">Status</div>
                                     <div class="col-lg-9 col-md-8">{{ auth()->user()->status }}</div>
                                 </div>
                                 {{-- <div class="row">
