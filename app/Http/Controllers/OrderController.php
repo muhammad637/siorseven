@@ -15,12 +15,12 @@ class OrderController extends Controller
         return view('auth.admin.pages.order', [
             'barangs' => Barang::all(),
             'users' => User::where('cekLevel', 'teknisi')->get(),
-            'orders' => Order::all(),
+            'orders' => Order::where('status','')->orWhere('status','on progress')->get(),
         ]);
     }
     public function createorder(){
         return view('auth.admin.pages.order', [
-            'barangs' => Barang::all(),
+            'barangs' => Barang::first(),
             'title' => 'createOrder',
             'users' => User::where('cekLevel', 'teknisi')->get(),
       
