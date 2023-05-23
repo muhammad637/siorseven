@@ -3,8 +3,8 @@
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
     <div class="container-fluid py-4">
-        <div class="row justify-content-center">
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="row lg-justify-content-center sm-justify-content-start">
+            <div class="col-xl-3 col-sm-6 col-md-4 mb-xl-0 mb-4 ms-5">
                 <div class="card rounded-3" style="width: 16rem">
                     <div class="card-body p-3">
                         <div class="row">
@@ -12,10 +12,10 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Komputer</p>
                                     <h5 class="font-weight-bolder">
-                                        53
+                                        0
                                     </h5>
                                     <p class="mb-0">
-                                        <span class="text-success text-sm font-weight-bolder">On Progress</span>
+                                        <span class="badge bg-gradient-light text-sm font-weight-bolder">No Job</span>
                                     </p>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ms-5">
+            <div class="col-xl-3 col-sm-6 col-md-4 mb-xl-0 mb-4 ms-5">
                 <div class="card rounded-3" style="width: 16rem">
                     <div class="card-body p-3">
                         <div class="row">
@@ -36,10 +36,10 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">JUMLAH PRINTER</p>
                                     <h5 class="font-weight-bolder">
-                                        10
+                                        20
                                     </h5>
                                     <p class="mb-0">
-                                        <span class="text-success text-sm font-weight-bolder">On Progress</span>                                        
+                                        <span class="badge bg-gradient-warning text-sm font-weight-bolder badge-pill badge-sm">On Progress</span>                                        
                                     </p>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ms-5">
+            <div class="col-xl-3 col-sm-6 col-md-4 mb-xl-0 mb-4 ms-5">
                 <div class="card rounded-3" style="width: 16rem">
                     <div class="card-body p-3">
                         <div class="row">
@@ -63,7 +63,7 @@
                                         5
                                     </h5>
                                     <p class="mb-0">
-                                        <span class="text-danger text-sm font-weight-bolder">On Progress</span>                                        
+                                        <span class="text-success text-sm font-weight-bolder">Orang</span>                                        
                                     </p>
                                 </div>
                             </div>
@@ -79,10 +79,10 @@
         </div>
         
         {{-- crousell --}}
-        <div id="carouselExampleControls" class="carousel slide py-3" data-bs-ride="carousel">
+        <div id="carouselExampleControls" class="carousel slide py-3 " data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item">
-                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1537511446984-935f663eb1f4?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
+                <div class="page-header min-vh-50 m-3 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1537511446984-935f663eb1f4?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
                   <span class="mask bg-gradient-dark"></span>
                   <div class="container">
                     <div class="row">
@@ -96,7 +96,7 @@
                 </div>                
               </div>
                <div class="carousel-item">
-                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
+                <div class="page-header min-vh-50 m-3 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
                   <span class="mask bg-gradient-dark"></span>
                   <div class="container">
                     <div class="row">
@@ -110,7 +110,7 @@
                 </div>                
               </div>
               <div class="carousel-item active">
-                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1552793494-111afe03d0ca?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
+                <div class="page-header min-vh-50 m-3 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1552793494-111afe03d0ca?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
                   <span class="mask bg-gradient-dark"></span>
                   <div class="container">
                     <div class="row">
