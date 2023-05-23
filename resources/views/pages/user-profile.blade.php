@@ -180,8 +180,8 @@
                         </div>
                     @endif
 
-                    {{-- <form action="/user/{{ auth()->user()->id }}/password" method="POST">
-                        @csrf --}}
+                    <form action="/user/{{ auth()->user()->id }}/password" method="POST">
+                        @csrf
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-lg-3 col-form-label">Password Lama</label>
                             <div class="col-md-8 col-lg-9">
