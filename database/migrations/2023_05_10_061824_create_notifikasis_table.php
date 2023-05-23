@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('notifikasis', function (Blueprint $table) {
             $table->id();
             $table->string('pesan');
+            $table->enum('mark',[false,true]);
             $table->timestamps();
         });
     }

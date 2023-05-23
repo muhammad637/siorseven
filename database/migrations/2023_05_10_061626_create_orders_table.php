@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('barang_id')->constrained('barangs')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('tanggal_order');
+            $table->string('tanggal_order');
             $table->text('pesan_kerusakan');
             $table->string('status')->nullable();
             $table->string('status_selesai')->nullable();
             $table->text('pesan_status')->nullable();
-            $table->date('tanggal_selesai')->nullable();
+            $table->string('tanggal_selesai')->nullable();
             $table->timestamps();
         });
     }

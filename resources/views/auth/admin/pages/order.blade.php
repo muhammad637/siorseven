@@ -1,3 +1,7 @@
+@php
+    use Carbon\Carbon;
+@endphp
+
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Create Barang', 'master' => 'Master Data'])
@@ -58,7 +62,9 @@
                                         @endif
 
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $order->barang->jenis.' '.$order->barang->merk->merk.' '.$order->barang->tipe }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">
+                                                {{ $order->barang->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe }}
+                                            </p>
                                         </td>
 
                                         <td>
@@ -82,10 +88,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $order->created_at }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $parse($order->tanggal_order) }}</p>
                                         </td>
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $order->tanggal_selesai }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">
+                                                {{ $order->tanggal_selesai ? $parse($order->tanggal_selesai) : '-' }}</p>
                                         </td>
                                         @if (auth()->user()->cekLevel == 'admin')
                                             <td>
@@ -96,7 +103,8 @@
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
                                                 @if (auth()->user()->cekLevel == 'admin')
-                                                    <a href="#update-{{ $order->id }}"class="badge bg-success"><i class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a>
+                                                    <a href="#update-{{ $order->id }}"class="badge bg-success"><i
+                                                            class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a>
                                                 @else
                                                     <a href="#update-{{ $order->id }}" class="badge bg-secondary"
                                                         data-bs-toggle="modal">update</a>
@@ -124,8 +132,8 @@
                                                 <div class="modal-body">
                                                     <form>
                                                         <div class="form-group">
-                                                            <label for="recipient-name"
-                                                                class="col-form-label">Nama Teknisi:</label>
+                                                            <label for="recipient-name" class="col-form-label">Nama
+                                                                Teknisi:</label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $order->user->nama }}" readonly
                                                                 id="recipient-name">
@@ -148,7 +156,7 @@
                                     </div>
 
 
-                                    {{-- modal update --}}
+                                    {{-- modal update order --}}
                                     <div class="modal fade" id="update-{{ $order->id }}" tabindex="-1" role="dialog"
                                         aria-labelledby="update-{{ $order->id }}-Title" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -161,8 +169,10 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <form action="" method="post">
+                                                <form action="{{ route('update.order', ['order' => $order->id]) }}"
+                                                    method="post">
+                                                    <div class="modal-body">
+                                                        @method('put')
                                                         @csrf
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -170,15 +180,17 @@
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Nama Barang</label>
                                                                     <input type="text" class="form-control"
-                                                                        value="{{ $order->barang->jenis.' '.$order->barang->merk->merk.' '.$order->barang->tipe }}" readonly
-                                                                        id="recipient-name">
+                                                                        value="{{ $order->barang->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe }}"
+                                                                        readonly id="recipient-name">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="message-text"
                                                                         class="col-form-label">Kerusakan</label>
-                                                                    <input type="text" name="" value="{{$order->pesan_kerusakan}}" readonly class="form-control">
+                                                                    <input type="text" name=""
+                                                                        value="{{ $order->pesan_kerusakan }}" readonly
+                                                                        class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -187,20 +199,29 @@
                                                                 <div class="form-group">
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Status</label>
-                                                                    <select name="" id="" class="form-control">
-                                                                        
-                                                                        <option value="" {{$order->status == '' ? 'selected' : ''}}>pending</option>
-                                                                        <option value="on progress" {{$order->status == 'on progress' ? 'selected' : ''}}>on progress</option>
-                                                                        <option value="selesai" {{$order->status == 'selesai' ? 'selected' : ''}}>selesai</option>
-                                                                        <option value="on progress" {{$order->status == 'on progress' ? 'selected' : ''}}>on progress</option>
+                                                                    <select name="status" id=""
+                                                                        class="form-control">
+
+                                                                        <option value=""
+                                                                            {{ $order->status == '' ? 'selected' : '' }}>
+                                                                            pending</option>
+                                                                        <option value="on progress"
+                                                                            {{ $order->status == 'on progress' ? 'selected' : '' }}>
+                                                                            on progress</option>
+                                                                        <option value="selesai"
+                                                                            {{ $order->status == 'selesai' ? 'selected' : '' }}>
+                                                                            selesai</option>
+                                                                        <option value="on progress"
+                                                                            {{ $order->status == 'on progress' ? 'selected' : '' }}>
+                                                                            on progress</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="message-text"
-                                                                        class="col-form-label">Pesan Status</label>
-                                                                    <textarea name="pesan_status" id="" class="form-control"> {{$order->pesan_status}}</textarea>
+                                                                    <label for="message-text" class="col-form-label">Pesan
+                                                                        Status</label>
+                                                                    <textarea name="pesan_status" id="" class="form-control"> {{ $order->pesan_status }}</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -209,28 +230,33 @@
                                                                 <div class="form-group">
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Tanggal Order</label>
-                                                                  <input type="date" value="{{$order->tanggal_order}}" name="" class="form-control" readonly>
+                                                                        <input type="date"
+                                                                        value="{{ $order->tanggal_selesai }}"
+                                                                        name="tanggal_selesai" class="form-control" readonly  >
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="message-text"
                                                                         class="col-form-label">Tanggal Selesai</label>
-                                                                        <input type="date" value="{{$order->tanggal_selesai}}" name="" class="form-control">
+                                                                    <input type="date"
+                                                                        value="{{ $order->tanggal_selesai }}"
+                                                                        name="tanggal_selesai" class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
 
 
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn bg-gradient-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn bg-gradient-primary">Send
-                                                        message</button>
-                                                </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn bg-gradient-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit"
+                                                            class="btn bg-gradient-primary">Submit</button>
+                                                    </div>
+                                                </form>
+
                                             </div>
                                         </div>
                                     </div>
@@ -322,7 +348,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn bg-gradient-primary">Save asdaschanges</button>
+                        <button type="submit" class="btn bg-gradient-primary">Save changes</button>
                     </div>
 
                 </form>
