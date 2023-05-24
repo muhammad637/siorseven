@@ -1,7 +1,6 @@
 @php
     use Carbon\Carbon;
 @endphp
-
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Create Barang', 'master' => 'Master Data'])
@@ -397,4 +396,5 @@
             </div>
         </div>
     </div>
+
 @endsection

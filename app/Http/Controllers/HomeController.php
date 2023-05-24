@@ -52,7 +52,7 @@ class HomeController extends Controller
             'komputers' => $i,
             'printers' => $l,
             'users' => $user,
-            'orders' => Order::all(),
+            'orders' => Order::orderBy('created_at','desc')->limit(10)->get(),
             ['printer' => Barang::where('jenis', 'printer')->count()]
         ]);
     }
