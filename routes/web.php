@@ -28,6 +28,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\MasterUserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\notifikasiController;
 
 
 
@@ -56,6 +57,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/pages/history', [HistoryController::class, 'index'])->name('history');
 	Route::get('pages/order', [OrderController::class, 'index'])->name('order');
+
+	 // notifikasi
+	 Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifi');
+	 Route::get('/notifikasi/mark', [NotifikasiController::class, 'mark'])->name('notifi.mark');
 
 
 	Route::group(['middleware' => 'cekLevel:admin'], function () {
