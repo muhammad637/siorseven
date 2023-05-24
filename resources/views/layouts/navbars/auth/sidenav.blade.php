@@ -10,7 +10,7 @@
         </a>
     </div>
     <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse w-auto " id="sidenav-collapse-main">
+    <div class="navbar w-auto shadow-none" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}" href="{{ route('home') }}">
@@ -25,7 +25,7 @@
                 <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">PAGES</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'Order' ? 'active' : '' }}" href="{{ route('store.order') }}">
+                <a class="nav-link {{ Route::currentRouteName() == 'order' ? 'active' : '' }}" href="{{ route('order') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa fa-shopping-cart text-dark text-sm opacity-10"></i>
@@ -73,5 +73,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Pengguna</span>
                 </a>
-            </li>     
+            </li>   
+        </ul>
+    </div>     
 </aside>
