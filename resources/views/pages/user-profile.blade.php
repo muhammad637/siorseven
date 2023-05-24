@@ -116,13 +116,12 @@
                                     <div class="row mb-3">
                                         <label for="currentPassword" class="col-md-5 col-lg-4 col-form-label">Password
                                             Lama</label>
-                                        <div class="col-md-7">
-                                            <div class="d-flex justify-content-start">
-                                                <input type="password" id="currentPassword" class="d-block form-control"
-                                                    style="width: 100%" name="old_password">
-                                                <div class="border rounded-md px-1 pt-2" id="mybutton">
-                                                    <i class ="fa fa-eye" id="eye1"></i>
-                                                </div>
+                                        <div class="col-md-7 form-group">                                    
+                                            <div class="d-flex justify-content-start input-group">                                            
+                                                    <input type="password" id="currentPassword" class="form-control" placeholder="masukkan password lama" aria-label="masukkan pass lama" aria-describedby="basic-addon2">
+                                                    <span class="input-group-text" id="mybutton">
+                                                        <i class ="fa fa-eye" id="eye1"></i>
+                                                    </span>                                                                                 
                                             </div>
                                         </div>
                                     </div>
@@ -130,14 +129,15 @@
                                     <div class="row mb-3">
                                         <label for="newPassword" class="col-md-5 col-lg-4 col-form-label">Password
                                             Baru</label>
-                                        <div class="col-md-7">
-                                            <div class="d-flex justify-content-start">
-                                                <input type="password" id="newPassword" class="d-block form-control"
-                                                    style="width: 100%" name="password">
-                                                <div class="border rounded-md px-1 pt-2" id="mybutton2">
-                                                    <i class= "fa fa-eye" id="eye"></i>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-7 form-group">
+
+                                            <div class="d-flex justify-content-start input-group">                                            
+                                                <input type="password" id="newPassword" class="form-control" placeholder="masukkan password baru" aria-label="masukkan pass baru" aria-describedby="basic-addon2">
+                                                <span class="input-group-text" id="mybutton2">
+                                                    <i class ="fa fa-eye" id="eye"></i>
+                                                </span>                                                                                 
+                                        </div>                        
+
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
