@@ -47,9 +47,6 @@ Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('gue
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-
-
-
 Route::get('pages/order', [OrderController::class, 'index'])->name('order');
 Route::post('pages/order', [OrderController::class, 'store'])->name('store.order');
 

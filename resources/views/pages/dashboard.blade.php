@@ -10,10 +10,10 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Jum lah Komputer</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Komputer</p>
                                     <h5 class="font-weight-bolder">
-                                        0
-                                    </h5>
+                                       {{$komputers}}
+                                    </h5> 
                                     <p class="mb-0">
                                         <span class="badge bg-gradient-light text-sm font-weight-bolder">No Job</span>
                                     </p>
@@ -21,7 +21,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa fa-desktop text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">JUMLAH PRINTER</p>
                                     <h5 class="font-weight-bolder">
-                                        20
+                                        {{$printers}}
                                     </h5>
                                     <p class="mb-0">
                                         <span class="badge bg-gradient-warning text-sm font-weight-bolder badge-pill badge-sm">On Progress</span>                                        
@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa fa-print text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">JUMLAH TEKNISI</p>
                                     <h5 class="font-weight-bolder">
-                                        5
+                                        {{$users->count()}}
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder">Orang</span>                                        
@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa fa-users text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -92,55 +92,39 @@
                         <p class="lead text-white opacity-8 fadeIn3 fadeInBottom">Wealth creation is an evolutionarily recent positive-sum game. Status is an old zero-sum game. Those attacking wealth creation are often just seeking status.</p>
                       </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="card card-carousel overflow-hidden h-100 p-0">
-                    <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
-                        <div class="carousel-inner border-radius-lg h-100">
-                            <div class="carousel-item h-100 active" style="background-image: url('./img/carousel-1.jpg');
-            background-size: cover;">
-                                <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                        <i class="ni ni-camera-compact text-dark opacity-10"></i>
-                                    </div>
-                                    <h5 class="text-white mb-1">Get started with Argon</h5>
-                                    <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item h-100" style="background-image: url('./img/carousel-2.jpg');
-            background-size: cover;">
-                                <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                        <i class="ni ni-bulb-61 text-dark opacity-10"></i>
-                                    </div>
-                                    <h5 class="text-white mb-1">Faster way to create web pages</h5>
-                                    <p>That’s my skill. I’m not really specifically talented at anything except for the
-                                        ability to learn.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item h-100" style="background-image: url('./img/carousel-3.jpg');
-            background-size: cover;">
-                                <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                        <i class="ni ni-trophy text-dark opacity-10"></i>
-                                    </div>
-                                    <h5 class="text-white mb-1">Share with us your design tips!</h5>
-                                    <p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev w-5 me-3" type="button"
-                            data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next w-5 me-3" type="button"
-                            data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                  </div>
+                </div>                
+              </div>
+               <div class="carousel-item">
+                <div class="page-header min-vh-50 m-3 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
+                  <span class="mask bg-gradient-dark"></span>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-6 my-auto">
+                        <h4 class="text-white mb-0 fadeIn1 fadeInBottom">Our Team</h4>
+                        <h1 class="text-white fadeIn2 fadeInBottom">Work with the best</h1>
+                        <p class="lead text-white opacity-8 fadeIn3 fadeInBottom">Free people make free choices. Free choices mean you get unequal outcomes. You can have freedom, or you can have equal outcomes. You can’t have both.</p>
+                      </div>
                     </div>
+                  </div>
+                </div>                
+              </div>
+              <div class="carousel-item active">
+                <div class="page-header min-vh-50 m-3 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1552793494-111afe03d0ca?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
+                  <span class="mask bg-gradient-dark"></span>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-6 my-auto">
+                        <h4 class="text-white mb-0 fadeIn1 fadeInBottom">Office Places</h4>
+                        <h1 class="text-white fadeIn2 fadeInBottom">Work from home</h1>
+                        <p class="lead text-white opacity-8 fadeIn3 fadeInBottom">You’re spending time to save money when you should be spending money to save time.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="container-fluid px-3">
+                  <div class="row">                                     
+                  </div>
                 </div>
               </div>
             </div>
@@ -162,7 +146,8 @@
                 <div class="card ">
                     <div class="card-header pb-0 p-3">
                         <div class="d-flex justify-content-between">
-                            <h6 class="mb-2">List Order Service</h6>
+                            <h6 class="mb-2">List Order Service Terakhir</h6>
+                            
                         </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2 px-3">
@@ -170,59 +155,46 @@
                             <table class="table align-items-center mb-0" id="myTable">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">No
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Nama
                                             Teknisi
                                         </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Nama
                                             Barang
                                         </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center">
                                             Tanggal Order
                                         </th>
     
                                         <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                             Kerusakan</th>
                                         <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                             Status</th>
+                                       
                                         <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Keterangan</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                             Tanggal Selesai</th>
                                     </tr>
     
                                 </thead>
                                 <tbody>
+                                    @foreach ($orders as $order)
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
+
+                                   
+                                        <th class="text-uppercase opacity-7 text-center">{{ $loop->iteration }}</th>
+                                    <td class="text-uppercase opacity-7 text-center ">{{$order->user->nama}}</td>
+                                    <td class="text-uppercase opacity-7 text-center ">{{$order->barang->jenis}}</td>
+                                    <td class="text-uppercase opacity-7 text-center ">{{$order->created_at}}</td>
+                                    <td class="text-uppercase opacity-7 text-center">{{$order->pesan_kerusakan}}</td>
+                                    <td class="text-uppercase opacity-7 text-center ">{{$order->status}}</td>
+                                    <td class="text-uppercase opacity-7 text-center ">{{$order->tanggal_selesai}}</td>
+                                </tr>
+                                    @endforeach
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -233,57 +205,8 @@
                 
             </div>  
         </div>
-        v class="card card-carousel overflow-hidden h-100 p-0">
-                    <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
-                        <div class="carousel-inner border-radius-lg h-100">
-                            <div class="carousel-item h-100 active"
-                                style="background-image: url('./img/carousel-1.jpg');
-            background-size: cover;">
-                                <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                        <i class="ni ni-camera-compact text-dark opacity-10"></i>
-                                    </div>
-                                    <h5 class="text-white mb-1">Get started with Argon</h5>
-                                    <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item h-100"
-                                style="background-image: url('./img/carousel-2.jpg');
-            background-size: cover;">
-                                <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                        <i class="ni ni-bulb-61 text-dark opacity-10"></i>
-                                    </div>
-                                    <h5 class="text-white mb-1">Faster way to create web pages</h5>
-                                    <p>That’s my skill. I’m not really specifically talented at anything except for the
-                                        ability to learn.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item h-100"
-                                style="background-image: url('./img/carousel-3.jpg');
-            background-size: cover;">
-                                <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                        <i class="ni ni-trophy text-dark opacity-10"></i>
-                                    </div>
-                                    <h5 class="text-white mb-1">Share with us your design tips!</h5>
-                                    <p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev w-5 me-3" type="button"
-                            data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next w-5 me-3" type="button"
-                            data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
 
+        
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
