@@ -109,9 +109,9 @@
                             </div>
                             <div class="tab-pane fade pt-3" id="profile-change-password">
                                 <!-- Change Password Form -->
-                                {{-- <form action="{{ route('profile.password', ['user' => auth()->user()->id]) }}"
+                                <form action="{{ route('profile.update', ['user' => auth()->user()->id]) }}"
                                     method="POST">
-                                    @csrf --}}
+                                    @csrf
 
                                     <div class="row mb-3">
                                         <label for="currentPassword" class="col-md-5 col-lg-4 col-form-label">Password

@@ -13,6 +13,16 @@ class UserProfileController extends Controller
     {
         return view('pages.user-profile');
     }
+    // public function edit(User $user)
+    // {
+    //     //
+    //     // return $user->ruangan;
+    //     return response(view('pages/user-profile', [
+    //         'user' => $user,
+    //         'title' => 'Edit User',
+    //         // 'ruanganUser' => $ruanganUser
+    //     ]));
+    // }
 
     public function update(Request $request, User $user)
     {
