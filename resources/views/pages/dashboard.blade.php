@@ -141,159 +141,50 @@
           </div>
         {{-- end crousell --}}
 
-        <div class="row mt-4">
-            <div class="col-lg-13  mb-lg-0 mb-4">
-                <div class="card ">
-                    <div class="card-header pb-0 p-3">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="mb-2">List Order Service Terakhir</h6>
-                            
-                        </div>
-                    </div>
-                    <div class="card-body px-0 pt-0 pb-2 px-3">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0" id="myTable">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">No
-                                        </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Nama
-                                            Teknisi
-                                        </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Nama
-                                            Barang
-                                        </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center">
-                                            Tanggal Order
-                                        </th>
-    
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
-                                            Kerusakan</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
-                                            Status</th>
-                                       
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
-                                            Tanggal Selesai</th>
-                                    </tr>
-    
-                                </thead>
-                                <tbody>
-                                    @foreach ($orders as $order)
-                                    <tr>
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
 
-                                   
-                                        <th class="text-uppercase opacity-7 text-center">{{ $loop->iteration }}</th>
-                                    <td class="text-uppercase opacity-7 text-center ">{{$order->user->nama}}</td>
-                                    <td class="text-uppercase opacity-7 text-center ">{{$order->barang->jenis}}</td>
-                                    <td class="text-uppercase opacity-7 text-center ">{{$order->created_at}}</td>
-                                    <td class="text-uppercase opacity-7 text-center">{{$order->pesan_kerusakan}}</td>
-                                    <td class="text-uppercase opacity-7 text-center ">{{$order->status}}</td>
-                                    <td class="text-uppercase opacity-7 text-center ">{{$order->tanggal_selesai}}</td>
+                <div class="card-body">
+                    <h5 class="fs-2 fw-bold font-poppins mt-2">List Order terakhir</h5>
+                    <hr class="mb-n2">
+                    @if (count($orders) < 1)
+                        <h1 class="fs-5 font-poppins text-secondary">orderan masih kosong</h1>
+                    @else
+                        <table class="table table-stripe font-poppins ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama Teknisi</th>
+                                    <th scope="col">Nama Barang</th>
+                                    <th scope="col">Kerusakan</th>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Pesan</th>
                                 </tr>
-                                    @endforeach
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                            </thead>
+                            <tbody>
+                                @foreach ($orders as $order)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $order->user->nama}}</td>
+                                        <td>{{ $order->barang->jenis }}</td>
+                                        <td>{{ $order->pesan_kerusakan}}</td>
+                                        <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d-M-Y H:i') }}</td>
+                                        <td>{{$order->status}}</td>
+                                        <td>{{$order->pesan_status}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+
                 </div>
+
             </div>
-                </div>
-                
-            </div>  
         </div>
 
         
         @include('layouts.footers.auth.footer')
     </div>
+</section>
 @endsection
-
-@push('js')
-    <script src="./assets/js/plugins/chartjs.min.js"></script>
-    <script>
-        var ctx1 = document.getElementById("chart-line").getContext("2d");
-
-        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke1.addColorStop(1, 'rgba(251, 99, 64, 0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(251, 99, 64, 0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(251, 99, 64, 0)');
-        new Chart(ctx1, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Mobile apps",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                    borderColor: "#fb6340",
-                    backgroundColor: gradientStroke1,
-                    borderWidth: 3,
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
-
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#fbfbfb',
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#ccc',
-                            padding: 20,
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-    </script>
-@endpush

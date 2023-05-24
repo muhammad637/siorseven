@@ -172,6 +172,7 @@
                                                 <form action="{{ route('update.order', ['order' => $order->id]) }}"
                                                     method="post">
                                                     <div class="modal-body">
+
                                                         @method('put')
                                                         @csrf
                                                         <div class="row">
