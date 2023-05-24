@@ -149,13 +149,12 @@
                                     <div class="row mb-3">
                                         <label for="confirmPassword" class="col-md-5 col-lg-4 col-form-label">Konfirmasi
                                             Password</label>
-                                        <div class="col-md-7">
-                                            <div class="d-flex justify-content-start">
-                                                <input type="password" id="confirmPassword" class="d-block form-control"
-                                                    style="width: 100%" name="password_confirmation">
-                                                <div class="border rounded-md px-1 pt-2" id="mybutton3">
-                                                    <i class="fa fa-eye" id="eye2"></i>
-                                                </div>
+                                        <div class="col-md-7 form-group">
+                                            <div class="d-flex justify-content-start input-group">
+                                                <input type="password" id="confirmPassword" class="form-control" placeholder="konfirmasi password baru" aria-label="konfirmasi pass baru" aria-describedby="basic-addon2">
+                                                <span class="input-group-text" id="mybutton3">
+                                                    <i class ="fa fa-eye" id="eye2"></i>
+                                                </span>                                     
                                             </div>
                                         </div>
                                     </div>
