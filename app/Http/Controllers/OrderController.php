@@ -72,9 +72,10 @@ class OrderController extends Controller
         ]);
         // $validatedData = ['tanggal_selesai' => Carbon::parse('25-8-2022')->format('d-m-Y')];
         try {
-            $pesan = ['pesan' => "orderan berhasil diupdate oleh $teknisi->nama dengan perubahan status : $request->status"];
-            Notifikasi::create($pesan)->user()->attach($request->user_id);
-            Notifikasi::create($pesan)->user()->sync(User::adminId());
+            $pesan = "orderan dengan id $order->id barang $barang->jenis " . $barang->merk->merk . " $barang->tipe berhasil diupdate oleh $teknisi->nama dengan perubahan status : $request->status";
+            $notif = Notifikasi::notif('order', $pesan, 'update', 'berhasil');
+            Notifikasi::create($notif)->user()->attach(auth()->user()->id);
+            Notifikasi::create($notif)->user()->sync(User::adminId());
             //code...
             $order->update($validatedData);
             if ($request->status == "selesai") {

@@ -7,4 +7,12 @@ $(document).ready(function () {
             $('#merk_other').hide();
         }
     });
+    // $('#status').change(function () {
+    //     if ($(this).val() === 'selesai') {
+    //         alert('oke');
+    //         $('#status_selesai').show();
+    //     } else {
+    //         $('#status_selesai').hide();
+    //     }
+    // });
 });

@@ -208,12 +208,11 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <div class="form-group">
+                                                                <div class="form-group" >
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Status</label>
-                                                                    <select name="status" id=""
+                                                                    <select name="status" id="status-{{ $order->id }}"
                                                                         class="form-control">
-
                                                                         <option value=""
                                                                             {{ $order->status == '' ? 'selected' : '' }}>
                                                                             pending</option>
@@ -223,13 +222,28 @@
                                                                         <option value="selesai"
                                                                             {{ $order->status == 'selesai' ? 'selected' : '' }}>
                                                                             selesai</option>
-                                                                        <option value="on progress"
-                                                                            {{ $order->status == 'on progress' ? 'selected' : '' }}>
-                                                                            on progress</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6">  
+                                                                <div  id="status_selesai-{{$order->id}}" class="form-group" style="display:{{$order->status_selesai ?'':'none;'}}" >
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">Status Selesai</label>
+                                                                    <select name="status_selesai" id=""
+                                                                        class="form-control">
+                                                                        <option value=""
+                                                                            {{ $order->status_selesai == '' ? 'selected' : '' }}>
+                                                                            notselected</option>
+                                                                        <option value="tidak bisa diperbaiki"
+                                                                            {{ $order->status_selesai == 'tidak bisa diperbaiki' ? 'selected' : '' }}>
+                                                                            tidak bisa diperbaiki</option>
+                                                                        <option value="sudah bisa digunakan"
+                                                                            {{ $order->status_selesai == 'sudah bisa digunakan' ? 'selected' : '' }}>
+                                                                            sudah bisa digunakan</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="message-text" class="col-form-label">Pesan
                                                                         Status</label>
@@ -272,6 +286,21 @@
                                             </div>
                                         </div>
                                     </div>
+                                         {{-- script form --}}
+                                         <script>
+                                            $(document).ready(function() {
+                                                $("#status-{{ $order->id }}").change(function() {
+                                                    // alert($(this).val())
+                                                    if ($(this).val() == 'selesai') {
+                                                        $("#status_selesai-{{$order->id}}").show();
+                                                        // alert('oke')
+                                                    } else {
+                                                        $("#status_selesai-{{$order->id}}").hide();
+                                                        // alert("not oke {{ $order->id }}")
+                                                    }
+                                                });
+                                            });
+                                        </script>
                                 @endforeach
                             </tbody>
                         </table>
