@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'dashboard', 'master' => 'home'])
     <div class="container-fluid py-4">
         <div class="row lg-justify-content-center sm-justify-content-start">
             <div class="col-xl-3 col-sm-6 col-md-4 mb-xl-0 mb-4 ms-5">
