@@ -51,9 +51,12 @@ Route::get('pages/order', [OrderController::class, 'index'])->name('order');
 Route::post('pages/order', [OrderController::class, 'store'])->name('store.order');
 
 
+
 Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/pages/history', [HistoryController::class, 'index'])->name('history');
+	Route::get('pages/order', [OrderController::class, 'index'])->name('order');
+
 
 	Route::group(['middleware' => 'cekLevel:admin'], function () {
 
@@ -64,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('/pages/history/exportBulan', [HistoryController::class, 'exportBulan'])->name('history.exportBulan');
 		Route::post('/pages/history/exportBarang', [HistoryController::class, 'exportBarang'])->name('history.exportBarang');
 
+		Route::post('pages/order', [OrderController::class, 'store'])->name('store.order');
 
 		Route::get('/coba', function () {
 			return 'ini buat admin';
@@ -85,6 +89,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/coba2', function () {
 			return 'ini buat teknisi';
 		});
+		Route::put('pages/order/{order:id}/update', [OrderController::class, 'update'])->name('update.order');
 	});
 
 

@@ -121,7 +121,7 @@ class HistoryController extends Controller
         }
         $laporan = new OrderExport([
             [$judul],
-            ['tanggal order', 'tanggal selesai', 'nama Teknisi', 'nama barang', 'kerusakan', 'status', 'pesan status',],
+            ['tanggal order', 'Tanggal Selesai', 'Nama Teknisi', 'Nama Barang', 'Kerusakan', 'Status', 'Pesan Status',],
             [...$dataLaporan]
         ]);
         return Excel::download($laporan, 'laporan.xlsx');
