@@ -10,7 +10,20 @@ class Notifikasi extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function user(){
-        return $this->belongsToMany(User::class);
+    protected $attributes = [
+        'mark' => 'false'
+    ];
+    public function user()
+    {
+        return $this->belongsToMany(User::class,'notifikasis_users');
+    }
+    public static function notif($tb, $msg, $jn, $st, )
+    {
+        return [
+                'nama_table' => $tb,
+                'msg' => $msg,
+                'jenis_notifikasi' => $jn,
+                'status' => $st
+        ];
     }
 }

@@ -9,9 +9,11 @@
         <div class="card mb-4">
             <div class="card-header pb-0">
                 <h5>List Order</h5>
-                <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
-                    <i class="fa fa-cart-plus" aria-hidden="true"></i> Order
-                </button>
+                @if (auth()->user()->cekLevel == 'admin')
+                    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i> Order
+                    </button>
+                @endif
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0" id="myTable">
@@ -49,6 +51,14 @@
                             </thead>
                             <tbody>
                                 @foreach ($orders as $order)
+                                    @php
+                                        // $i += $order->jumlah_order;
+                                        $nohp = $order->user->no_telephone;
+                                        if (substr(trim($nohp), 0, 1) == '0') {
+                                            $nohp = '62' . substr(trim($nohp), 1);
+                                        }
+                                        // $array = json_decode($order->pesan, true);
+                                    @endphp
                                     <tr>
                                         @if (auth()->user()->cekLevel == 'admin')
                                             <td>
@@ -88,11 +98,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $parse($order->tanggal_order) }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $order->tanggal_order }}</p>
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
-                                                {{ $order->tanggal_selesai ? $parse($order->tanggal_selesai) : '-' }}</p>
+                                                {{ $order->tanggal_selesai ? $order->tanggal_selesai : '-' }}</p>
                                         </td>
                                         @if (auth()->user()->cekLevel == 'admin')
                                             <td>
@@ -103,8 +113,11 @@
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
                                                 @if (auth()->user()->cekLevel == 'admin')
-                                                    <a href="#update-{{ $order->id }}"class="badge bg-success"><i
+                                                    <a href="https://wa.me/{{ $nohp }}/?text=SIORSEVEN%0Auntuk : {{ $order->user->nama }}%0Aorderan barang dari barang{{ $order->barang->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe }}mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: {{ auth()->user()->nama }}"
+                                                        target="_blank" class="badge bg-info p-2"><i
                                                             class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a>
+                                                    {{-- <a href="#update-{{ $order->id }}"class="badge bg-success"><i
+                                                            class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a> --}}
                                                 @else
                                                     <a href="#update-{{ $order->id }}" class="badge bg-secondary"
                                                         data-bs-toggle="modal">update</a>
@@ -148,8 +161,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn bg-gradient-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn bg-gradient-primary">Send
-                                                        message</button>
+                                                    <button type="button" class="btn bg-gradient-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,9 +242,9 @@
                                                                 <div class="form-group">
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Tanggal Order</label>
-                                                                        <input type="date"
-                                                                        value="{{ $order->tanggal_selesai }}"
-                                                                        name="tanggal_selesai" class="form-control" readonly  >
+                                                                    <input type="date"
+                                                                        value="{{ $order->created_at }}"
+                                                                        name="tanggal_order" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">

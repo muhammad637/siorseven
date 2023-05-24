@@ -1,24 +1,34 @@
 <!-- Navbar -->
+@php
+    use App\Models\User;
+    $notifikasiCount = count(
+        User::with('notifikasi')
+            ->where('id', auth()->user()->id)
+            ->first()
+            ->notifikasi->where('mark', 'false'),
+    );
+    // $notifikasiCount = 5
+@endphp
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl
-        {{ str_contains(Request::url(), 'virtual-reality') == true ? ' mt-3 mx-3 bg-primary' : '' }}" id="navbarBlur"
-        data-scroll="false">
+        {{ str_contains(Request::url(), 'virtual-reality') == true ? ' mt-3 mx-3 bg-primary' : '' }}"
+    id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;"> Pages</a></li>
                 <li class="breadcrumb-item text-sm text-white active" aria-current="page">{{ $title }}</li>
                 @if (session()->has('pageTitle'))
-                <li class="breadcrumb-item text-sm text-white">{{ session()->get('pageTitle') }}</li>
-            @endif
+                    <li class="breadcrumb-item text-sm text-white">{{ session()->get('pageTitle') }}</li>
+                @endif
             </ol>
             <h6 class="font-weight-bolder text-white mb-0">{{ $title }}</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                <div class="input-group">
+                {{-- <div class="input-group">
                     <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" placeholder="Type here...">
-                </div>
+                </div> --}}
             </div>
             <ul class="navbar-nav  justify-content-end">
                 <li class="nav-item d-flex align-items-center">
@@ -41,23 +51,27 @@
                         </div>
                     </a>
                 </li>
-                <li class="nav-item px-3 d-flex align-items-center">
+                {{-- <li class="nav-item px-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-white p-0">
                         <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                     </a>
-                </li>
-                <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-bell cursor-pointer"></i>
+                </li> --}}
+                <li class="nav-item dropdown pe-2 d-flex align-items-center px-3">
+                    <a href="javascript:;" class="nav-link text-white p-0" id="get-data" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="fa fa-bell cursor-pointer">
+                            <span class="badge bg-primary" id="notif-number">{{ $notifikasiCount }}</span>
+                        </i>
                     </a>
+                    
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">
-                        <li class="mb-2">
+                        <div id="data"></div>
+                        {{-- <li class="mb-2">
                             <a class="dropdown-item border-radius-md" href="javascript:;">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
-                                        <img src="{{asset('./img/team-2.jpg')}}" class="avatar avatar-sm  me-3 ">
+                                        <img src="{{ asset('./img/team-2.jpg') }}" class="avatar avatar-sm  me-3 ">
                                     </div>
                                     <div class="d-flex flex-column justify-content-center">
                                         <h6 class="text-sm font-weight-normal mb-1">
@@ -75,7 +89,7 @@
                             <a class="dropdown-item border-radius-md" href="javascript:;">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
-                                        <img src="{{asset('./img/small-logos/logo-spotify.svg')}}"
+                                        <img src="{{ asset('./img/small-logos/logo-spotify.svg') }}"
                                             class="avatar avatar-sm bg-gradient-dark  me-3 ">
                                     </div>
                                     <div class="d-flex flex-column justify-content-center">
@@ -126,8 +140,72 @@
                                     </div>
                                 </div>
                             </a>
-                        </li>
-                    </ul>
+                        </li> --}}
+                    </ul> 
+                    <script>
+                        $(document).ready(function() {
+
+                            $('#get-data').click(function() {
+                                $.ajax({
+                                    url: "{{ route('notifi.mark') }}",
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    success: function(data) {
+                                        // tampilkan data pada halaman
+                                        // console.log(data)
+                                        $('#data').empty()
+                                        $('#data').html(`
+                                        <li class="dropdown-header">
+                                            pesan terakhir
+                                                <a href="{{ route('notifi') }}" class="text-decoration-none">
+                                                    <span class="badge rounded-pill bg-primary p-2 ms-2">View all
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                            <hr class="dropdown-divider"></hr>
+                                                </li>
+                                        `)
+                                        if (data.length == 0) $('#data').append(
+                                            `<li class="notification-item"> <h4 class="mx-auto text-center mt-2">pesan kosong</h4></li>`
+                                            )
+                                        else {
+                                            $.each(data, async function(index, item) {
+                                                // console.log(index)
+                                                var row = $('<li>').addClass(
+                                                    'd-flex justify-content-between align-items-center px-2');
+                                                if (item.status == 'berhasil') {
+                                                    var i = $('<i>').addClass(
+                                                        'fa fa-check text-success me-2')
+                                                } else {
+                                                    var i = $('<i>').addClass(
+                                                        'fa fa-x-circle text-danger')
+                                                }
+                                                var div = $('<div>').css('cursor', 'pointer')
+                                                var h4 = $('<h4>').addClass('font-poppins text-uppercase').text("tabel " +
+                                                    await item
+                                                    .nama_table);
+                                                var p = $('<span>').addClass('font-poppins').text(
+                                                    await item.msg);
+                                                var hr = $('<hr>').addClass('dropdown-divider');
+                                                div.append(h4, p)
+                                                row.append(i, div)
+                                                $('#data').append(row, hr)
+                
+                                            })
+                                        }
+                
+                                        $('#notif-number').html('0')
+                
+                                    },
+                                    error: function(data) {
+                                        // tampilkan pesan error pada halaman
+                                        // console.log(data)
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                 </li>
             </ul>
         </div>
