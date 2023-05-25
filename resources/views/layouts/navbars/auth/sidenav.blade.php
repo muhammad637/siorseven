@@ -1,5 +1,3 @@
-
-
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
     id="sidenav-main">
     <div class="sidenav-header">
@@ -31,7 +29,8 @@
                 <a class="nav-link {{ str_contains(request()->url(), 'order') == true ? 'active' : '' }}" href="{{ route('order') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+                        {{-- <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i> --}}
+                        <i class="fa fa-shopping-cart text-dark text-sm opacity-10 text-warning"></i>
                     </div>
                     <span class="nav-link-text ms-1 text-capitalize">order</span>
                 </a>
@@ -40,7 +39,8 @@
                 <a class="nav-link {{  str_contains(request()->url(), 'billing') == true ? 'active' : '' }}" href="{{ route('history') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+                        <i class="fa fa-history text-dark text-sm opacity-10 text-success"></i>
+                        {{-- <i class="ni ni-credit-card text-success text-sm opacity-10"></i> --}}
                     </div>
                     <span class="nav-link-text ms-1 text-capitalize">history</span>
                 </a>
@@ -58,7 +58,9 @@
             @if (auth()->user()->cekLevel == 'admin')    
             <li class="nav-item mt-3 d-flex align-items-center">
                <div class="ps-4">
-                   <i class="fab fa-laravel" style="color: #f4645f;"></i>
+                   {{-- <i class="fab fa-laravel" style="color: #f4645f;"></i> --}}
+                   <i class="fa fa-database text-sm opacity-10 text-warning"></i>
+
                </div>
                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Master</h6>
            </li>
@@ -66,7 +68,7 @@
                <a class="nav-link {{ Route::currentRouteName() == 'barang' ? 'active' : '' }}" href="{{ route('barang') }}">
                    <div
                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                       <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                        <i class="fa fa-cube text-dark text-sm opacity-10"></i>
                    </div>
                    <span class="nav-link-text ms-1 text-capitalize">Barang</span>
                </a>
@@ -74,7 +76,7 @@
            <li class="nav-item">
                <a class="nav-link {{ str_contains(request()->url(), 'user') == true ? 'active' : '' }}" href="{{ route('user.index') }}">
                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                       <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
+                    <i class="fa fa-users text-dark text-sm opacity-10"></i>
                    </div>
                    <span class="nav-link-text ms-1 text-capitalize">User Management</span>
                </a>
