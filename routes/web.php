@@ -102,8 +102,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/pages/profile', [UserProfileController::class, 'index'])->name('profile');
-	Route::post('/pages/profile', [UserProfileController::class, 'update'])->name('profile.update');
-	Route::post('/profile/resetPassword', [UserProfileController::class, 'resetPassword'])->name('profile.resetPassword');
+	Route::post('/pages/profile/{user:id}', [UserProfileController::class, 'update'])->name('profile.update');
+	Route::post('/pages/profile/{user:id}/resetPassword', [UserProfileController::class, 'resetPassword'])->name('profile.resetPassword');
 	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');
 	Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
 	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');

@@ -3,61 +3,65 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Auth\Events\Validated;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Validated;
+use RealRashid\SweetAlert\Facades\Alert;
+// use Alert;
 
 class UserProfileController extends Controller
 {
-    public function show()
+    public function index()
     {
         return view('pages.user-profile');
     }
-    // public function edit(User $user)
-    // {
-    //     //
-    //     // return $user->ruangan;
-    //     return response(view('pages/user-profile', [
-    //         'user' => $user,
-    //         'title' => 'Edit User',
-    //         // 'ruanganUser' => $ruanganUser
-    //     ]));
-    // }
 
     public function update(Request $request, User $user)
     {
+
+        $notif = Notifikasi::notif('user', "data anda berhasil diupdate", 'update', 'berhasil');
         $validatedData = $request->validate([
-            'nama' => 'required',
-            'username' => 'required | ' . Rule::unique('users') ->ignore($user->id),
-            'no_telephone' => 'required|min:10|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'no_telephone' => 'required',
+            'nama' => 'required'
         ]);
-       
-        try {
-            
-            User::where('id', $user->id)->update($validatedData);
-            foreach ($user->ruangan as $item) {
-                // Ruangan::where('id', $item->id)->update(['user_id' => null]);
-            }
-            if ($validatedData['cekLevel'] == 'admin') {
-                # kosongkan request->ruangan = []
-                // return redirect(route('user.index'))->with('toast_success', $notif['msg']);
-            } else {
-                // $cek = count($request->ruangan) >= 1;
-                if ($request->ruangan > 0) {
-                    $user->ruangan()->sync($request->ruangan);
-                    // foreach ($request->ruangan as $index => $id) {
-                    //     Ruangan::where('id', $id)->update(['user_id' => $user->id]);
-                    //     // return Ruangan::where('id', $val)->get();
-                    // }
-                }
-            }
-            // return redirect(route('user.index'))->with('toast_success', $notif['msg']);
-        } catch (\Throwable $th) {
-            //throw $th;
-            $notif['msg'] = 'data user ' . $user->nama . ' gagal diupdate';
-            $notif['status'] = 'gagal';
-            // Notifikasi::create($notif);
-            return redirect()->back()->with('toast_error', $th->getMessage());
+        // Notifikasi::create($notif)->user()->attach(auth()->user()->id);
+        $user->update($validatedData);
+        return $user;
+        return redirect(route('profile'))->with('toast_success', $notif['msg']);
+    }
+
+    public function resetPassword(Request $req, User $user)
+    {
+        // try {
+        //code...
+        $notif = Notifikasi::notif('user', 'password berhasil diupdate', 'update', 'berhasil');
+        $req->validate([
+            'old_password' => ['required'],
+            'password' => ['required', 'min:8'],
+        ], [
+            'password.confirmed' => 'The new password confirmation does not match.',
+        ]);
+        if (!Hash::check($req->old_password, $user->password)) {
+            # code...
+            return redirect()->back()->with('toast_error', 'password lama tidak valid');
         }
-}
+        if ($req->password == $req->password_confirmation) {
+            $user->update([
+                'password' => Hash::make($req->password),
+            ]);
+            Auth::logout();
+            $req->session()->invalidate();
+            $req->session()->regenerateToken();
+            // $req->session()->flash('toast_success', $notif['msg']);
+            return redirect('/login');
+            // return back();
+        } else {
+            # code...
+            return redirect()->back()->with('toast_error', 'passwrd baru dan konfirmasi password tidak sesuai');
+        }
+    }
 }

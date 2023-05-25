@@ -112,15 +112,15 @@
                                 </div>
                                 <div class="tab-pane fade pt-3" id="profile-change-password">
                                     <!-- Change Password Form -->
-                                    <form action="{{ route('profile.update', ['user' => auth()->user()->id]) }}"
+                                    <form action="{{ route('profile.resetPassword', ['user' => auth()->user()->id]) }}"
                                         method="POST">
                                         @csrf
 
-                                        <div class="row mb-3">
+                                        {{-- <div class="row mb-3">
                                             <label for="currentPassword" class="col-md-5 col-lg-4 col-form-label">Password
                                                 Lama</label>
                                             <div class="col-md-7 form-group">
-                                                <div class="d-flex justify-content-start input-group">
+                                                <div class="d-flex justify-content-start input-group input-group">
                                                     <input type="password" id="currentPassword" class="form-control"
                                                         placeholder="masukkan password lama"
                                                         aria-label="masukkan pass lama" aria-describedby="basic-addon2">
@@ -138,7 +138,7 @@
 
                                                 <div class="d-flex justify-content-start input-group">
                                                     <input type="password" id="newPassword" class="form-control"
-                                                        placeholder="masukkan password baru"
+                                                        placeholder="masukkan password baru" name="newPassword"
                                                         aria-label="masukkan pass baru" aria-describedby="basic-addon2">
                                                     <span class="input-group-text" id="mybutton2">
                                                         <i class="fa fa-eye" id="eye"></i>
@@ -160,7 +160,7 @@
                                             <div class="col-md-7 form-group">
                                                 <div class="d-flex justify-content-start input-group">
                                                     <input type="password" id="confirmPassword" class="form-control"
-                                                        placeholder="konfirmasi password baru"
+                                                        placeholder="konfirmasi password baru" name="confirmPassword"
                                                         aria-label="konfirmasi pass baru" aria-describedby="basic-addon2">
                                                     <span class="input-group-text" id="mybutton3">
                                                         <i class="fa fa-eye" id="eye2"></i>
@@ -169,6 +169,57 @@
                                             </div>
                                         </div>
 
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Change Password</button>
+                                        </div> --}}
+                                       
+                                        <div class="row mb-3">
+                                            <label for="currentPassword" class="col-md-5 col-lg-4 col-form-label">Password
+                                                Lama</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <input type="password" id="currentPassword" class="form-control"
+                                                         name="old_password">
+                                                    <span class="border pt-2 input-group-text" id="mybutton">
+                                                        <i id="eye1"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <div class="row mb-3">
+                                            <label for="newPassword" class="col-md-5 col-lg-4 col-form-label">Password
+                                                Baru</label>
+                                            <div class="col-md-7">
+                                                <div class="d-flex justify-content-start input-group">
+                                                    <input type="password" id="newPassword" class="d-block form-control"
+                                                         name="password">
+                                                    <div class="border rounded-md px-1 pt-2" id="mybutton2">
+                                                        <i id="eye"></i>
+                                                    </div>
+                                                </div>
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+    
+                                        <div class="row mb-3">
+                                            <label for="confirmPassword" class="col-md-5 col-lg-4 col-form-label">Konfirmasi
+                                                Password</label>
+                                            <div class="col-md-7">
+                                                <div class="d-flex justify-content-start input-group">
+                                                    <input type="password" id="confirmPassword" class="d-block form-control"
+                                                         name="password_confirmation">
+                                                    <div class="border rounded-md px-1 pt-2" id="mybutton3">
+                                                        <i id="eye2"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+    
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Change Password</button>
                                         </div>
@@ -188,7 +239,7 @@
                                 {{ session('toast_error') }}
                             </div>
                         @endif
-
+{{-- 
                         <form action="/user/{{ auth()->user()->id }}/password" method="POST">
                             @csrf
                             <div class="row mb-3">
@@ -216,7 +267,6 @@
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="changePassword">Change Password</button>
                             </div>
-
                             <div class="modal fade" id="changePassword" tabindex="-1"
                                 aria-labelledby="changePasswordLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -237,7 +287,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </form> --}}
                         <!-- End Change Password Form -->
                     </div>
                 </div>
