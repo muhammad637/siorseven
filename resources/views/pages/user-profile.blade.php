@@ -3,8 +3,8 @@
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Your Profile'])
     <section class="section profile font-poppins py-lg-5 px-md-2 overflow-hidden">
-        <div class="row">
-            <div class="">
+        <div class="ps-md-3">
+            <div class="row">
                 <div class="col-md-3 pt-3">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-8 pt-3">
+                <div class="col-xl-8 col-md-3 pt-3">
                     <div class="card">
                         <div class="card-body pt-3">
                             <!-- Bordered Tabs -->
