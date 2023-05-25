@@ -52,6 +52,7 @@
         </div>
     </div>
 </div> --}}
+
     <div class="row mt-4 mx-4">
         <div class="card mb-4">
             <div class="card-header pb-0">
@@ -69,17 +70,17 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                             <li>
-                                <a href="{{ route('history') }}" class="dropdown-item">
+                                <a href="{{ route('history.exportAll') }}" class="dropdown-item">
                                     Semua
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="#laporanBulan" data-bs-toggle="modal">
                                     Bulan
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="#laporanBarang" data-bs-toggle="modal">
                                     Barang
                                 </a>
                             </li>
@@ -112,9 +113,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         Barang
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Tanggal Order
-                                    </th>
+
 
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -125,6 +124,9 @@
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Keterangan</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Tanggal Order
+                                    </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Tanggal Selesai</th>
@@ -147,15 +149,13 @@
                                                     {{ $history->barang->jenis . ' ' . $history->barang->tipe }}</p>
                                             </td>
 
-                                            <td>
-                                                <p class="text-sm font-weight-bold mb-0">
-                                                    {{ Carbon::parse($history->tanggal_order)->format('d-M-Y') }}</p>
-                                            </td>
+                                            
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0"></i>
                                                     {{ $history->pesan_kerusakan }}
                                                 </p>
                                             </td>
+                                            
                                             <td>
                                                 <p
                                                     class="text-sm font-weight-bold mb-0 {{ $history->status_selesai == 'tidak bisa diperbaiki' ? 'text-danger' : 'text-success' }}">
@@ -214,6 +214,10 @@
                                             </td>
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">
+                                                    {{ Carbon::parse($history->tanggal_order)->format('d-M-Y') }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">
                                                     {{ Carbon::parse($history->tanggal_selesai)->format('d-M-Y') }}</p>
                                             </td>
                                     @endforeach
@@ -263,11 +267,12 @@
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <form>
+                        <form action="{{ route('history.barang') }}" method="post">
+                            @csrf
+                            <div class="modal-body">
                                 <div class="form-group">
                                     <label for="example-month-input" class="form-control-label">Barang</label>
-                                    <select name="barang" id="" class="form-control">
+                                    <select name="barang_id" id="" class="form-control">
                                         <option value="" selected>Pilih Barang ..</option>
                                         @foreach ($barangs as $barang)
                                             <option value="{{ $barang->id }}">{{ $barang->jenis }} -
@@ -275,17 +280,81 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn bg-gradient-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn bg-gradient-primary">Submit</button>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
 
+         {{-- laporan bulan --}}
+         <div class="modal fade" id="laporanBulan" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pilih Bulan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('history.exportBulan') }}" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="example-month-input" class="form-control-label">Month</label>
+                                <input class="form-control" type="month" value="2018-11" id="example-month-input"
+                                    name="bulan">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        {{-- laporan barang--}}
+        <div class="modal fade" id="laporanBarang" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-capitalize" id="exampleModalLabel">pilih Barang</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('history.exportBarang') }}" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="example-month-input" class="form-control-label">Barang</label>
+                                <select name="barang_id" id="" class="form-control">
+                                    <option value="" selected>Pilih Barang ..</option>
+                                    @foreach ($barangs as $barang)
+                                        <option value="{{ $barang->id }}">{{ $barang->jenis }} -
+                                            {{ $barang->merk->merk }} - {{ $barang->tipe }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="" style="height:100vh;"></div>
+
 @endsection

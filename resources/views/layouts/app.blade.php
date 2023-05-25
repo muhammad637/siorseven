@@ -21,6 +21,9 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css') }}" rel="stylesheet" />
    
+    <link rel="stylesheet" href="{{asset('assets/css/landing-page.css')}}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}">
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     <script src="https://code.jquery.com/jquery-3.7.0.slim.js"
         integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>

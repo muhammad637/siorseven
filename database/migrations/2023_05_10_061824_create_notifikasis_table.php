@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('notifikasis', function (Blueprint $table) {
             $table->id();
-            $table->string('pesan');
+            $table->string('nama_table')->nullable();    
+            $table->string('jenis_notifikasi');
+            $table->enum('status', ['berhasil', 'gagal']);
+            // $table->string('order_status')->nullable();
+            $table->string('msg');
+            $table->enum('mark', ['false', 'true']);
             $table->timestamps();
         });
     }

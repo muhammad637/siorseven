@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Barang', 'master' => 'Master Data'])
-    <div class="row mt-4 mx-4">
+    <div class="row mt-4 mx-4 ">
         <div class="card mb-4">
             <div class="card-header pb-0">
                 <h5>List Barang</h5>
@@ -212,6 +212,7 @@
         </div>
 
     </div>
+    <div class="" style="height:100vh;"></div>
 
     <!-- Modal Tambah User -->
     <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="modaltambahLabel"
