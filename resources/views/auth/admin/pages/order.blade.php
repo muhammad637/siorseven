@@ -1,17 +1,18 @@
 @php
     use Carbon\Carbon;
 @endphp
-
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Create Barang', 'master' => 'Master Data'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'pages'])
     <div class="row mt-4 mx-4">
         <div class="card mb-4">
             <div class="card-header pb-0">
                 <h5>List Order</h5>
-                <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
-                    <i class="fa fa-cart-plus" aria-hidden="true"></i> Order
-                </button>
+                @if (auth()->user()->cekLevel == 'admin')
+                    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i> Order
+                    </button>
+                @endif
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0" id="myTable">
@@ -49,6 +50,14 @@
                             </thead>
                             <tbody>
                                 @foreach ($orders as $order)
+                                    @php
+                                        // $i += $order->jumlah_order;
+                                        $nohp = $order->user->no_telephone;
+                                        if (substr(trim($nohp), 0, 1) == '0') {
+                                            $nohp = '62' . substr(trim($nohp), 1);
+                                        }
+                                        // $array = json_decode($order->pesan, true);
+                                    @endphp
                                     <tr>
                                         @if (auth()->user()->cekLevel == 'admin')
                                             <td>
@@ -88,11 +97,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $parse($order->tanggal_order) }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $order->tanggal_order }}</p>
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
-                                                {{ $order->tanggal_selesai ? $parse($order->tanggal_selesai) : '-' }}</p>
+                                                {{ $order->tanggal_selesai ? $order->tanggal_selesai : '-' }}</p>
                                         </td>
                                         @if (auth()->user()->cekLevel == 'admin')
                                             <td>
@@ -103,8 +112,11 @@
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
                                                 @if (auth()->user()->cekLevel == 'admin')
-                                                    <a href="#update-{{ $order->id }}"class="badge bg-success"><i
+                                                    <a href="https://wa.me/{{ $nohp }}/?text=SIORSEVEN%0Auntuk : {{ $order->user->nama }}%0Aorderan barang dari barang{{ $order->barang->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe }}mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: {{ auth()->user()->nama }}"
+                                                        target="_blank" class="badge bg-info p-2"><i
                                                             class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a>
+                                                    {{-- <a href="#update-{{ $order->id }}"class="badge bg-success"><i
+                                                            class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a> --}}
                                                 @else
                                                     <a href="#update-{{ $order->id }}" class="badge bg-secondary"
                                                         data-bs-toggle="modal">update</a>
@@ -148,8 +160,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn bg-gradient-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn bg-gradient-primary">Send
-                                                        message</button>
+                                                    <button type="button" class="btn bg-gradient-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -197,12 +208,11 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <div class="form-group">
+                                                                <div class="form-group" >
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Status</label>
-                                                                    <select name="status" id=""
+                                                                    <select name="status" id="status-{{ $order->id }}"
                                                                         class="form-control">
-
                                                                         <option value=""
                                                                             {{ $order->status == '' ? 'selected' : '' }}>
                                                                             pending</option>
@@ -212,13 +222,28 @@
                                                                         <option value="selesai"
                                                                             {{ $order->status == 'selesai' ? 'selected' : '' }}>
                                                                             selesai</option>
-                                                                        <option value="on progress"
-                                                                            {{ $order->status == 'on progress' ? 'selected' : '' }}>
-                                                                            on progress</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6">  
+                                                                <div  id="status_selesai-{{$order->id}}" class="form-group" style="display:{{$order->status_selesai ?'':'none;'}}" >
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">Status Selesai</label>
+                                                                    <select name="status_selesai" id=""
+                                                                        class="form-control">
+                                                                        <option value=""
+                                                                            {{ $order->status_selesai == '' ? 'selected' : '' }}>
+                                                                            notselected</option>
+                                                                        <option value="tidak bisa diperbaiki"
+                                                                            {{ $order->status_selesai == 'tidak bisa diperbaiki' ? 'selected' : '' }}>
+                                                                            tidak bisa diperbaiki</option>
+                                                                        <option value="sudah bisa digunakan"
+                                                                            {{ $order->status_selesai == 'sudah bisa digunakan' ? 'selected' : '' }}>
+                                                                            sudah bisa digunakan</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="message-text" class="col-form-label">Pesan
                                                                         Status</label>
@@ -231,9 +256,9 @@
                                                                 <div class="form-group">
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Tanggal Order</label>
-                                                                        <input type="date"
-                                                                        value="{{ $order->tanggal_selesai }}"
-                                                                        name="tanggal_selesai" class="form-control" readonly  >
+                                                                    <input type="date"
+                                                                        value="{{ $order->created_at }}"
+                                                                        name="tanggal_order" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -261,6 +286,21 @@
                                             </div>
                                         </div>
                                     </div>
+                                         {{-- script form --}}
+                                         <script>
+                                            $(document).ready(function() {
+                                                $("#status-{{ $order->id }}").change(function() {
+                                                    // alert($(this).val())
+                                                    if ($(this).val() == 'selesai') {
+                                                        $("#status_selesai-{{$order->id}}").show();
+                                                        // alert('oke')
+                                                    } else {
+                                                        $("#status_selesai-{{$order->id}}").hide();
+                                                        // alert("not oke {{ $order->id }}")
+                                                    }
+                                                });
+                                            });
+                                        </script>
                                 @endforeach
                             </tbody>
                         </table>
@@ -270,6 +310,7 @@
         </div>
 
     </div>
+    <div class="" style="height:100vh;"></div>
 
     <!-- Modal Tambah User -->
     <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="modaltambahLabel"
@@ -356,4 +397,5 @@
             </div>
         </div>
     </div>
+
 @endsection

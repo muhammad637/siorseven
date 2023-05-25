@@ -1,6 +1,6 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'Master Data'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'Master'])
     {{-- <div class="card shadow-lg mx-4 card-profile-bottom">
     <div class="card-body p-3">
         <div class="row gx-4">
@@ -61,9 +61,12 @@
                         <table class="table align-items-center mb-0" id="myTable">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Level
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Level
                                     </th>
 
                                     <th
@@ -79,7 +82,7 @@
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aksi</th>
                                 </tr>
-                                
+
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
@@ -105,7 +108,8 @@
                                                 <p class="text-sm font-weight-bold mb-0">{{ $user->no_telephone }}</p>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <span class="badge badge-sm {{($user->status == 'nonaktif') ? 'bg-gradient-secondary' : 'bg-gradient-success'}}">{{$user->status}}</span>
+                                                <span
+                                                    class="badge badge-sm {{ $user->status == 'nonaktif' ? 'bg-gradient-secondary' : 'bg-gradient-success' }}">{{ $user->status }}</span>
                                             </td>
 
                                             <td class="align-middle text-end">
@@ -223,10 +227,14 @@
                                                                             <select class="form-control"
                                                                                 id="exampleFormControlSelect1"
                                                                                 name="cekLevel">
-                                                                               
-                                                                                    <option value="admin" {{$user->cekLevel == 'admin' ? 'selected' : ''}}>admin</option>
-                                                                                    <option value="teknisi" {{$user->cekLevel == 'teknisi' ? 'selected' : ''}}>teknisi</option>
-                                                                                    
+
+                                                                                <option value="admin"
+                                                                                    {{ $user->cekLevel == 'admin' ? 'selected' : '' }}>
+                                                                                    admin</option>
+                                                                                <option value="teknisi"
+                                                                                    {{ $user->cekLevel == 'teknisi' ? 'selected' : '' }}>
+                                                                                    teknisi</option>
+
                                                                             </select>
                                                                             <span class="input-group-text"><i
                                                                                     class="fa fa-user-secret"
@@ -239,7 +247,8 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn bg-gradient-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn bg-gradient-primary">Save</button>
+                                                            <button type="submit"
+                                                                class="btn bg-gradient-primary">Save</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -255,6 +264,7 @@
         </div>
 
     </div>
+    <div class="" style="height:100vh;"></div>
 
     <!-- Modal Tambah User -->
     <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="modaltambahLabel"

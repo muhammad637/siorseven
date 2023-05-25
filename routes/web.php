@@ -28,6 +28,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\MasterUserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\notifikasiController;
 
 
 
@@ -56,6 +57,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/pages/history', [HistoryController::class, 'index'])->name('history');
 	Route::get('pages/order', [OrderController::class, 'index'])->name('order');
+
+	 // notifikasi
+	 Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifi');
+	 Route::get('/notifikasi/mark', [NotifikasiController::class, 'mark'])->name('notifi.mark');
 
 
 	Route::group(['middleware' => 'cekLevel:admin'], function () {
@@ -96,8 +101,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
-	Route::get('/profile', [UserProfileController::class, 'index'])->name('profile');
-	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
+	Route::get('/pages/profile', [UserProfileController::class, 'index'])->name('profile');
+	Route::post('/pages/profile/{user:id}', [UserProfileController::class, 'update'])->name('profile.update');
+	Route::post('/pages/profile/{user:id}/resetPassword', [UserProfileController::class, 'resetPassword'])->name('profile.resetPassword');
 	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');
 	Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
 	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');

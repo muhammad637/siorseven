@@ -651,6 +651,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "7.6.1",
 =======
             "version": "7.7.0",
@@ -658,6 +659,9 @@
 =======
             "version": "7.7.0",
 >>>>>>> FitureProfile
+=======
+            "version": "7.6.1",
+>>>>>>> f58bb62d6b6ece637cfeb8479c3ee1a285d66c06
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
@@ -665,6 +669,7 @@
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                 "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8444a2bacf1960bc6a2b62ed86b8e72e11eebe51",
@@ -689,6 +694,12 @@
                 "url": "https://api.github.com/repos/guzzle/guzzle/zipball/fb7566caccf22d74d1ab270de3551f72a58399f5",
                 "reference": "fb7566caccf22d74d1ab270de3551f72a58399f5",
 >>>>>>> FitureProfile
+=======
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8444a2bacf1960bc6a2b62ed86b8e72e11eebe51",
+                "reference": "8444a2bacf1960bc6a2b62ed86b8e72e11eebe51",
+
+
+>>>>>>> f58bb62d6b6ece637cfeb8479c3ee1a285d66c06
                 "shasum": ""
             },
             "require": {
@@ -788,6 +799,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 "source": "https://github.com/guzzle/guzzle/tree/7.6.1"
 =======
                 "source": "https://github.com/guzzle/guzzle/tree/7.7.0"
@@ -798,6 +810,10 @@
 =======
                 "source": "https://github.com/guzzle/guzzle/tree/7.7.0"
 >>>>>>> FitureProfile
+=======
+                "source": "https://github.com/guzzle/guzzle/tree/7.6.1"
+
+>>>>>>> f58bb62d6b6ece637cfeb8479c3ee1a285d66c06
             },
             "funding": [
                 {
@@ -816,6 +832,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2023-05-15T20:43:01+00:00"
 =======
             "time": "2023-05-21T14:04:53+00:00"
@@ -826,6 +843,9 @@
 =======
             "time": "2023-05-21T14:04:53+00:00"
 >>>>>>> FitureProfile
+=======
+            "time": "2023-05-15T20:43:01+00:00"
+>>>>>>> f58bb62d6b6ece637cfeb8479c3ee1a285d66c06
         },
         {
             "name": "guzzlehttp/promises",
@@ -7628,7 +7648,6 @@
                 }
             ],
             "time": "2023-05-11T05:14:45+00:00"
-<<<<<<< HEAD
         },
         {
             "name": "pimple/pimple",
@@ -7682,8 +7701,6 @@
                 "source": "https://github.com/silexphp/Pimple/tree/v3.5.0"
             },
             "time": "2021-10-28T11:13:42+00:00"
-=======
->>>>>>> tampilanDASHBOARD
         },
         {
             "name": "sebastian/cli-parser",
