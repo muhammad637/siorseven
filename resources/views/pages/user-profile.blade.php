@@ -1,203 +1,248 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Your Profile','master' => 'home'])
-    <div class="card shadow-lg mx-4 card-profile-bottom">
-        <div class="card-body p-3">
-            <div class="row gx-4">
-                <div class="col-auto">
-                    <div class="avatar avatar-xl position-relative">
-                        <img src="/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+
+    @include('layouts.navbars.auth.topnav', ['title' => 'profile', 'master' => 'pages'])
+    <section class="section profile font-poppins py-lg-5 px-md-2 overflow-hidden">
+        <div class="ps-md-3">
+            <div class="row">
+                <div class="col-md-3 pt-3">
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                            <div class="rounded-circle">
+                                <i class="fa fa-user-circle text-dark " style="font-size: 400%;"></i>
+                            </div>
+                            <h2 class="text-dark" style="font-size: 36px;">{{ auth()->user()->nama }}</h2>
+                            <p style="font-size: 22px;">{{ auth()->user()->cekLevel }}</p>
+                            <div class="social-links mt-0">
+                                <a href="" class="facebook"><i class="fa fa-facebook-square text-dark"></i></a>
+                                <a href="#" class="instagram"><i class="fa fa-whatsapp text-dark"></i></a>
+                                <a href="#" class="linkedin"><i class="fa fa-linkedin-square text-dark"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-auto my-auto">
-                    <div class="h-100">
-                        <h5 class="mb-1">
-                            {{ auth()->user()->firstname ?? 'Firstname' }} {{ auth()->user()->lastname ?? 'Lastname' }}
-                        </h5>
-                        <p class="mb-0 font-weight-bold text-sm">
-                            Public Relations
-                        </p>
+
+                <div class="col-xl-8 col-md-3 pt-3">
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+
+                                <li class="nav-item">
+                                    <button class="nav-link active" data-bs-toggle="tab"
+                                        data-bs-target="#profile-overview">Profile</button>
+                                </li>
+
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit
+                                        Profile</button>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#profile-change-password">ubah
+                                        Password</button>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content pt-2">
+
+                                <div class="tab-pane fade show active profile-overview py-2" id="profile-overview">
+                                    <h5 class="card-title">Detail Profil</h5>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label py-2">Nama</div>
+                                        <div class="col-lg-9 col-md-8">{{ auth()->user()->nama }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label py-2">Username</div>
+                                        <div class="col-lg-9 col-md-8">{{ auth()->user()->username }} </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label py-2">Status</div>
+                                        <div class="col-lg-9 col-md-8">{{ auth()->user()->status }}</div>
+                                    </div>
+                                    {{-- <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Level</div>
+                    <div class="col-lg-9 col-md-8">{{ auth()->user()->cekLevel }}</div>
+                  </div> --}}
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">No Telephone</div>
+                                        <div class="col-lg-9 col-md-8">{{ auth()->user()->no_telephone }}</div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                                    <!-- Profile Edit Form -->
+                                    <form action="{{ route('profile.update', ['user' => auth()->user()->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        <div class="row mb-3">
+                                            <label for="username" class="col-md-4 col-lg-3 col-form-label">Username</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="username" type="text" class="form-control" id="username"
+                                                    value="{{ auth()->user()->username }}">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="nama" class="col-md-4 col-lg-3 col-form-label">Nama
+                                                Lengkap</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="nama" type="text" class="form-control" id="nama"
+                                                    value="{{ auth()->user()->nama }} "
+                                                    @if (auth()->user()->cekLevel == 'user') readonly disabled @endif>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="no_telephone" class="col-md-4 col-lg-3 col-form-label">No.Telp /
+                                                WA</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="no_telephone" type="text" class="form-control"
+                                                    id="no_telephone" value="{{ auth()->user()->no_telephone }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form><!-- End Profile Edit Form -->
+
+                                </div>
+                                <div class="tab-pane fade pt-3" id="profile-change-password">
+                                    <!-- Change Password Form -->
+                                    <form action="{{ route('profile.update', ['user' => auth()->user()->id]) }}"
+                                        method="POST">
+                                        @csrf
+
+                                        <div class="row mb-3">
+                                            <label for="currentPassword" class="col-md-5 col-lg-4 col-form-label">Password
+                                                Lama</label>
+                                            <div class="col-md-7 form-group">
+                                                <div class="d-flex justify-content-start input-group">
+                                                    <input type="password" id="currentPassword" class="form-control"
+                                                        placeholder="masukkan password lama"
+                                                        aria-label="masukkan pass lama" aria-describedby="basic-addon2">
+                                                    <span class="input-group-text" id="mybutton">
+                                                        <i class="fa fa-eye" id="eye1"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="newPassword" class="col-md-5 col-lg-4 col-form-label">Password
+                                                Baru</label>
+                                            <div class="col-md-7 form-group">
+
+                                                <div class="d-flex justify-content-start input-group">
+                                                    <input type="password" id="newPassword" class="form-control"
+                                                        placeholder="masukkan password baru"
+                                                        aria-label="masukkan pass baru" aria-describedby="basic-addon2">
+                                                    <span class="input-group-text" id="mybutton2">
+                                                        <i class="fa fa-eye" id="eye"></i>
+                                                    </span>
+                                                </div>
+
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="confirmPassword"
+                                                class="col-md-5 col-lg-4 col-form-label">Konfirmasi
+                                                Password</label>
+                                            <div class="col-md-7 form-group">
+                                                <div class="d-flex justify-content-start input-group">
+                                                    <input type="password" id="confirmPassword" class="form-control"
+                                                        placeholder="konfirmasi password baru"
+                                                        aria-label="konfirmasi pass baru" aria-describedby="basic-addon2">
+                                                    <span class="input-group-text" id="mybutton3">
+                                                        <i class="fa fa-eye" id="eye2"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Change Password</button>
+                                        </div>
+                                    </form>
+                                    <!-- End Change Password Form -->
+
+                                </div>
+
+                            </div><!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade pt-3" id="profile-change-password">
+                        <!-- Change Password Form -->
+                        @if (session()->has('toast_error'))
+                            <div class="alert alert-danger">
+                                {{ session('toast_error') }}
+                            </div>
+                        @endif
+
+                        <form action="/user/{{ auth()->user()->id }}/password" method="POST">
+                            @csrf
+                            <div class="row mb-3">
+                                <label for="password" class="col-md-4 col-lg-3 col-form-label">Password Lama</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="password" type="password" class="form-control" id="password">
+                                    @error('old_password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Password Baru</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input type="assword" class="form-control" id="newPassword" name="newPassword">
+                                </div>
+                                <div class="form-check mt-2" style="margin-left: 10px">
+                                    <input class="form-check-input" type="checkbox" id="show-password">
+                                    <label class="form-check-label" for="show-password">
+                                        Show password
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="changePassword">Change Password</button>
+                            </div>
+
+                            <div class="modal fade" id="changePassword" tabindex="-1"
+                                aria-labelledby="changePasswordLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="changePasswordLabel">Reset Password</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>Apakah anda ingin reset Password</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- End Change Password Form -->
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-                    <div class="nav-wrapper position-relative end-0">
-                        <ul class="nav nav-pills nav-fill p-1" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 active d-flex align-items-center justify-content-center "
-                                    data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
-                                    <i class="ni ni-app"></i>
-                                    <span class="ms-2">App</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
-                                    data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
-                                    <i class="ni ni-email-83"></i>
-                                    <span class="ms-2">Messages</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
-                                    data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
-                                    <i class="ni ni-settings-gear-65"></i>
-                                    <span class="ms-2">Settings</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
             </div>
         </div>
-    </div>
-    <div id="alert">
-        @include('components.alert')
-    </div>
-    <div class="container-fluid py-4">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                    <form role="form" method="POST" action={{ route('profile.update') }} enctype="multipart/form-data">
-                        @csrf
-                        <div class="card-header pb-0">
-                            <div class="d-flex align-items-center">
-                                <p class="mb-0">Edit Profile</p>
-                                <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <p class="text-uppercase text-sm">User Information</p>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Username</label>
-                                        <input class="form-control" type="text" name="username" value="{{ old('username', auth()->user()->username) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Email address</label>
-                                        <input class="form-control" type="email" name="email" value="{{ old('email', auth()->user()->email) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">First name</label>
-                                        <input class="form-control" type="text" name="firstname"  value="{{ old('firstname', auth()->user()->firstname) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Last name</label>
-                                        <input class="form-control" type="text" name="lastname" value="{{ old('lastname', auth()->user()->lastname) }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="horizontal dark">
-                            <p class="text-uppercase text-sm">Contact Information</p>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Address</label>
-                                        <input class="form-control" type="text" name="address"
-                                            value="{{ old('address', auth()->user()->address) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">City</label>
-                                        <input class="form-control" type="text" name="city" value="{{ old('city', auth()->user()->city) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Country</label>
-                                        <input class="form-control" type="text" name="country" value="{{ old('country', auth()->user()->country) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Postal code</label>
-                                        <input class="form-control" type="text" name="postal" value="{{ old('postal', auth()->user()->postal) }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="horizontal dark">
-                            <p class="text-uppercase text-sm">About me</p>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">About me</label>
-                                        <input class="form-control" type="text" name="about"
-                                            value="{{ old('about', auth()->user()->about) }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-profile">
-                    <img src="/img/bg-profile.jpg" alt="Image placeholder" class="card-img-top">
-                    <div class="row justify-content-center">
-                        <div class="col-4 col-lg-4 order-lg-2">
-                            <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
-                                <a href="javascript:;">
-                                    <img src="/img/team-2.jpg"
-                                        class="rounded-circle img-fluid border border-2 border-white">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3">
-                        <div class="d-flex justify-content-between">
-                            <a href="javascript:;" class="btn btn-sm btn-info mb-0 d-none d-lg-block">Connect</a>
-                            <a href="javascript:;" class="btn btn-sm btn-info mb-0 d-block d-lg-none"><i
-                                    class="ni ni-collection"></i></a>
-                            <a href="javascript:;"
-                                class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block">Message</a>
-                            <a href="javascript:;" class="btn btn-sm btn-dark float-right mb-0 d-block d-lg-none"><i
-                                    class="ni ni-email-83"></i></a>
-                        </div>
-                    </div>
-                    <div class="card-body pt-0">
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex justify-content-center">
-                                    <div class="d-grid text-center">
-                                        <span class="text-lg font-weight-bolder">22</span>
-                                        <span class="text-sm opacity-8">Friends</span>
-                                    </div>
-                                    <div class="d-grid text-center mx-4">
-                                        <span class="text-lg font-weight-bolder">10</span>
-                                        <span class="text-sm opacity-8">Photos</span>
-                                    </div>
-                                    <div class="d-grid text-center">
-                                        <span class="text-lg font-weight-bolder">89</span>
-                                        <span class="text-sm opacity-8">Comments</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center mt-4">
-                            <h5>
-                                Mark Davis<span class="font-weight-light">, 35</span>
-                            </h5>
-                            <div class="h6 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>Bucharest, Romania
-                            </div>
-                            <div class="h6 mt-4">
-                                <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
-                            </div>
-                            <div>
-                                <i class="ni education_hat mr-2"></i>University of Computer Science
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @include('layouts.footers.auth.footer')
-    </div>
+    </section>
 @endsection

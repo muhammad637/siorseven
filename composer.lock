@@ -648,12 +648,7 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-<<<<<<< HEAD
-<<<<<<< HEAD
             "version": "7.6.1",
-=======
-            "version": "7.7.0",
->>>>>>> 65286595ce1610b5ea39919b5ce4c7734bbc9ee3
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
@@ -661,25 +656,10 @@
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
                 "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8444a2bacf1960bc6a2b62ed86b8e72e11eebe51",
                 "reference": "8444a2bacf1960bc6a2b62ed86b8e72e11eebe51",
-=======
-            "version": "7.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "fb7566caccf22d74d1ab270de3551f72a58399f5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/fb7566caccf22d74d1ab270de3551f72a58399f5",
-                "reference": "fb7566caccf22d74d1ab270de3551f72a58399f5",
->>>>>>> tampilanDASHBOARD
-=======
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/fb7566caccf22d74d1ab270de3551f72a58399f5",
-                "reference": "fb7566caccf22d74d1ab270de3551f72a58399f5",
->>>>>>> 65286595ce1610b5ea39919b5ce4c7734bbc9ee3
+
+
                 "shasum": ""
             },
             "require": {
@@ -776,15 +756,8 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-<<<<<<< HEAD
-<<<<<<< HEAD
                 "source": "https://github.com/guzzle/guzzle/tree/7.6.1"
-=======
-                "source": "https://github.com/guzzle/guzzle/tree/7.7.0"
->>>>>>> tampilanDASHBOARD
-=======
-                "source": "https://github.com/guzzle/guzzle/tree/7.7.0"
->>>>>>> 65286595ce1610b5ea39919b5ce4c7734bbc9ee3
+
             },
             "funding": [
                 {
@@ -800,15 +773,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-<<<<<<< HEAD
             "time": "2023-05-15T20:43:01+00:00"
-=======
-            "time": "2023-05-21T14:04:53+00:00"
->>>>>>> tampilanDASHBOARD
-=======
-            "time": "2023-05-21T14:04:53+00:00"
->>>>>>> 65286595ce1610b5ea39919b5ce4c7734bbc9ee3
         },
         {
             "name": "guzzlehttp/promises",
@@ -7611,7 +7576,6 @@
                 }
             ],
             "time": "2023-05-11T05:14:45+00:00"
-<<<<<<< HEAD
         },
         {
             "name": "pimple/pimple",
@@ -7665,8 +7629,6 @@
                 "source": "https://github.com/silexphp/Pimple/tree/v3.5.0"
             },
             "time": "2021-10-28T11:13:42+00:00"
-=======
->>>>>>> tampilanDASHBOARD
         },
         {
             "name": "sebastian/cli-parser",
