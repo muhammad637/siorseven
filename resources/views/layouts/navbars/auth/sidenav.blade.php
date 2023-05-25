@@ -180,6 +180,5 @@
         </ul>
     </div>     
 >>>>>>> FitureProfile --}}
->>>>>>> f58bb62d6b6ece637cfeb8479c3ee1a285d66c06
 </aside>
 
