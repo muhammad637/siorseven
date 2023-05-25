@@ -29,46 +29,12 @@ class UserProfileController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required',
             'username' => 'required | ' . Rule::unique('users') ->ignore($user->id),
-            'password' => '',
-            'nik' => 'required|max:16'. Rule::unique('users,nik')->ignore($user->id),
-            'cekLevel' => 'required',
             'no_telephone' => 'required|min:10|regex:/^([0-9\s\-\+\(\)]*)$/',
         ]);
-        // $attributes = $request->validate([
-        //     'username' => ['required','max:255', 'min:2'],
-        //     'firstname' => ['max:100'],
-        //     'lastname' => ['max:100'],
-        //     'email' => ['required', 'email', 'max:255',  Rule::unique('users')->ignore(auth()->user()->id),],
-        //     'address' => ['max:100'],
-        //     'city' => ['max:100'],
-        //     'country' => ['max:100'],
-        //     'postal' => ['max:100'],
-        //     'about' => ['max:255']
-        // ]);
-
-        // auth()->user()->edit([
-        //     'username' => $request->get('username'),
-        //     'firstname' => $request->get('firstname'),
-        //     'lastname' => $request->get('lastname'),
-        //     'email' => $request->get('email') ,
-        //     'address' => $request->get('address'),
-        //     'city' => $request->get('city'),
-        //     'country' => $request->get('country'),
-        //     'postal' => $request->get('postal'),
-        //     'about' => $request->get('about')
-        // ]);
-        // return back()->with('succes', 'Profile succesfully updated');
+       
         try {
-            //code...
-            if ($validatedData['password']  == null) {
-                $validatedData['password'] = $user->password;
-            } else {
-                // $validatedData['password'] = Hash::make($validatedData['password']);
-            }
-
+            
             User::where('id', $user->id)->update($validatedData);
-            // $notif = Notifikasi::notif('user', "user: $request->nama berhasil diupdate by " . auth()->user()->nama, 'update', 'berhasil');
-            // Notifikasi::create($notif)->user()->sync(User::adminId());
             foreach ($user->ruangan as $item) {
                 // Ruangan::where('id', $item->id)->update(['user_id' => null]);
             }
