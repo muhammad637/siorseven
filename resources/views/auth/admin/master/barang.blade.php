@@ -2,219 +2,306 @@
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Barang', 'master' => 'Master Data'])
     <div class="row mt-4 mx-4 ">
-        <div class="card mb-4">
-            <div class="card-header pb-0">
+       
+        <div class="card px-0 pt-0 pb-2">
+            <div class="m-3">
                 <h5>List Barang</h5>
-                <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
                     Tambah
                 </button>
+            </div>
+            <h3 id="datatable-basic-example">Datatable Basic example</h3>
+            <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0 text-center table-flush" id="myTable">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                Jenis
+                                Barang</th>
+                            <th
+                                class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7  ps-2">
+                                Merk Barang
+                            </th>
+                            <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                Tipe
+                                Barang</th>
+                            <th
+                                class="text-center text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                Status</th>
+                            <th
+                                class="text-center text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                Aksi</th>
+                        </tr>
 
-                <div class="card-body px-0 pt-0 pb-2">
-                    <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0 text-center table-striped" id="myTable">
-                            <thead>
-                                <tr class="text-center">
-                                    <th
-                                        class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
-                                        Jenis
-                                        Barang</th>
-                                    <th
-                                        class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7  ps-2">
-                                        Merk Barang
-                                    </th>
-                                    <th
-                                        class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
-                                        Tipe
-                                        Barang</th>
-                                    <th
-                                        class="text-center text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
-                                        Status</th>
-                                    <th
-                                        class="text-center text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
-                                        Aksi</th>
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                @foreach ($barangs as $barang)
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-3 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm text-uppercase">{{ $barang->jenis }}</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            <p class="text-sm text-uppercase font-weight-bold mb-0">
-                                                {{ $barang->merk->merk }}</p>
-                                        </td>
-
-                                        <td>
-                                            <p class="text-sm text-uppercase font-weight-bold mb-0">{{ $barang->tipe }}</p>
-                                        </td>
-
-                                        <td>
-                                            <span
-                                                class="text-center badge badge-sm {{ $barang->status == 'nonaktif' ? 'bg-gradient-secondary' : 'bg-gradient-success' }}">{{ $barang->status }}</span>
-                                        </td>
-                                        <td class="align-middle text-end">
-                                            <div class="d-flex px-3 py-1 justify-content-center align-items-center gap-1">
-                                                <a href="#modaledit-{{ $barang->id }}" data-bs-toggle="modal"
-                                                    class="badge bg-warning">edit</a>
-                                                @if ($barang->status == 'aktif')
-                                                    <form action="{{ route('nonaktif.barang', ['barang' => $barang->id]) }}"
-                                                        method="post" class="inline-block">
-                                                        @method('put')
-                                                        @csrf
-                                                        <button type="submit" class="badge bg-gradient-danger border-0"><i
-                                                                class="fa fa-times-circle" aria-hidden="true"></i></button>
-                                                    </form>
-                                                @else
-                                                    <form action="{{ route('aktif.barang', ['barang' => $barang->id]) }}"
-                                                        method="post">
-                                                        @method('put')
-                                                        @csrf
-                                                        <button type="submit" class="badge bg-gradient-success border-0"><i
-                                                                class="fa fa-check-circle-o"
-                                                                aria-hidden="true"></i></button>
-                                                    </form>
-                                                @endif
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    {{-- modal edit --}}
-                                    <div class="modal fade" id="modaledit-{{ $barang->id }}" tabindex="-1" role="dialog"
-                                        aria-labelledby="modaledittbarang" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title text-capitalize" id="modaleditbarang">Form Edit
-                                                        barang</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="{{ route('update.barang', ['barang' => $barang->id]) }}"
-                                                    method="post">
-                                                    @method('put')
-                                                    @csrf
-                                                    <div class="modal-body">
-                                                        <div class="row">
-
-                                                            <div class="col-md-6">
-                                                                <label for="">Jenis Barang</label>
-                                                                <div class="input-group mb-4">
-                                                                    <select class="form-control text-capitalize"
-                                                                        name="jenis" id="">
-                                                                        <option class="text-uppercase" value="komputer"
-                                                                            {{ $barang->jenis == 'komputer' ? 'selected' : '' }}>
-                                                                            komputer</option>
-                                                                        <option class="text-uppercase" value="printer"
-                                                                            {{ $barang->jenis == 'printer' ? 'selected' : '' }}>
-                                                                            printer</option>
-                                                                    </select>
-                                                                    <span class="input-group-text">
-                                                                        <i class="fa fa-arrows-v"
-                                                                            aria-hidden="true"></i></span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <label for="">Merk Barang</label>
-                                                                <div class="input-group mb-4">
-                                                                    {{-- <input type="text" class="form-control" name="merk" placeholder="merk barang .." > --}}
-                                                                    <select class="form-control text-capitalize"
-                                                                        name="merk_id" id="merk-{{ $barang->id }}">
-                                                                        @foreach ($merks as $merk)
-                                                                            <option value="{{ $merk->id }}"
-                                                                                {{ $barang->merk->merk == $merk->merk ? 'selected' : '' }}
-                                                                                class="text-uppercase">
-                                                                                {{ $merk->merk }}</option>
-                                                                        @endforeach
-                                                                        <option value="other">lainnya ...</option>
-                                                                    </select>
-                                                                    <span class="input-group-text">
-                                                                        <i class="fa fa-exchange"
-                                                                            aria-hidden="true"></i></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group" id="merk_other-{{ $barang->id }}"
-                                                                    style="display:none;">
-                                                                    <label for="other" class="text-capitalize">merk
-                                                                        Barang Lainnya</label>
-                                                                    <div class="input-group mb-4">
-                                                                        <input class="form-control"
-                                                                            placeholder="Merk Barang ..." name="merk"
-                                                                             type="text">
-                                                                        <span class="input-group-text">
-                                                                            <i class="fa fa-plus-square"
-                                                                                aria-hidden="true"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="tipe">Tipe Barang</label>
-                                                                    <div class="input-group mb-4">
-                                                                        <input class="form-control"
-                                                                            placeholder="Tipe Barang" name="tipe"
-                                                                            id="tipe" type="text"
-                                                                            value="{{ $barang->tipe }}">
-                                                                        <span class="input-group-text">
-                                                                            <i class="fa fa-plus-square"
-                                                                                aria-hidden="true"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn bg-gradient-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit"
-                                                            class="btn bg-gradient-primary">Save</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                    </thead>
+                    <tbody>
+                        @foreach ($barangs as $barang)
+                            <tr>
+                                <td>
+                                    <div class="d-flex px-3 py-1">
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 text-sm text-uppercase">{{ $barang->jenis->jenis }}</h6>
                                         </div>
                                     </div>
+                                </td>
 
-                                    {{-- script form --}}
-                                    <script>
-                                        $(document).ready(function() {
-                                            $("#merk-{{ $barang->id }}").change(function() {
-                                                if ($(this).val() === 'other') {
-                                                    $("#merk_other-{{ $barang->id }}").show();
-                                                    alert('oke')
-                                                } else {
-                                                    $("#merk_other-{{ $barang->id }}").hide();
-                                                    alert("not oke {{ $barang->id }}")
-                                                }
-                                            });
-                                        });
-                                    </script>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                <td>
+                                    <p class="text-sm text-uppercase font-weight-bold mb-0">
+                                        {{ $barang->merk->merk }}</p>
+                                </td>
+
+                                <td>
+                                    <p class="text-sm text-uppercase font-weight-bold mb-0">
+                                        {{ $barang->tipe->tipe }}</p>
+                                </td>
+
+                                <td>
+                                    <span
+                                        class="text-center badge badge-sm {{ $barang->status == 'nonaktif' ? 'bg-gradient-secondary' : 'bg-gradient-success' }}">{{ $barang->status }}</span>
+                                </td>
+                                <td class="align-middle text-end">
+                                    <div class="d-flex px-3 py-1 justify-content-center align-items-center gap-1">
+                                        <a href="#modaledit-{{ $barang->id }}" data-bs-toggle="modal"
+                                            class="badge bg-warning">edit</a>
+                                        @if ($barang->status == 'aktif')
+                                            <form action="{{ route('nonaktif.barang', ['barang' => $barang->id]) }}"
+                                                method="post" class="inline-block">
+                                                @method('put')
+                                                @csrf
+                                                <button type="submit" class="badge bg-gradient-danger border-0"><i
+                                                        class="fa fa-times-circle" aria-hidden="true"></i></button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('aktif.barang', ['barang' => $barang->id]) }}"
+                                                method="post">
+                                                @method('put')
+                                                @csrf
+                                                <button type="submit" class="badge bg-gradient-success border-0"><i
+                                                        class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- modal edit -->
+
+                            <div class="modal fade" id="modaledit-{{ $barang->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="modaledittbarang" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-capitalize" id="modaleditbarang">Form Edit
+                                                barang</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{ route('update.barang', ['barang' => $barang->id]) }}"
+                                            method="post">
+                                            @method('put')
+                                            @csrf
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn bg-gradient-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn bg-gradient-primary">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- script edit -->
+
+                            <script>
+                                $(document).ready(function() {
+                                    $("#merk-{{ $barang->id }}").change(function() {
+                                        if ($(this).val() === 'other') {
+                                            $("#merk_other-{{ $barang->id }}").show();
+                                            alert('oke')
+                                        } else {
+                                            $("#merk_other-{{ $barang->id }}").hide();
+                                            alert("not oke {{ $barang->id }}")
+                                        }
+                                    });
+                                });
+                            </script>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
 
     </div>
-    <div class="" style="height:100vh;"></div>
+    <div class="row mt-4 mx-4 text-capitalize">
+        <!-- jenis barang -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-    <!-- Modal Tambah User -->
+                            @foreach ($jenis as $j)
+                                <tr>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0 ps-3">{{ $j->jenis }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ $j->status }}</p>
+                                    </td>
+                                    <td>
+                                        @if ($j->status == 'aktif')
+                                            <form action="{{ route('jenis.barang.nonaktif', ['jenis' => $j->id]) }}"
+                                                method="post" class="inline-block">
+                                                @method('get')
+                                                @csrf
+                                                <button type="submit" class="badge bg-gradient-danger border-0"><i
+                                                        class="fa fa-times-circle" aria-hidden="true"></i></button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('jenis.barang.aktif', ['jenis' => $j->id]) }}"
+                                                method="post">
+                                                @method('get')
+                                                @csrf
+                                                <button type="submit" class="badge bg-gradient-success border-0"><i
+                                                        class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+                                            </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- merk barang -->
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Merk</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach ($merks as $merk)
+                                <tr>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0 ps-3">{{ $merk->merk }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ $merk->status }}</p>
+                                    </td>
+                                    <td>
+                                        @if ($merk->status == 'aktif')
+                                            <form action="{{ route('merk.barang.nonaktif', ['merk' => $merk->id]) }}"
+                                                method="post" class="inline-block">
+                                                @method('get')
+                                                @csrf
+                                                <button type="submit" class="badge bg-gradient-danger border-0"><i
+                                                        class="fa fa-times-circle" aria-hidden="true"></i></button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('merk.barang.aktif', ['merk' => $merk->id]) }}"
+                                                method="post">
+                                                @method('get')
+                                                @csrf
+                                                <button type="submit" class="badge bg-gradient-success border-0"><i
+                                                        class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+                                            </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- tipe barang -->
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">tipe</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach ($tipes as $tipe)
+                                <tr>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0 ps-3">{{ $tipe->tipe }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ $tipe->status }}</p>
+                                    </td>
+                                    <td>
+                                        @if ($tipe->status == 'aktif')
+                                            <form action="{{ route('tipe.barang.nonaktif', ['tipe' => $tipe->id]) }}"
+                                                method="post" class="inline-block">
+                                                @method('get')
+                                                @csrf
+                                                <button type="submit" class="badge bg-gradient-danger border-0"><i
+                                                        class="fa fa-times-circle" aria-hidden="true"></i></button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('tipe.barang.aktif', ['tipe' => $tipe->id]) }}"
+                                                method="post">
+                                                @method('get')
+                                                @csrf
+                                                <button type="submit" class="badge bg-gradient-success border-0"><i
+                                                        class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+                                            </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="" style="height: 100vh;"></div>
+
+    <!-- Modal Tambah Barang -->
     <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="modaltambahLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -229,19 +316,36 @@
                     @csrf
                     <div class="modal-body">
                         <div class="row">
-
                             <div class="col-md-6">
                                 <label for="">Jenis Barang</label>
                                 <div class="input-group mb-4">
-                                    <select class="form-control text-capitalize" name="jenis" id="">
+                                    {{-- <input type="text" class="form-control" name="merk" placeholder="merk barang .." > --}}
+                                    <select class="form-control text-capitalize" name="jenis_id" id="jenis">
                                         <option value="" selected>jenis barang ..</option>
-                                        <option class="text-uppercase" value="komputer">komputer</option>
-                                        <option class="text-uppercase" value="printer">printer</option>
+                                        @foreach ($jenis as $j)
+                                            <option value="{{ $j->id }}" class="text-uppercase">
+                                                {{ $j->jenis }}</option>
+                                        @endforeach
+                                        <option value="jenis_other">lainnya ...</option>
                                     </select>
                                     <span class="input-group-text">
-                                        <i class="fa fa-arrows-v" aria-hidden="true"></i></span>
+                                        <i class="fa fa-exchange" aria-hidden="true"></i></span>
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group" id="jenis_other" style="display:none;">
+                                    <label for="other" class="text-capitalize">jenis Barang Lainnya</label>
+                                    <div class="input-group mb-4">
+                                        <input class="form-control" placeholder="jenis Barang ..." name="jenis"
+                                            type="text">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- merk barang --}}
                             <div class="col-md-6">
                                 <label for="">Merk Barang</label>
                                 <div class="input-group mb-4">
@@ -252,7 +356,7 @@
                                             <option value="{{ $merk->id }}" class="text-uppercase">
                                                 {{ $merk->merk }}</option>
                                         @endforeach
-                                        <option value="other">lainnya ...</option>
+                                        <option value="merk_other">lainnya ...</option>
                                     </select>
                                     <span class="input-group-text">
                                         <i class="fa fa-exchange" aria-hidden="true"></i></span>
@@ -263,20 +367,36 @@
                                     <label for="other" class="text-capitalize">merk Barang Lainnya</label>
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="Merk Barang ..." name="merk"
-                                             type="text">
+                                            type="text">
                                         <span class="input-group-text">
                                             <i class="fa fa-plus-square" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-
+                            {{-- tipe barang --}}
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="tipe">Tipe Barang</label>
+                                <label for="">Tipe Barang</label>
+                                <div class="input-group mb-4">
+                                    {{-- <input type="text" class="form-control" name="merk" placeholder="merk barang .." > --}}
+                                    <select class="form-control text-capitalize" name="tipe_id" id="tipe">
+                                        <option value="" selected>merk barang ..</option>
+                                        @foreach ($tipes as $tipe)
+                                            <option value="{{ $tipe->id }}" class="text-uppercase">
+                                                {{ $tipe->tipe }}</option>
+                                        @endforeach
+                                        <option value="tipe_other">lainnya ...</option>
+                                    </select>
+                                    <span class="input-group-text">
+                                        <i class="fa fa-exchange" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" id="tipe_other" style="display:none;">
+                                    <label for="other" class="text-capitalize">tipe Barang Lainnya</label>
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Tipe Barang" name="tipe"
-                                            id="tipe" type="text">
+                                        <input class="form-control" placeholder="Tipe Barang ..." name="tipe"
+                                            type="text">
                                         <span class="input-group-text">
                                             <i class="fa fa-plus-square" aria-hidden="true"></i>
                                         </span>
@@ -285,11 +405,16 @@
                             </div>
 
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn bg-gradient-secondary"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn bg-gradient-primary">Save</button>
-                            </div>    
+
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn bg-gradient-primary">Save</button>
+                    </div>
+
                 </form>
             </div>
         </div>

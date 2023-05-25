@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('merk_barangs', function (Blueprint $table) {
+        Schema::create('tipe_barangs', function (Blueprint $table) {
             $table->id();
-            $table->string('merk')->nullable();
+            $table->string('tipe')->nullable();
             $table->enum('status', ['nonaktif','aktif'])->default('aktif');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('merk_barangs');
+        Schema::dropIfExists('tipe_barangs');
     }
 };

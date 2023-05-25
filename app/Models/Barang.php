@@ -15,5 +15,11 @@ class Barang extends Model
     public function merk(){
         return $this->belongsTo(MerkBarang::class,'merk_id');
     }
+    public function tipe(){
+        return $this->belongsTo(TipeBarang::class,'tipe_id');
+    }
+    public function jenis(){
+        return $this->belongsTo(JenisBarang::class,'jenis_id');
+    }
 
 }

@@ -77,13 +77,24 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/coba', function () {
 			return 'ini buat admin';
 		});
+
 		// master user
 		Route::resource('/master/user', MasterUserController::class);
 		Route::get('/master/user/{user:id}/nonaktif', [MasterUserController::class, 'nonaktif'])->name('user.nonaktif');
 		Route::get('/master/user/{user:id}/aktif', [MasterUserController::class, 'aktif'])->name('user.aktif');
 
-		Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
+		// barang
 		Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
+		Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
+		// jenis barang
+		Route::get('master/barang/jenis/{jenis:id}/aktif', [BarangController::class, 'jenisAktif'])->name('jenis.barang.aktif');
+		Route::get('master/barang/jenis/{jenis:id}/nonaktif', [BarangController::class, 'jenisNonaktif'])->name('jenis.barang.nonaktif');
+		// merk barang
+		Route::get('master/barang/merk/{merk:id}/aktif', [BarangController::class, 'merkAktif'])->name('merk.barang.aktif');
+		Route::get('master/barang/merk/{merk:id}/nonaktif', [BarangController::class, 'merkNonaktif'])->name('merk.barang.nonaktif');
+		// tipe barang
+		Route::get('master/barang/tipe/{tipe:id}/aktif', [BarangController::class, 'tipeAktif'])->name('tipe.barang.aktif');
+		Route::get('master/barang/tipe/{tipe:id}/nonaktif', [BarangController::class, 'tipeNonaktif'])->name('tipe.barang.nonaktif');
 
 		Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
 		Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
