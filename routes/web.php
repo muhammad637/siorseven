@@ -106,6 +106,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('master/ruangan', [RuanganController::class,'index'])->name('ruangan');
 		Route::post('master/ruangan', [RuanganController::class,'store'])->name('store.ruangan');
 		Route::put('master/ruangan/{ruangan:id},/aktif', [RuanganController::class,'ruanganAktif'])->name('ruangan.aktif');
+		Route::put('master/ruangan/{ruangan:id},/update', [RuanganController::class,'update'])->name('update.ruangan');
 		Route::put('master/ruangan/{ruangan:id}/nonaktif', [RuanganController::class,'ruanganNonaktif'])->name('ruangan.nonaktif');
 	});
 
