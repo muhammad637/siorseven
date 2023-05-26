@@ -29,6 +29,7 @@ use App\Http\Controllers\MasterUserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\notifikasiController;
+use App\Http\Controllers\RuanganController;
 
 
 
@@ -99,6 +100,13 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
 		Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
 		Route::put('master/barang/{barang:id}/nonaktif', [BarangController::class, 'nonaktif'])->name('nonaktif.barang');
+
+
+		// ruangan
+		Route::get('master/ruangan', [RuanganController::class,'index'])->name('ruangan');
+		Route::post('master/ruangan', [RuanganController::class,'store'])->name('store.ruangan');
+		Route::put('master/ruangan/{ruangan:id},/aktif', [RuanganController::class,'ruanganAktif'])->name('ruangan.aktif');
+		Route::put('master/ruangan/{ruangan:id}/nonaktif', [RuanganController::class,'ruanganNonaktif'])->name('ruangan.nonaktif');
 	});
 
 	Route::group(['middleware' => 'cekLevel:teknisi'], function () {

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('barang_id')->constrained('barangs')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('ruangan_id')->constrained('ruangans')->onUpdate('cascade')->onDelete('cascade');
             $table->string('tanggal_order');
             $table->text('pesan_kerusakan');
             $table->string('status')->nullable();

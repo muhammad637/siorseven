@@ -3,14 +3,13 @@
     @include('layouts.navbars.auth.topnav', ['title' => 'Barang', 'master' => 'Master Data'])
     <div class="row mt-4 mx-4 ">
        
-        <div class="card px-0 pt-0 pb-2">
-            <div class="m-3">
+        <div class="card px-3 pt-0 pb-2">
+            <div class="">
                 <h5>List Barang</h5>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
                     Tambah
                 </button>
             </div>
-            <h3 id="datatable-basic-example">Datatable Basic example</h3>
             <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0 text-center table-flush" id="myTable">
                     <thead>
@@ -98,15 +97,107 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{ route('update.barang', ['barang' => $barang->id]) }}"
-                                            method="post">
+                                        <form action="{{ route('update.barang',['barang' => $barang->id]) }}" method="post">
                                             @method('put')
                                             @csrf
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="">Jenis Barang</label>
+                                                        <div class="input-group mb-4">
+                                                            {{-- <input type="text" class="form-control" name="merk" placeholder="merk barang .." > --}}
+                                                            <select class="form-control text-capitalize" name="jenis_id" id="jenis-{{$barang->id}}">
+                                                                @foreach ($jenis as $j)
+                                                                    <option value="{{ $j->id }}" {{$j->id == $barang->jenis->id ? 'selected' : ''}} class="text-uppercase">
+                                                                        {{ $j->jenis }}</option>
+                                                                @endforeach
+                                                                <option value="jenis_other">lainnya ...</option>
+                                                            </select>
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-exchange" aria-hidden="true"></i></span>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" id="jenis_other-{{$barang->id}}" style="display:none;">
+                                                            <label for="other" class="text-capitalize">jenis Barang Lainnya</label>
+                                                            <div class="input-group mb-4">
+                                                                <input class="form-control" placeholder="jenis Barang ..." name="jenis"
+                                                                    type="text">
+                                                                <span class="input-group-text">
+                                                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- merk barang --}}
+                                                    <div class="col-md-6">
+                                                        <label for="">Merk Barang</label>
+                                                        <div class="input-group mb-4">
+                                                            {{-- <input type="text" class="form-control" name="merk" placeholder="merk barang .." > --}}
+                                                            <select class="form-control text-capitalize" name="merk_id" id="merk-{{$barang->id}}">
+                                                                @foreach ($merks as $merk)
+                                                                <option value="{{ $merk->id }}" {{$barang->merk->id == $merk->id ? 'selected' : ''}} class="text-uppercase">
+                                                                        {{ $merk->merk }}</option>
+                                                                @endforeach
+                                                                <option value="merk_other">lainnya ...</option>
+                                                            </select>
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-exchange" aria-hidden="true"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" id="merk_other-{{$barang->id}}" style="display:none;">
+                                                            <label for="other" class="text-capitalize">merk Barang Lainnya</label>
+                                                            <div class="input-group mb-4">
+                                                                <input class="form-control" placeholder="Merk Barang ..." name="merk"
+                                                                    type="text">
+                                                                <span class="input-group-text">
+                                                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- tipe barang --}}
+                                                    <div class="col-md-6">
+                                                        <label for="">Tipe Barang</label>
+                                                        <div class="input-group mb-4">
+                                                            {{-- <input type="text" class="form-control" name="merk" placeholder="merk barang .." > --}}
+                                                            <select class="form-control text-capitalize" name="tipe_id" id="tipe-{{$barang->id}}">
+                                                                @foreach ($tipes as $tipe)
+                                                                    <option value="{{ $tipe->id }}" {{$barang->tipe->id == $tipe->id ? 'selected':'' }}class="text-uppercase">
+                                                                        {{ $tipe->tipe }}</option>
+                                                                @endforeach
+                                                                <option value="tipe_other">lainnya ...</option>
+                                                            </select>
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-exchange" aria-hidden="true"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" id="tipe_other-{{$barang->id}}" style="display:none;">
+                                                            <label for="other" class="text-capitalize">tipe Barang Lainnya</label>
+                                                            <div class="input-group mb-4">
+                                                                <input class="form-control" placeholder="Tipe Barang ..." name="tipe"
+                                                                    type="text">
+                                                                <span class="input-group-text">
+                                                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                        
+                        
+                        
+                        
+                        
+                                                </div>
+                                            </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn bg-gradient-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn bg-gradient-primary">Save</button>
                                             </div>
+                        
                                         </form>
                                     </div>
                                 </div>
@@ -116,12 +207,30 @@
 
                             <script>
                                 $(document).ready(function() {
+                                    $("#jenis-{{ $barang->id }}").change(function() {
+                                        if ($(this).val() === 'jenis_other') {
+                                            $("#jenis_other-{{ $barang->id }}").show();
+                                            alert('oke')
+                                        } else {
+                                            $("#jenis_other-{{ $barang->id }}").hide();
+                                            alert("not oke {{ $barang->id }}")
+                                        }
+                                    });
                                     $("#merk-{{ $barang->id }}").change(function() {
-                                        if ($(this).val() === 'other') {
+                                        if ($(this).val() === 'merk_other') {
                                             $("#merk_other-{{ $barang->id }}").show();
                                             alert('oke')
                                         } else {
                                             $("#merk_other-{{ $barang->id }}").hide();
+                                            alert("not oke {{ $barang->id }}")
+                                        }
+                                    });
+                                    $("#tipe-{{ $barang->id }}").change(function() {
+                                        if ($(this).val() === 'tipe_other') {
+                                            $("#tipe_other-{{ $barang->id }}").show();
+                                            alert('oke')
+                                        } else {
+                                            $("#tipe_other-{{ $barang->id }}").hide();
                                             alert("not oke {{ $barang->id }}")
                                         }
                                     });
@@ -131,7 +240,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+            
 
     </div>
     <div class="row mt-4 mx-4 text-capitalize">
@@ -188,7 +297,7 @@
                 </div>
             </div>
         </div>
-        <!-- merk barang -->
+        <!-- tipe barang -->
 
         <div class="col-md-4">
             <div class="card">
