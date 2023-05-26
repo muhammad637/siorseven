@@ -130,11 +130,8 @@
             
 
     </div>
-    
-
     <div class="" style="height: 100vh;"></div>
-
-    <!-- Modal Tambah Barang -->
+    <!-- Modal Tambah ruangan -->
     <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="modaltambahLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

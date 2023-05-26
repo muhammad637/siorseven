@@ -25,7 +25,6 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
-{{-- <<<<<<< HEAD --}}
            
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pages</h6>
@@ -37,7 +36,7 @@
                         {{-- <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i> --}}
                         <i class="fa fa-shopping-cart text-dark text-sm opacity-10 text-warning"></i>
                     </div>
-                    <span class="nav-link-text ms-1 text-capitalize">order</span>
+                    <span class="nav-link-text ms-1 text-capitalize">service req</span>
                 </a>
             </li>
             <li class="nav-item">

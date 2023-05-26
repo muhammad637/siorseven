@@ -18,33 +18,27 @@
                         <table class="table align-items-center mb-0" id="myTable">
                             <thead>
                                 <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Tanggal Order
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
+                                        Barang</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pesan
+                                        Status</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Kerusakan</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Tanggal Selesai
+                                    </th>
+                                    {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Aksi
+                                    </th> --}}
                                     @if (auth()->user()->cekLevel == 'admin')
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                             Teknisi</th>
                                     @endif
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
-                                        Barang</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Kerusakan</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Pesan
-                                        Status</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Tanggal Order
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Tanggal Selesai
-                                    </th>
-                                    @if (auth()->user()->cekLevel == 'admin')
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            No HandPhone
-                                        </th>
-                                    @endif
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Aksi
-                                    </th>
                                 </tr>
 
                             </thead>
@@ -52,34 +46,21 @@
                                 @foreach ($orders as $order)
                                     @php
                                         // $i += $order->jumlah_order;
-                                        $nohp = $order->user->no_telephone;
+                                        $nohp = $order->ruangan->no_hp;
                                         if (substr(trim($nohp), 0, 1) == '0') {
                                             $nohp = '62' . substr(trim($nohp), 1);
                                         }
                                         // $array = json_decode($order->pesan, true);
                                     @endphp
                                     <tr>
-                                        @if (auth()->user()->cekLevel == 'admin')
-                                            <td>
-                                                <div class="d-flex px-3 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $order->user->nama }}</h6>
-                                                    </div>
-                                                </div>
-
-                                            </td>
-                                        @endif
-
+                                        <td>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $parse($order->tanggal_order) }}</p>
+                                        </td>
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
-                                                {{ $order->barang->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe }}
+                                                {{ $order->barang->jenis->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe->tipe }}
                                             </p>
                                         </td>
-
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $order->pesan_kerusakan }}</p>
-                                        </td>
-
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
                                                 {{ $order->status == null ? 'pending' : $order->status }}</p>
@@ -97,33 +78,35 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $order->tanggal_order }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $order->pesan_kerusakan }}</p>
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
-                                                {{ $order->tanggal_selesai ? $order->tanggal_selesai : '-' }}</p>
+                                                {{ $order->tanggal_selesai ? $parse($order->tanggal_selesai) : '-' }}</p>
                                         </td>
-                                        @if (auth()->user()->cekLevel == 'admin')
-                                            <td>
-                                                <p class="text-sm font-weight-bold mb-0">{{ $order->user->no_telephone }}
-                                                </p>
-                                            </td>
-                                        @endif
-                                        <td>
+                                        {{-- <td>
                                             <p class="text-sm font-weight-bold mb-0">
                                                 @if (auth()->user()->cekLevel == 'admin')
-                                                    <a href="https://wa.me/{{ $nohp }}/?text=SIORSEVEN%0Auntuk : {{ $order->user->nama }}%0Aorderan barang dari barang{{ $order->barang->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe }}mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: {{ auth()->user()->nama }}"
+                                                    <a href="https://wa.me/{{ $nohp }}/?text=SIORSEVEN%0Auntuk : {{ $order->ruangan->nama }}%0Aorderan barang dari barang{{ $order->barang->jenis->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe->tipe }}mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: {{ auth()->user()->nama }}"
                                                         target="_blank" class="badge bg-info p-2"><i
                                                             class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a>
-                                                    {{-- <a href="#update-{{ $order->id }}"class="badge bg-success"><i
-                                                            class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a> --}}
                                                 @else
                                                     <a href="#update-{{ $order->id }}" class="badge bg-secondary"
                                                         data-bs-toggle="modal">update</a>
                                                 @endif
 
                                             </p>
-                                        </td>
+                                        </td> --}}
+                                        @if (auth()->user()->cekLevel == 'admin')
+                                            <td>
+                                                <div class="d-flex px-3 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $order->user->nama }}</h6>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                        @endif
                                     </tr>
 
                                     <!-- Modal Pesan Status  -->
@@ -192,7 +175,7 @@
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Nama Barang</label>
                                                                     <input type="text" class="form-control"
-                                                                        value="{{ $order->barang->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe }}"
+                                                                        value="{{ $order->barang->jenis->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe->tipe }}"
                                                                         readonly id="recipient-name">
                                                                 </div>
                                                             </div>
@@ -208,10 +191,11 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <div class="form-group" >
+                                                                <div class="form-group">
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Status</label>
-                                                                    <select name="status" id="status-{{ $order->id }}"
+                                                                    <select name="status"
+                                                                        id="status-{{ $order->id }}"
                                                                         class="form-control">
                                                                         <option value=""
                                                                             {{ $order->status == '' ? 'selected' : '' }}>
@@ -225,8 +209,10 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">  
-                                                                <div  id="status_selesai-{{$order->id}}" class="form-group" style="display:{{$order->status_selesai ?'':'none;'}}" >
+                                                            <div class="col-md-6">
+                                                                <div id="status_selesai-{{ $order->id }}"
+                                                                    class="form-group"
+                                                                    style="display:{{ $order->status_selesai ? '' : 'none;' }}">
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Status Selesai</label>
                                                                     <select name="status_selesai" id=""
@@ -235,10 +221,10 @@
                                                                             {{ $order->status_selesai == '' ? 'selected' : '' }}>
                                                                             notselected</option>
                                                                         <option value="tidak bisa diperbaiki"
-                                                                            {{ $order->status_selesai == 'tidak bisa diperbaiki' ? 'selected' : '' }}>
+                                                                            {{ $order->status_selesai == 'rusak berat' ? 'selected' : '' }}>
                                                                             tidak bisa diperbaiki</option>
                                                                         <option value="sudah bisa digunakan"
-                                                                            {{ $order->status_selesai == 'sudah bisa digunakan' ? 'selected' : '' }}>
+                                                                            {{ $order->status_selesai == 'selesai' ? 'selected' : '' }}>
                                                                             sudah bisa digunakan</option>
                                                                     </select>
                                                                 </div>
@@ -286,21 +272,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                         {{-- script form --}}
-                                         <script>
-                                            $(document).ready(function() {
-                                                $("#status-{{ $order->id }}").change(function() {
-                                                    // alert($(this).val())
-                                                    if ($(this).val() == 'selesai') {
-                                                        $("#status_selesai-{{$order->id}}").show();
-                                                        // alert('oke')
-                                                    } else {
-                                                        $("#status_selesai-{{$order->id}}").hide();
-                                                        // alert("not oke {{ $order->id }}")
-                                                    }
-                                                });
+                                    {{-- script form --}}
+                                    <script>
+                                        $(document).ready(function() {
+                                            $("#status-{{ $order->id }}").change(function() {
+                                                // alert($(this).val())
+                                                if ($(this).val() == 'selesai') {
+                                                    $("#status_selesai-{{ $order->id }}").show();
+                                                    // alert('oke')
+                                                } else {
+                                                    $("#status_selesai-{{ $order->id }}").hide();
+                                                    // alert("not oke {{ $order->id }}")
+                                                }
                                             });
-                                        </script>
+                                        });
+                                    </script>
                                 @endforeach
                             </tbody>
                         </table>
@@ -347,8 +333,8 @@
                                         <select class="form-control" name="barang_id" type="text">
                                             <option value="">Pilih Barang</option>
                                             @foreach ($barangs as $barang)
-                                                <option value="{{ $barang->id }}">{{ $barang->jenis }}
-                                                    {{ $barang->tipe }} {{ $barang->merk->merk }}</option>
+                                                <option value="{{ $barang->id }}">{{ $barang->jenis->jenis }}
+                                                    {{ $barang->merk->merk }} {{ $barang->tipe->tipe }}</option>
                                             @endforeach
                                         </select>
                                         <span class="input-group-text"><i class="fa fa-key"
@@ -375,15 +361,21 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="col-md-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="S" name="status" type="text">
-                                        <span class="input-group-text"><i class="fa fa-id-card"
+                                        <select class="form-control" name="ruangan_id" type="text">
+                                            <option value="">Pilih Barang</option>
+                                            @foreach ($ruangans as $ruangan)
+                                                <option value="{{ $ruangan->id }}">{{ $ruangan->nama }}||
+                                                    {{ $ruangan->no_hp }}</option>
+                                            @endforeach
+                                        </select>
+                                        <span class="input-group-text"><i class="fa fa-key"
                                                 aria-hidden="true"></i></span>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
 
                         </div>
 
@@ -397,5 +389,4 @@
             </div>
         </div>
     </div>
-
 @endsection
