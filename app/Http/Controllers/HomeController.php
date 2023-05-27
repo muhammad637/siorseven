@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Barang;
-use App\Models\Order;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Barang;
 use Illuminate\Http\Request;
-use NunoMaduro\Collision\Adapters\Phpunit\Printer;
+use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
+use NunoMaduro\Collision\Adapters\Phpunit\Printer;
 
 
 class HomeController extends Controller
@@ -31,29 +33,16 @@ class HomeController extends Controller
     {
         
         $user = User::where('cekLevel', 'teknisi')->get();
-        $printer = Barang::where('jenis', 'printer')->get();
-        $komputer = Barang::where('jenis', 'komputer')->get();
-        $i = 0;
-        $l = 0;
-        foreach ($komputer as $sum) {
-            # code...
-            if (Order::where('status', 'on proccess')->where('barang_id',$sum->id)) {
-                # code...
-                $i += 1;
-            }
-        }
-        foreach ($printer as $sam) {
-            if (Order::where('status', 'on proccess')->where('barang_id',$sam->id)){
-                $l +=1;
-            }
-        }
+        $barang = Barang::all()->count();
+        $order = Order::where('status','on progress')->orWhere('status',null)->count();
         // return $komputer;
         return view('pages.dashboard', [
-            'komputers' => $i,
-            'printers' => $l,
+            'jumlahBarang' => $barang,
+            'orderOnprogress' => $order,
             'users' => $user,
             'orders' => Order::orderBy('created_at','desc')->limit(10)->get(),
-            ['printer' => Barang::where('jenis', 'printer')->count()]
+            'parse' => function ($date) {
+                return Carbon::parse($date)->format('d-M-Y');}
         ]);
     }
 }
