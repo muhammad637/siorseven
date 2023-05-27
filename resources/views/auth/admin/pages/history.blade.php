@@ -101,6 +101,7 @@
                     </button>
                     <button type="button" class="badge bg-gradient-success btn-block mb-0 border-0" data-bs-toggle="modal"
                         data-bs-target="#historyStatus">
+
                         Status
                     </button>
                 </div>
@@ -113,6 +114,7 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Tanggal Order
+
                                     </th>
 
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
@@ -136,6 +138,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aksi
                                     </th>
+
                                 </tr>
 
                             </thead>
@@ -158,6 +161,7 @@
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">
                                                     {{ $history->barang->jenis->jenis . ' ' . $history->barang->merk->merk . ' ' . $history->barang->tipe->tipe }}
+
                                                 </p>
                                             </td>
                                             <td>

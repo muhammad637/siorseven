@@ -86,17 +86,17 @@
                                         </td>
                                         {{-- <td>
                                             <p class="text-sm font-weight-bold mb-0">
+
                                                 @if (auth()->user()->cekLevel == 'admin')
                                                     <a href="https://wa.me/{{ $nohp }}/?text=SIORSEVEN%0Auntuk : {{ $order->ruangan->nama }}%0Aorderan barang dari barang{{ $order->barang->jenis->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe->tipe }}mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: {{ auth()->user()->nama }}"
                                                         target="_blank" class="badge bg-info p-2"><i
                                                             class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a>
-                                                @else
                                                     <a href="#update-{{ $order->id }}" class="badge bg-secondary"
                                                         data-bs-toggle="modal">update</a>
-                                                @endif
+                                                @endif --}}
 
                                             </p>
-                                        </td> --}}
+                                        </td> 
                                         @if (auth()->user()->cekLevel == 'admin')
                                             <td>
                                                 <div class="d-flex px-3 py-1">
@@ -107,6 +107,7 @@
 
                                             </td>
                                         @endif
+
                                     </tr>
 
                                     <!-- Modal Pesan Status  -->
