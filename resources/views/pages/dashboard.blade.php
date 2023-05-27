@@ -79,23 +79,33 @@
             
         </div>
         
-        {{-- <div class="card">
+
+        {{-- table --}}
+        <div class="card my-4">
             <h4 class=" text-uppercase mt-4 mx-2">list Order Terakhir</h4>
             <hr>
             <div class="table-responsive">
                 <table class="table align-items-center mb-0">
                     <thead>
                         <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Teknisi
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                tanggal order
                             </th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">barang
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                ruangan
+                            </th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                barang
                             </th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                status</th>
+                                status
+                            </th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                tanggal order</th>
+                                keterangan  
+                            </th>
                             <th class="text-secondary opacity-7 text-xxs font-weight-bolder opacity-7 text-uppercase">
-                                keterangan</th>
+                                Nama Teknisi
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="text-uppercase">

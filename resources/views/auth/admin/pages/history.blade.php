@@ -99,6 +99,10 @@
                         data-bs-target="#historyBarang">
                         Barang
                     </button>
+                    <button type="button" class="badge bg-gradient-success btn-block mb-0 border-0" data-bs-toggle="modal"
+                        data-bs-target="#historyBarang">
+                        Status
+                    </button>
                 </div>
 
 
@@ -107,6 +111,7 @@
                         <table class="table align-items-center mb-0" id="myTable">
                             <thead>
                                 <tr>
+
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         Teknisi
                                     </th>
@@ -114,7 +119,10 @@
                                         Barang
                                     </th>
 
-
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ruangan
+                                        
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-y">No Hp Ruangan</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Kerusakan</th>
@@ -125,11 +133,36 @@
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Keterangan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+
                                         Tanggal Order
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Tanggal Selesai</th>
+                                        Tanggal Selesai
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Ruangan
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Nama Barang
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Kerusakan
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Status
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Keterangan
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Nama Teknisi
+                                    </th>                                    
                                 </tr>
 
                             </thead>
@@ -147,6 +180,17 @@
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">
                                                     {{ $history->barang->jenis . ' ' . $history->barang->tipe }}</p>
+                                            </td>
+
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">
+                                                    {{-- {{$history->orders->ruangan_id}} --}}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">
+                                                    {{-- {{$history->orders->no_telephone}} --}}
+                                                </p>
                                             </td>
 
                                             

@@ -42,9 +42,7 @@
                                             No HandPhone
                                         </th>
                                     @endif
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Aksi
-                                    </th>
+                                    
                                 </tr>
 
                             </thead>
@@ -97,11 +95,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <p class="text-sm font-weight-bold mb-0">{{ $order->tanggal_order }}</p>
+                                           <p class="text-sm font-weight-bold mb-0">{{ Carbon::parse($order->tanggal_order)->format('d-M-Y') }}</p>
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
-                                                {{ $order->tanggal_selesai ? $order->tanggal_selesai : '-' }}</p>
+                                                {{ Carbon::parse($order->tanggal_selesai)->format('d-M-Y') }}</p>
                                         </td>
                                         @if (auth()->user()->cekLevel == 'admin')
                                             <td>
@@ -109,21 +107,21 @@
                                                 </p>
                                             </td>
                                         @endif
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">
+                                        {{-- <td>
+                                            {{-- <p class="text-sm font-weight-bold mb-0">
                                                 @if (auth()->user()->cekLevel == 'admin')
                                                     <a href="https://wa.me/{{ $nohp }}/?text=SIORSEVEN%0Auntuk : {{ $order->user->nama }}%0Aorderan barang dari barang{{ $order->barang->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe }}mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: {{ auth()->user()->nama }}"
                                                         target="_blank" class="badge bg-info p-2"><i
                                                             class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a>
                                                     {{-- <a href="#update-{{ $order->id }}"class="badge bg-success"><i
                                                             class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a> --}}
-                                                @else
+                                                {{-- @else
                                                     <a href="#update-{{ $order->id }}" class="badge bg-secondary"
                                                         data-bs-toggle="modal">update</a>
-                                                @endif
+                                                @endif --}}
 
-                                            </p>
-                                        </td>
+                                            {{-- </p>  --}}
+                                        {{-- </td>  --}}
                                     </tr>
 
                                     <!-- Modal Pesan Status  -->
