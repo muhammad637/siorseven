@@ -7,7 +7,7 @@
     <div class="row mt-4 mx-4">
         <div class="card mb-4">
             <div class="card-header pb-0">
-                <h5>List Order</h5>
+                <h5>List Service Request</h5>
                 @if (auth()->user()->cekLevel == 'admin')
                     <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
                         <i class="fa fa-cart-plus" aria-hidden="true"></i> Order
@@ -38,6 +38,9 @@
                                     @if (auth()->user()->cekLevel == 'admin')
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                             Teknisi</th>
+                                    @else
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi
+                                        </th>
                                     @endif
                                 </tr>
 
@@ -84,6 +87,7 @@
                                             <p class="text-sm font-weight-bold mb-0">
                                                 {{ $order->tanggal_selesai ? $parse($order->tanggal_selesai) : '-' }}</p>
                                         </td>
+                                       
                                         {{-- <td>
                                             <p class="text-sm font-weight-bold mb-0">
 
@@ -94,9 +98,7 @@
                                                     <a href="#update-{{ $order->id }}" class="badge bg-secondary"
                                                         data-bs-toggle="modal">update</a>
                                                 @endif --}}
-
-                                            </p>
-                                        </td> 
+                                        </td>
                                         @if (auth()->user()->cekLevel == 'admin')
                                             <td>
                                                 <div class="d-flex px-3 py-1">
@@ -105,6 +107,11 @@
                                                     </div>
                                                 </div>
 
+                                            </td>
+                                            @else
+                                            <td>
+                                                <a href="#update-{{$order->id}}" data-bs-toggle="modal"
+                                                    class="badge bg-warning">edit</a>
                                             </td>
                                         @endif
 
@@ -173,8 +180,8 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="recipient-name"
-                                                                        class="col-form-label">Nama Barang</label>
+                                                                    <label for="recipient-name" class="col-form-label">Nama
+                                                                        Barang</label>
                                                                     <input type="text" class="form-control"
                                                                         value="{{ $order->barang->jenis->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe->tipe }}"
                                                                         readonly id="recipient-name">
@@ -221,10 +228,10 @@
                                                                         <option value=""
                                                                             {{ $order->status_selesai == '' ? 'selected' : '' }}>
                                                                             notselected</option>
-                                                                        <option value="tidak bisa diperbaiki"
+                                                                        <option value="rusak berat"
                                                                             {{ $order->status_selesai == 'rusak berat' ? 'selected' : '' }}>
                                                                             tidak bisa diperbaiki</option>
-                                                                        <option value="sudah bisa digunakan"
+                                                                        <option value="selesai"
                                                                             {{ $order->status_selesai == 'selesai' ? 'selected' : '' }}>
                                                                             sudah bisa digunakan</option>
                                                                     </select>
@@ -244,8 +251,8 @@
                                                                     <label for="recipient-name"
                                                                         class="col-form-label">Tanggal Order</label>
                                                                     <input type="date"
-                                                                        value="{{ $order->created_at }}"
-                                                                        name="tanggal_order" class="form-control">
+                                                                        value="{{ $order->tanggal_order }}"
+                                                                        name="tanggal_order" readonly class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">

@@ -57,14 +57,14 @@ class OrderController extends Controller
             $order = Order::latest()->first();
 
             // membuat pesan untuk notifikasi
-            $pesan = "orderan dari " . auth()->user()->nama . "berhasil dibuat untuk teknisi : $teknisi->nama";
+            $pesan = "orderan dari dengan id $order->id : barang ".$order->barang->jenis->jenis." ".$order->barang->merk->merk." " . $order->barang->merk->merk." dari" .auth()->user()->nama . "berhasil dibuat untuk teknisi : $teknisi->nama";
             // pembuatan dan emanggilan fungsi notif di kelas Notifikasi
             $notif = Notifikasi::notif('order', $pesan, 'buat', 'berhasil');
             // create notifikasi buat teknisi dan admin
             Notifikasi::create($notif)->user()->attach($request->user_id);
             Notifikasi::create($notif)->user()->sync(User::adminId());
             // memunculkan sweetalert
-            Alert::success('success', "orderan barang $barang->jenis " . $barang->merk->merk . " ".$barang->tipe->tipe. "dari " . auth()->user()->nama . " berhasil dibuat untuk teknisi : $teknisi->nama dengan pesan kerusakan $request->pesan_kerusakan");
+            Alert::success('success', "orderan barang  ".$barang->jenis->jenis." " . $barang->merk->merk . " ".$barang->tipe->tipe. "dari " . auth()->user()->nama . " berhasil dibuat untuk teknisi : $teknisi->nama dengan pesan kerusakan $request->pesan_kerusakan");
             redirect(route('barang'));
             // return $order->user;
             // membuat langsung redirect ke whatsapp
@@ -91,7 +91,7 @@ class OrderController extends Controller
         ]);
         // $validatedData = ['tanggal_selesai' => Carbon::parse('25-8-2022')->format('d-m-Y')];
         try {
-            $pesan = "orderan dengan id $order->id barang $barang->jenis " . $barang->merk->merk . " $barang->tipe berhasil diupdate oleh $teknisi->nama dengan perubahan status : $request->status";
+            $pesan = "orderan dengan id $order->id barang ".$barang->jenis->jenis. " " . $barang->merk->merk ." " .$barang->tipe->tipe." berhasil diupdate oleh $teknisi->nama dengan perubahan status : $request->status";
             $notif = Notifikasi::notif('order', $pesan, 'update', 'berhasil');
             Notifikasi::create($notif)->user()->attach(auth()->user()->id);
             Notifikasi::create($notif)->user()->sync(User::adminId());

@@ -55,13 +55,15 @@
 
     <div class="row mt-4 mx-4">
         <div class="card mb-4">
-            <div class="card-header pb-0">
+            <div class="card-header p-3">
                 <div class="flex justify-content-between align-items-center">
                     @if (session()->get('header'))
                         <h3 class="text-dark fw-bold text-capitalize">{{ session()->get('header') }}</h3>
                     @else
                         <h3 class="text-dark fw-bold">History</h3>
                     @endif
+                @if (auth()->user()->cekLevel == 'admin')     
+                
                     {{-- eksport --}}
                     <div class="dropdown">
                         <a href="#" class="btn bg-gradient-dark dropdown-toggle " data-bs-toggle="dropdown"
@@ -88,7 +90,7 @@
                     </div>
 
                 </div>
-                <div class="d-flex gap-2 mb-4">
+                <div class="d-md-flex d-sm-block gap-2 mb-4">
                     <p class="mb-0">Tampilkan : </p>
                     <a href="{{ route('history') }}" class="badge bg-gradient-success btn-block mb-0 border-0">Semua</a>
                     <button type="button" class="badge bg-gradient-success btn-block mb-0 border-0" data-bs-toggle="modal"
@@ -105,6 +107,7 @@
                         Status
                     </button>
                 </div>
+                @endif
 
 
                 <div class="card-body px-0 pt-0 pb-2">
