@@ -1,12 +1,32 @@
 $(document).ready(function () {
-    $('#myTable').DataTable();
+    // master barang
+   
+    
+    $('#jenis').change(function () {
+        if ($(this).val() === 'jenis_other') {
+            $('#jenis_other').show();
+        } else {
+            $('#jenis_other').hide();
+        }
+    });
     $('#merk').change(function () {
-        if ($(this).val() === 'other') {
+        if ($(this).val() === 'merk_other') {
             $('#merk_other').show();
         } else {
             $('#merk_other').hide();
         }
     });
+    $('#tipe').change(function () {
+        if ($(this).val() === 'tipe_other') {
+            $('#tipe_other').show();
+        } else {
+            $('#tipe_other').hide();
+        }
+    });
+
+
+
+    // password
     $('#eye').addClass('fa fa-eye-slash')
     $('#eye1').addClass('fa fa-eye-slash')
     $('#eye2').addClass('fa fa-eye-slash')

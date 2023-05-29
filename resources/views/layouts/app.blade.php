@@ -24,7 +24,7 @@
    
     <link rel="stylesheet" href="{{asset('assets/css/landing-page.css')}}" rel="stylesheet"/>
     <link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}">
-
+    <link href="https://demos.creative-tim.com/test/argon-dashboard-pro/assets/css/argon-dashboard.min.css?v=2.0.0" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     <script src="https://code.jquery.com/jquery-3.7.0.slim.js"
         integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>
@@ -54,12 +54,12 @@
             @if (
                 !in_array(request()->route()->getName(),
                     ['profile', 'profile-static', 'user.index']))
-                <div class="min-height-300 bg-primary position-absolute w-100"></div>
+                <div class="min-height-300 bg-warning position-absolute w-100"></div>
             @elseif (in_array(request()->route()->getName(),
                     ['profile-static', 'profile', 'user.index']))
                 <div class="position-absolute w-100 min-height-300 top-0"
                     style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
-                    <span class="mask bg-primary opacity-6"></span>
+                    <span class="mask bg-warning opacity-6"></span>
                 </div>
             @endif
             @include('layouts.navbars.auth.sidenav')
@@ -70,6 +70,13 @@
         @endif
     @endauth
 
+    <script src="https://demos.creative-tim.com/test/argon-dashboard-pro/assets/js/plugins/datatables.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      const dataTableBasic = new simpleDatatables.DataTable("#myTable", {
+        // searchable: false,
+        fixedHeight: true
+      });
+    </script>
     <!--   Core JS Files   -->
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>

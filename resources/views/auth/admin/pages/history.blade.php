@@ -55,13 +55,15 @@
 
     <div class="row mt-4 mx-4">
         <div class="card mb-4">
-            <div class="card-header pb-0">
+            <div class="card-header p-3">
                 <div class="flex justify-content-between align-items-center">
                     @if (session()->get('header'))
                         <h3 class="text-dark fw-bold text-capitalize">{{ session()->get('header') }}</h3>
                     @else
                         <h3 class="text-dark fw-bold">History</h3>
                     @endif
+                @if (auth()->user()->cekLevel == 'admin')     
+                
                     {{-- eksport --}}
                     <div class="dropdown">
                         <a href="#" class="btn bg-gradient-dark dropdown-toggle " data-bs-toggle="dropdown"
@@ -88,7 +90,7 @@
                     </div>
 
                 </div>
-                <div class="d-flex gap-2 mb-4">
+                <div class="d-md-flex d-sm-block gap-2 mb-4">
                     <p class="mb-0">Tampilkan : </p>
                     <a href="{{ route('history') }}" class="badge bg-gradient-success btn-block mb-0 border-0">Semua</a>
                     <button type="button" class="badge bg-gradient-success btn-block mb-0 border-0" data-bs-toggle="modal"
@@ -100,10 +102,12 @@
                         Barang
                     </button>
                     <button type="button" class="badge bg-gradient-success btn-block mb-0 border-0" data-bs-toggle="modal"
-                        data-bs-target="#historyBarang">
+                        data-bs-target="#historyStatus">
+
                         Status
                     </button>
                 </div>
+                @endif
 
 
                 <div class="card-body px-0 pt-0 pb-2">
@@ -111,98 +115,61 @@
                         <table class="table align-items-center mb-0" id="myTable">
                             <thead>
                                 <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Tanggal Order
 
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
-                                        Teknisi
                                     </th>
+
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         Barang
                                     </th>
-
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ruangan
-                                        
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-y">No Hp Ruangan</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Kerusakan</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Status</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Keterangan</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Kerusakan</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Tanggal Selesai</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
+                                        Teknisi
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Aksi
+                                    </th>
 
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-
-                                        Tanggal Order
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Tanggal Selesai
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Ruangan
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Nama Barang
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Kerusakan
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Status
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Keterangan
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Nama Teknisi
-                                    </th>                                    
                                 </tr>
 
                             </thead>
                             <tbody>
                                 @if (session()->get('history') != 'tidak ada')
                                     @foreach ($historys as $history)
+                                        @php
+                                            // $i += $order->jumlah_order;
+                                            $nohp = $history->ruangan->no_hp;
+                                            if (substr(trim($nohp), 0, 1) == '0') {
+                                                $nohp = '62' . substr(trim($nohp), 1);
+                                            }
+                                            // $array = json_decode($order->pesan, true);
+                                        @endphp
                                         <tr>
                                             <td>
-                                                <div class="d-flex px-3 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $history->user->nama }}</h6>
-                                                    </div>
-                                                </div>
+                                                <p class="text-sm font-weight-bold mb-0">
+                                                    {{ Carbon::parse($history->tanggal_order)->format('d-M-Y') }}</p>
                                             </td>
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">
-                                                    {{ $history->barang->jenis . ' ' . $history->barang->tipe }}</p>
-                                            </td>
+                                                    {{ $history->barang->jenis->jenis . ' ' . $history->barang->merk->merk . ' ' . $history->barang->tipe->tipe }}
 
-                                            <td>
-                                                <p class="text-sm font-weight-bold mb-0">
-                                                    {{-- {{$history->orders->ruangan_id}} --}}
                                                 </p>
                                             </td>
-                                            <td>
-                                                <p class="text-sm font-weight-bold mb-0">
-                                                    {{-- {{$history->orders->no_telephone}} --}}
-                                                </p>
-                                            </td>
-
-                                            
-                                            <td>
-                                                <p class="text-sm font-weight-bold mb-0"></i>
-                                                    {{ $history->pesan_kerusakan }}
-                                                </p>
-                                            </td>
-                                            
                                             <td>
                                                 <p
-                                                    class="text-sm font-weight-bold mb-0 {{ $history->status_selesai == 'tidak bisa diperbaiki' ? 'text-danger' : 'text-success' }}">
+                                                    class="text-sm font-weight-bold mb-0 {{ $history->status_selesai == 'rusak berat' ? 'text-danger' : 'text-success' }}">
                                                     <i class="text-success fa fa-check-circle" aria-hidden="true"></i>
                                                     {{ $history->status_selesai }}
                                                 </p>
@@ -257,12 +224,29 @@
 
                                             </td>
                                             <td>
-                                                <p class="text-sm font-weight-bold mb-0">
-                                                    {{ Carbon::parse($history->tanggal_order)->format('d-M-Y') }}</p>
+                                                <p class="text-sm font-weight-bold mb-0"></i>
+                                                    {{ $history->pesan_kerusakan }}
+                                                </p>
                                             </td>
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">
                                                     {{ Carbon::parse($history->tanggal_selesai)->format('d-M-Y') }}</p>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-3 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $history->user->nama }}</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-3 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <a href="https://wa.me/{{ $nohp }}/?text=SIORSEVEN%0Auntuk ruangan: {{ $history->ruangan->nama }}%0Aorderan barang dari barang{{ $history->barang->jenis->jenis }} {{ $history->barang->merk->merk }} {{ $history->barang->tipe->tipe }}mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: {{ auth()->user()->nama }}"
+                                                            target="_blank" class="badge bg-info p-2"><i
+                                                                class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a>
+                                                    </div>
+                                                </div>
                                             </td>
                                     @endforeach
                                 @endif
@@ -334,10 +318,41 @@
                     </div>
                 </div>
             </div>
+            {{-- histori perStatus --}}
+            <div class="modal fade" id="historyStatus" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-capitalize" id="exampleModalLabel">history sesusai status</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <form action="{{ route('history.status') }}" method="post">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="example-month-input" class="form-control-label">Status</label>
+                                    <select name="status_selesai" id="" class="form-control">
+                                        <option value="" selected>Pilih Status ..</option>
+                                        <option value="selesai">Selesai</option>
+                                        <option value="rusak berat">Rusak Berat</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
-         {{-- laporan bulan --}}
-         <div class="modal fade" id="laporanBulan" tabindex="-1" role="dialog" aria-hidden="true">
+        {{-- laporan bulan --}}
+        <div class="modal fade" id="laporanBulan" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -364,8 +379,8 @@
                 </div>
             </div>
         </div>
-        
-        {{-- laporan barang--}}
+
+        {{-- laporan barang --}}
         <div class="modal fade" id="laporanBarang" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

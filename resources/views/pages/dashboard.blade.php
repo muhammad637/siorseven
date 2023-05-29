@@ -39,7 +39,7 @@
                                         {{$orderOnprogress}}
                                     </h5>
                                     <p class="mb-0 btn btn-warning text-uppercase">
-                                       on progress dan pending
+                                       on progress
                                     </p>
                                 </div>
                             </div>
@@ -81,69 +81,7 @@
         
 
         {{-- table --}}
-        <div class="card my-4">
-            <h4 class=" text-uppercase mt-4 mx-2">list Order Terakhir</h4>
-            <hr>
-            <div class="table-responsive">
-                <table class="table align-items-center mb-0">
-                    <thead>
-                        <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                tanggal order
-                            </th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                ruangan
-                            </th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                barang
-                            </th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                status
-                            </th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                keterangan  
-                            </th>
-                            <th class="text-secondary opacity-7 text-xxs font-weight-bolder opacity-7 text-uppercase">
-                                Nama Teknisi
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-uppercase">
-                        @foreach ($orders as $order)
-                            <tr>
-                                <td>
-                                    <p class="ps-3 text-xs font-weight-bold mb-0">{{ $order->user->nama }}</p>
-                                <td>
-                                    <p class="text-xs font-weight-bold mb-0">
-                                        {{ $order->barang->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe }}
-                                    </p>
-                                </td>
-                                <td class="align-middle text-center text-sm">
-                                    @if ($order->status == 'selesai')
-                                        <p class="text-xs font-weight-bold mb-0">{{$order->status}}</p>
-                                        <p class="text-xs text-secondary mb-0">{{$order->status_selesai}}</p>
-                                    @elseif ($order->status == 'on progress')
-                                    <p class="text-xs font-weight-bold mb-0">{{$order->status}}</p>
-                                    @else
-                                    <p class="text-xs font-weight-bold mb-0">pending</p>
-                                    @endif
 
-                                </td>
-                                <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                                </td>
-                                <td class="align-middle">
-                                    <a href="" class="ms-4 badge bg-success" data-bs-toggle="modal"
-                                        data-bs-target="#keterangan-{{$order->id}}"><i
-                                            class="fa fa-envelope"></i></a>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-            </div>
-        </div> 
 
         <div class="row my-4">
             <div class="col-lg-12 mb-lg-0 mb-4 text-uppercase">

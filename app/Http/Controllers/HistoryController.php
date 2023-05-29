@@ -17,7 +17,7 @@ class HistoryController extends Controller
     public function index()
     {
         $history = Order::where('status', 'selesai')->orderBy('updated_at', 'desc')->get();
-        $barang = Barang::orderBy('jenis', 'asc')->get();
+        $barang = Barang::orderBy('jenis_id', 'asc')->get();
         if (auth()->user()->cekLevel == 'teknisi') {
             # code...
             $history = Order::where('user_id', auth()->user()->id)->where('status', 'selesai')->orderBy('updated_at', 'desc')->get();
@@ -67,10 +67,26 @@ class HistoryController extends Controller
             // $header = $history[0]->ruangan->nama_ruangan;
             session()->flash('history', $history);
         }
-        session()->flash('pageTitle', 'ruangan');
+        session()->flash('pageTitle', 'barang');
         return redirect()->back();
     }
 
+    public function historyStatus(Request $request)
+    {
+        // $barang = Barang::find($request->barang_id);
+        // $merk = $barang->merk->merk;
+        $history = Order::where('status_selesai', $request->status_selesai)->get();
+        session()->flash('header', " History service status $request->status_selesai");
+        // session()->flash('teks', "orderan di ruangan $request->nama_ruangan masih kosong");
+        session()->flash('history', 'tidak ada');
+        if (count($history) > 0) {
+            # code...
+            // $header = $history[0]->ruangan->nama_ruangan;
+            session()->flash('history', $history);
+        }
+        session()->flash('pageTitle', 'barang');
+        return redirect()->back();
+    }
 
     public function exportAll()
     {
@@ -94,7 +110,7 @@ class HistoryController extends Controller
     public function exportBarang(Request $request)
     {
         $order = Barang::find($request->barang_id);
-        $namaBarang = $order->jenis.'-'.$order->merk->merk.''.$order->tipe;
+        $namaBarang = $order->jenis . '-' . $order->merk->merk . '' . $order->tipe;
         $data = $this->dataLaporan(
             Order::whereNotNull('status')->where('barang_id', $request->barang_id)->get(),
             "LIST LAPORAN BY RUANGAN $order->barang-"

@@ -29,6 +29,7 @@ use App\Http\Controllers\MasterUserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\notifikasiController;
+use App\Http\Controllers\RuanganController;
 
 
 
@@ -68,6 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
 		// history
 		Route::post('/pages/history/bulan', [HistoryController::class, 'historyBulan'])->name('history.bulan');
 		Route::post('/pages/history/barang', [HistoryController::class, 'historyBarang'])->name('history.barang');
+		Route::post('/pages/history/status', [HistoryController::class, 'historyStatus'])->name('history.status');
 		Route::get('/pages/history/exportAll', [HistoryController::class, 'exportAll'])->name('history.exportAll');
 		Route::post('/pages/history/exportBulan', [HistoryController::class, 'exportBulan'])->name('history.exportBulan');
 		Route::post('/pages/history/exportBarang', [HistoryController::class, 'exportBarang'])->name('history.exportBarang');
@@ -77,17 +79,36 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/coba', function () {
 			return 'ini buat admin';
 		});
+
 		// master user
 		Route::resource('/master/user', MasterUserController::class);
 		Route::get('/master/user/{user:id}/nonaktif', [MasterUserController::class, 'nonaktif'])->name('user.nonaktif');
 		Route::get('/master/user/{user:id}/aktif', [MasterUserController::class, 'aktif'])->name('user.aktif');
 
-		Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
+		// barang
 		Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
+		Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
+		// jenis barang
+		Route::get('master/barang/jenis/{jenis:id}/aktif', [BarangController::class, 'jenisAktif'])->name('jenis.barang.aktif');
+		Route::get('master/barang/jenis/{jenis:id}/nonaktif', [BarangController::class, 'jenisNonaktif'])->name('jenis.barang.nonaktif');
+		// merk barang
+		Route::get('master/barang/merk/{merk:id}/aktif', [BarangController::class, 'merkAktif'])->name('merk.barang.aktif');
+		Route::get('master/barang/merk/{merk:id}/nonaktif', [BarangController::class, 'merkNonaktif'])->name('merk.barang.nonaktif');
+		// tipe barang
+		Route::get('master/barang/tipe/{tipe:id}/aktif', [BarangController::class, 'tipeAktif'])->name('tipe.barang.aktif');
+		Route::get('master/barang/tipe/{tipe:id}/nonaktif', [BarangController::class, 'tipeNonaktif'])->name('tipe.barang.nonaktif');
 
 		Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
 		Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
 		Route::put('master/barang/{barang:id}/nonaktif', [BarangController::class, 'nonaktif'])->name('nonaktif.barang');
+
+
+		// ruangan
+		Route::get('master/ruangan', [RuanganController::class,'index'])->name('ruangan');
+		Route::post('master/ruangan', [RuanganController::class,'store'])->name('store.ruangan');
+		Route::put('master/ruangan/{ruangan:id},/aktif', [RuanganController::class,'ruanganAktif'])->name('ruangan.aktif');
+		Route::put('master/ruangan/{ruangan:id},/update', [RuanganController::class,'update'])->name('update.ruangan');
+		Route::put('master/ruangan/{ruangan:id}/nonaktif', [RuanganController::class,'ruanganNonaktif'])->name('ruangan.nonaktif');
 	});
 
 	Route::group(['middleware' => 'cekLevel:teknisi'], function () {

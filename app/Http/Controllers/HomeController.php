@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use NunoMaduro\Collision\Adapters\Phpunit\Printer;
 
@@ -31,18 +32,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
         $user = User::where('cekLevel', 'teknisi')->get();
+        $orderOnprogress = Order::where('user_id', auth()->user()->id)
+            ->where('status', 'on progress')->count();
+        $orders = Order::where('user_id', auth()->user()->id)
+            ->orderBy('created_at', 'desc')->limit(10)->get();
         $barang = Barang::all()->count();
-        $order = Order::where('status','on progress')->orWhere('status',null)->count();
+        if (Auth::user()->cekLevel == 'admin') {
+            $orderOnprogress = Order::where('status', 'on progress')->count();
+            $orders = Order::orderBy('created_at', 'desc')->limit(10)->get();
+        }
         // return $komputer;
         return view('pages.dashboard', [
             'jumlahBarang' => $barang,
-            'orderOnprogress' => $order,
+            'orderOnprogress' => $orderOnprogress,
             'users' => $user,
-            'orders' => Order::orderBy('created_at','desc')->limit(10)->get(),
+            'orders' => $orders,
             'parse' => function ($date) {
-                return Carbon::parse($date)->format('d-M-Y');}
+                return Carbon::parse($date)->format('d-M-Y');
+            }
         ]);
     }
 }
