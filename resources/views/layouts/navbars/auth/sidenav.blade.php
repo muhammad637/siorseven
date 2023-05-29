@@ -5,8 +5,9 @@
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="{{ route('home') }}"
             target="_blank">
+            
             <img src="{{asset('./img/logo.png')}}" class="navbar-brand-img h-100 ms-5" alt="main_logo">
-            <span class="ms-1 fw-bold text-uppercase fs-6">siorseven</span>
+            <span class="ms-1 fw-bold text-uppercase fs-6">SIORSEVEN</span>
         </a>
     </div>
     <hr class="horizontal dark mt-0">

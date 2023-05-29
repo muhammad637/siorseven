@@ -169,7 +169,7 @@
                                         $('#data').html(`
                                         <li class="dropdown-header">
                                             pesan terakhir
-                                                <a href="{{ route('notifi') }}" class="text-decoration-none">
+                                                <a href="{{ route('notifikasi') }}" class="text-decoration-none">
                                                     <span class="badge rounded-pill bg-primary p-2 ms-2">View all
                                                     </span>
                                                 </a>

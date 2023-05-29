@@ -60,7 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('pages/order', [OrderController::class, 'index'])->name('order');
 
 	 // notifikasi
-	 Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifi');
+	 Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
 	 Route::get('/notifikasi/mark', [NotifikasiController::class, 'mark'])->name('notifi.mark');
 
 

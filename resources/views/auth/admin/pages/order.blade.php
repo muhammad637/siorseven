@@ -373,7 +373,7 @@
                                 <div class="form-group">
                                     <div class="input-group mb-4">
                                         <select class="form-control" name="ruangan_id" type="text">
-                                            <option value="">Pilih Barang</option>
+                                            <option value="">Pilih Ruangan</option>
                                             @foreach ($ruangans as $ruangan)
                                                 <option value="{{ $ruangan->id }}">{{ $ruangan->nama }}||
                                                     {{ $ruangan->no_hp }}</option>

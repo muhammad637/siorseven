@@ -19,7 +19,7 @@ class notifikasiController extends Controller
         //
         $user = User::with('notifikasi')->find(auth()->user()->id);
         $notifikasi = $user->notifikasi()->orderBy('created_at', 'desc')->get();
-        return $notifikasi;
+        // return $notifikasi;
         return view('pages.notifikasi', [
             'title' => 'notifikasi',
             'notifikasis' => $notifikasi
