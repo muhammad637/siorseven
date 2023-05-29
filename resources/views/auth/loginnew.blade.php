@@ -38,7 +38,11 @@
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" name="password" value="secret">@error('password') <p class="text-danger text-xs pt-1">{{$message}}</p>@enderror
                   </div>
-                  <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Login</button>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" name="remember" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                </div>
+                  <button type="submit" class="btn btn-lg btn-lg w-100 mt-4 mb-0" style="background-color: #FB6340; color:white;">Login</button>
                 </form>
                 
               </div>
