@@ -81,7 +81,7 @@
         
 
         {{-- table --}}
-         
+
 
         <div class="row my-4">
             <div class="col-lg-12 mb-lg-0 mb-4 text-uppercase">
