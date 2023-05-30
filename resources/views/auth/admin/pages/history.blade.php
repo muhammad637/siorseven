@@ -303,8 +303,8 @@
                                     <select name="barang_id" id="" class="form-control">
                                         <option value="" selected>Pilih Barang ..</option>
                                         @foreach ($barangs as $barang)
-                                            <option value="{{ $barang->id }}">{{ $barang->jenis }} -
-                                                {{ $barang->merk->merk }} - {{ $barang->tipe }}</option>
+                                            <option value="{{ $barang->id }}">{{ $barang->jenis->jenis }} -
+                                                {{ $barang->merk->merk }} - {{ $barang->tipe->tipe }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -398,8 +398,8 @@
                                 <select name="barang_id" id="" class="form-control">
                                     <option value="" selected>Pilih Barang ..</option>
                                     @foreach ($barangs as $barang)
-                                        <option value="{{ $barang->id }}">{{ $barang->jenis }} -
-                                            {{ $barang->merk->merk }} - {{ $barang->tipe }}</option>
+                                        <option value="{{ $barang->id }}">{{ $barang->jenis->jenis }} -
+                                            {{ $barang->merk->merk }} - {{ $barang->tipe->tipe }}</option>
                                     @endforeach
                                 </select>
                             </div>

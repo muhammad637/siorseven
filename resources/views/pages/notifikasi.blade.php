@@ -15,7 +15,7 @@
         </div>
         @if (count($notifikasis) > 0)
             @foreach ($notifikasis as $notif)
-                <div class="alert {{ $notif->status == 'berhasil' ? 'alert-success' : 'alert-danger' }} alert-dismissible fade show"
+                <div class="alert {{ $notif->status == 'berhasil' ? 'alert-success' : 'alert-danger' }} alert-dismissible fade show" style="background-color: #FB6340;"
                     role="alert">
                     <div class="d-flex justify-content-between text-white">
                         <div class="">

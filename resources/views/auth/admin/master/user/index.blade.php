@@ -1,6 +1,8 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
+
     @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'Master'])
+    
     {{-- <div class="card shadow-lg mx-4 card-profile-bottom">
     <div class="card-body p-3">
         <div class="row gx-4">
@@ -296,9 +298,11 @@
                                     <label for="password">Password</label>
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="Password" name="password"
-                                            type="password">
-                                        <span class="input-group-text"><i class="fa fa-key"
-                                                aria-hidden="true"></i></span>
+                                            type="password" id="pass">
+                                            <div class="border rounded-md px-1 pt-2" id="pass" onclick="change()">
+                                                <i id="eye"></i>
+                                            </div>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
