@@ -30,6 +30,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\notifikasiController;
 use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\OutletMapController;
+use App\Http\Controllers\OutletController;
 
 
 
@@ -51,6 +53,7 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 Route::get('pages/order', [OrderController::class, 'index'])->name('order');
 Route::post('pages/order', [OrderController::class, 'store'])->name('store.order');
+Route::get('/outlets/map', [OutletMapController::class,'index']);
 
 
 
@@ -59,9 +62,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/pages/history', [HistoryController::class, 'index'])->name('history');
 	Route::get('pages/order', [OrderController::class, 'index'])->name('order');
 
-	 // notifikasi
-	 Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
-	 Route::get('/notifikasi/mark', [NotifikasiController::class, 'mark'])->name('notifi.mark');
+	// notifikasi
+	Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
+	Route::get('/notifikasi/mark', [NotifikasiController::class, 'mark'])->name('notifi.mark');
+
+	Route::get('/our_outlets', [OutletMapController::class, 'index'])->name('outlet_map.index');
+	Route::resource('outlets', OutletController::class);
 
 
 	Route::group(['middleware' => 'cekLevel:admin'], function () {
@@ -104,11 +110,15 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 		// ruangan
-		Route::get('master/ruangan', [RuanganController::class,'index'])->name('ruangan');
-		Route::post('master/ruangan', [RuanganController::class,'store'])->name('store.ruangan');
-		Route::put('master/ruangan/{ruangan:id},/aktif', [RuanganController::class,'ruanganAktif'])->name('ruangan.aktif');
-		Route::put('master/ruangan/{ruangan:id},/update', [RuanganController::class,'update'])->name('update.ruangan');
-		Route::put('master/ruangan/{ruangan:id}/nonaktif', [RuanganController::class,'ruanganNonaktif'])->name('ruangan.nonaktif');
+		Route::get('master/ruangan', [RuanganController::class, 'index'])->name('ruangan');
+		Route::post('master/ruangan', [RuanganController::class, 'store'])->name('store.ruangan');
+		Route::put('master/ruangan/{ruangan:id},/aktif', [RuanganController::class, 'ruanganAktif'])->name('ruangan.aktif');
+		Route::put('master/ruangan/{ruangan:id},/update', [RuanganController::class, 'update'])->name('update.ruangan');
+		Route::put('master/ruangan/{ruangan:id}/nonaktif', [RuanganController::class, 'ruanganNonaktif'])->name('ruangan.nonaktif');
+
+
+		Route::get('/our_outlets', [OutletMapController::class, 'index'])->name('outlet_map.index');
+		Route::resource('outlets', OutletController::class);
 	});
 
 	Route::group(['middleware' => 'cekLevel:teknisi'], function () {

@@ -23,8 +23,10 @@ class DatabaseSeeder extends Seeder
             'no_telephone' => '085156327536',
             'alamat' => 'jl cokroaminoto'
         ]);
+
         DB::table('merk_barangs')->insert([
             'merk' => 'samsung'
         ]);
+        factory(Outlate::class,10)->create();
     }
 }

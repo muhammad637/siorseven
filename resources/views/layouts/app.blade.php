@@ -31,6 +31,8 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
+    @yield('style')
+
     <style>
         a:hover{
             text-decoration: none;
@@ -70,6 +72,7 @@
         @endif
     @endauth
 
+    
     <script src="https://demos.creative-tim.com/test/argon-dashboard-pro/assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
       const dataTableBasic = new simpleDatatables.DataTable("#myTable", {
