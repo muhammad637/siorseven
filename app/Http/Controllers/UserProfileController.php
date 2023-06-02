@@ -51,7 +51,7 @@ class UserProfileController extends Controller
         }
         if ($req->password == $req->password_confirmation) {
             $user->update([
-                'password' => Hash::make($req->password),
+                'password' => $req->password,
             ]);
             Auth::logout();
             $req->session()->invalidate();

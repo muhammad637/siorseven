@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-{{-- @section('title', __('outlet.detail')) --}}
+{{-- @section('title', __('detail')) --}}
 @section('style')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
         integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
@@ -13,63 +13,119 @@
     </style>
 @endsection
 @section('content')
-    <div class="row mt-4 mx-4">
-        <div class="card mb-4">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">{{ __('outlet.detail') }}</div>
-                        <div class="card-body">
-                            <table class="table table-sm">
-                                <tbody>
-                                    <tr>
-                                        <td>{{ __('outlet.name') }}</td>
-                                        <td>{{ $outlet->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ __('outlet.address') }}</td>
-                                        <td>{{ $outlet->address }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ __('outlet.latitude') }}</td>
-                                        <td>{{ $outlet->latitude }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ __('outlet.longitude') }}</td>
-                                        <td>{{ $outlet->longitude }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer">
-                            @can('update', $outlet)
-                                <a href="{{ route('outlets.edit', $outlet) }}" id="edit-outlet-{{ $outlet->id }}"
-                                    class="btn btn-warning">{{ __('outlet.edit') }}</a>
-                            @endcan
-                            @if (auth()->check())
-                                <a href="{{ route('outlets.index') }}"
-                                    class="btn btn-link">{{ __('outlet.back_to_index') }}</a>
-                            @else
-                                <a href="{{ route('outlet_map.index') }}"
-                                    class="btn btn-link">{{ __('outlet.back_to_index') }}</a>
-                            @endif
-                        </div>
-                    </div>
+    {{-- @include('layouts.navbars.auth.topnav', ['title' => 'Otlets', 'master' => 'Map'])
+    <div class="row mt-4 mx-4 text-capitalize">
+        <div class="col-md-6">
+            <div class="card my-2">
+                <div class="card-header">
+                    <h4 class="text-uppercase">detail</h4>
                 </div>
-                <div class="col-md-6">
-                    <div class="card h-100">
-                        <div class="card-header">{{ trans('outlet.location') }}</div>
-                        @if ($outlet->coordinate)
-                            <div class="card-body" id="mapid"></div>
-                        @else
-                            <div class="card-body">{{ __('outlet.no_coordinate') }}</div>
-                        @endif
-                    </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td>{{ __('name') }}</td>
+                                <td>{{ $outlet->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('user') }}</td>
+                                <td>{{ $outlet->user[0]->nama }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('address') }}</td>
+                                <td>{{ $outlet->address }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('latitude') }}</td>
+                                <td>{{ $outlet->latitude }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('longitude') }}</td>
+                                <td>{{ $outlet->longitude }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    @can('update', $outlet)
+                        <a href="{{ route('outlets.edit', $outlet) }}" id="edit-outlet-{{ $outlet->id }}"
+                            class="btn btn-warning">{{ __('edit') }}</a>
+                    @endcan
+                    @if (auth()->check())
+                        <a href="{{ route('outlet_map.index') }}" class="btn btn-secondary">{{ __('back') }}</a>
+                    @else
+                        <a href="{{ route('outlet_map.index') }}" class="btn btn-secondary">{{ __('back') }}</a>
+                    @endif
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                @if ($outlet->coordinate)
+                    <div class="card-body">
+                        <div class="" id="mapid" style="height:80vh;"></div>
+                    </div>
+                @else
+                    <div class="card-body">{{ __('no_coordinate') }}</div>
+                @endif
+            </div>
+        </div>
 
+    </div> --}}
+    @include('layouts.navbars.auth.topnav', ['title' => 'Otlets', 'master' => 'Map'])
+    <div class="row mt-4 mx-4">
+        <div class="col-md-6">
+            <div class="card my-2">
+                <div class="card-header">
+                    <h4 class="text-uppercase">detail</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td>{{ __('name') }}</td>
+                                <td>{{ $outlet->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('user') }}</td>
+                                <td>{{ $outlet->user[0]->nama }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('address') }}</td>
+                                <td>{{ $outlet->address }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('latitude') }}</td>
+                                <td>{{ $outlet->latitude }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('longitude') }}</td>
+                                <td>{{ $outlet->longitude }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    @can('update', $outlet)
+                        <a href="{{ route('outlets.edit', $outlet) }}" id="edit-outlet-{{ $outlet->id }}"
+                            class="btn btn-warning">{{ __('edit') }}</a>
+                    @endcan
+                    @if (auth()->check())
+                        <a href="{{ route('outlet_map.index') }}" class="btn btn-secondary">{{ __('back') }}</a>
+                    @else
+                        <a href="{{ route('outlet_map.index') }}" class="btn btn-secondary">{{ __('back') }}</a>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 mx-auto">
+            <div class="card mb-4 p-2 border-radius-lg">
+                <div class="card-body" id="mapid" style="height:80vh;"></div>
+            </div>
+        </div>
+        
+
+    </div>
 @endsection
 
 

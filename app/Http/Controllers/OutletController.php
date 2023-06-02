@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Outlet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,7 +10,7 @@ use App\Http\Controllers\Controller;
 class OutletController extends Controller
 {
     //
-     /**
+    /**
      * Display a listing of the outlet.
      *
      * @return \Illuminate\View\View
@@ -17,11 +18,11 @@ class OutletController extends Controller
     public function index()
     {
         // $this->authorize('manage_outlet');
-        $outletQuery = Outlet::query();
-        $outletQuery->where('name', 'like', '%'.request('q').'%');
-        $outlets = $outletQuery->paginate(25);
+        // $outletQuery = Outlet::query();
+        // $outletQuery->where('name', 'like', '%' . request('q') . '%');
+        // $outlets = $outletQuery->paginate(25);
         // return $outletQuery;
-        return view('outlets.index', compact('outlets'));
+        return view('outlets.map', compact('outlets'));
     }
 
     /**
@@ -32,8 +33,10 @@ class OutletController extends Controller
     public function create()
     {
         $this->authorize('create', new Outlet);
-
-        return view('outlets.create');
+        $users = User::where('outlet_id', null)->get();
+        return view('outlets.create', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -45,16 +48,19 @@ class OutletController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', new Outlet);
-
         $newOutlet = $request->validate([
             'name'      => 'required|max:60',
             'address'   => 'nullable|max:255',
             'latitude'  => 'nullable|required_with:longitude|max:15',
             'longitude' => 'nullable|required_with:latitude|max:15',
         ]);
-        $newOutlet['creator_id'] = auth()->user()->id;
-
         $outlet = Outlet::create($newOutlet);
+        // return $outlet->id;
+        $user = User::find($request->user_id);
+        $user->update(['outlet_id' => $outlet->id]);
+        // return $user;
+        // $newOutlet['creator_id'] = auth()->user()->id;
+
 
         return redirect()->route('outlets.show', $outlet);
     }
@@ -79,8 +85,11 @@ class OutletController extends Controller
     public function edit(Outlet $outlet)
     {
         $this->authorize('update', $outlet);
-
-        return view('outlets.edit', compact('outlet'));
+        $users = User::all();
+        return view('outlets.edit', [
+            'outlet' => $outlet,
+            'users' => $users
+        ]);
     }
 
     /**
@@ -101,7 +110,8 @@ class OutletController extends Controller
             'longitude' => 'nullable|required_with:latitude|max:15',
         ]);
         $outlet->update($outletData);
-
+        User::find($request->user_id)
+            ->update(['outlet_id' => $outlet->id]);
         return redirect()->route('outlets.show', $outlet);
     }
 
@@ -115,13 +125,11 @@ class OutletController extends Controller
     public function destroy(Request $request, Outlet $outlet)
     {
         $this->authorize('delete', $outlet);
-
         $request->validate(['outlet_id' => 'required']);
-
+        User::where('outlet_id', $outlet->id)->update(['outlet_id' => null]);
         if ($request->get('outlet_id') == $outlet->id && $outlet->delete()) {
-            return redirect()->route('outlets.index');
+            return redirect()->route('outlet_map.index');
         }
-
         return back();
     }
 }

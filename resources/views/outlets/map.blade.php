@@ -10,11 +10,49 @@
     </style>
 @endsection
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'pages'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Otlets', 'master' => 'Map'])
     <div class="row mt-4 mx-4">
-        <div class="card mb-4 bg-dark p-2 border-radius-lg">
-            <div class="card-body" id="mapid"></div>
+        <div class="col-md-5">
+            <div class="card mb-4">
+              <h4 class="px-4 pt-5">List Outlet</h4>
+                <div class="table-responsive">
+                    <table class="table table-sm table-responsive" id="myTable">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th>Nama Outlet</th>
+                                <th>Alamat</th>
+                                {{-- <th>Lattitude</th>
+                                <th>Longitude</th> --}}
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($outlets as $outlet)
+                                <tr class="text-capitalize">
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-sm font-weight-bold mb-0">{!! $outlet->name_link !!}</td>
+                                    <td class="text-sm font-weight-bold mb-0">{{ $outlet->address }}</td>
+                                    {{-- <td class="text-sm font-weight-bold mb-0">{{ $outlet->latitude }}</td>
+                                    <td class="text-sm font-weight-bold mb-0">{{ $outlet->longitude }}</td> --}}
+                                    <td class="text-center">
+                                        <a href="{{ route('outlets.show', $outlet) }}" id="show-outlet-{{ $outlet->id }}"
+                                            class="badge bg-warning">Show</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+        <div class="col-md-7 mx-auto">
+            <div class="card mb-4 p-2 border-radius-lg">
+                <div class="card-body" id="mapid" style="height:80vh;"></div>
+            </div>
+        </div>
+        
+
     </div>
 @endsection
 @push('js')

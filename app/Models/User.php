@@ -64,6 +64,10 @@ class User extends Authenticatable
     public function notifikasi(){
         return $this->belongsToMany(Notifikasi::class,'notifikasis_users');
     }
+    
+    public function outlets(){
+        return $this->belongsTo(Outlet::class,'outlet_id');
+    }
 
     public function order(){
         return $this->hasMany(Order::class);
@@ -72,4 +76,6 @@ class User extends Authenticatable
     public static function adminId(){
         return User::where('cekLevel','admin')->get()->pluck('id');
     }
+
+    
 }

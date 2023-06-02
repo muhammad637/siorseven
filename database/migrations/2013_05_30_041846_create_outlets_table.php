@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -19,10 +20,8 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('latitude', 15)->nullable();
             $table->string('longitude', 15)->nullable();
-            $table->unsignedBigInteger('creator_id');
             $table->timestamps();
             
-            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
@@ -35,4 +34,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('outlets');
     }
+
+    
 };

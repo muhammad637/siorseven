@@ -234,28 +234,22 @@
                                     $("#jenis-{{ $barang->id }}").change(function() {
                                         if ($(this).val() === 'jenis_other') {
                                             $("#jenis_other-{{ $barang->id }}").show();
-                                            alert('oke')
                                         } else {
                                             $("#jenis_other-{{ $barang->id }}").hide();
-                                            alert("not oke {{ $barang->id }}")
                                         }
                                     });
                                     $("#merk-{{ $barang->id }}").change(function() {
                                         if ($(this).val() === 'merk_other') {
                                             $("#merk_other-{{ $barang->id }}").show();
-                                            alert('oke')
                                         } else {
                                             $("#merk_other-{{ $barang->id }}").hide();
-                                            alert("not oke {{ $barang->id }}")
                                         }
                                     });
                                     $("#tipe-{{ $barang->id }}").change(function() {
                                         if ($(this).val() === 'tipe_other') {
                                             $("#tipe_other-{{ $barang->id }}").show();
-                                            alert('oke')
                                         } else {
                                             $("#tipe_other-{{ $barang->id }}").hide();
-                                            alert("not oke {{ $barang->id }}")
                                         }
                                     });
                                 });

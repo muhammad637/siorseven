@@ -1,11 +1,10 @@
-<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
+<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
     id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="{{ route('home') }}"
             target="_blank">
-            
             <img src="{{asset('./img/logo.png')}}" class="navbar-brand-img h-100 ms-5" alt="main_logo">
             <span class="ms-1 fw-bold text-uppercase fs-6">SIORSEVEN</span>
         </a>
@@ -17,7 +16,7 @@
                 <a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}" href="{{ route('home') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                        <i class="ni ni-tv-2 text-warning text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
@@ -30,7 +29,7 @@
                 <a class="nav-link {{ str_contains(request()->url(), 'order') == true ? 'active' : '' }}" href="{{ route('order') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-settings text-sm opacity-10 text-dark"></i>
+                        <i class="ni ni-settings text-sm opacity-10 text-success"></i>
                     </div>
                     <span class="nav-link-text ms-1 text-capitalize">service request</span>
                 </a>
@@ -39,7 +38,7 @@
                 <a class="nav-link {{  str_contains(request()->url(), 'history') == true ? 'active' : '' }}" href="{{ route('history') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa fa-history text-dark text-sm opacity-10 text-success"></i>
+                        <i class="fa fa-history text-info text-sm opacity-10 text-success"></i>
                     </div>
                     <span class="nav-link-text ms-1 text-capitalize">history</span>
                 </a>
@@ -48,7 +47,7 @@
                 <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa fa-users text-dark text-sm opacity-10"></i>
+                        <i class="fa fa-users text-secondary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Profile</span>
                 </a>
@@ -67,7 +66,7 @@
                <a class="nav-link {{ Route::currentRouteName() == 'barang' ? 'active' : '' }}" href="{{ route('barang') }}">
                    <div
                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa fa-cube text-dark text-sm opacity-10"></i>
+                        <i class="fa fa-cube text-primary text-sm opacity-10"></i>
                    </div>
                    <span class="nav-link-text ms-1 text-capitalize">Barang</span>
                </a>
@@ -75,7 +74,7 @@
            <li class="nav-item">
                <a class="nav-link {{ str_contains(request()->url(), 'user') == true ? 'active' : '' }}" href="{{ route('user.index') }}">
                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="fa fa-users text-dark text-sm opacity-10"></i>
+                    <i class="fa fa-users text-secondary text-sm opacity-10"></i>
                    </div>
                    <span class="nav-link-text ms-1 text-capitalize">User Management</span>
                </a>
@@ -83,9 +82,18 @@
            <li class="nav-item">
                <a class="nav-link {{ str_contains(request()->url(), 'ruangan') == true ? 'active' : '' }}" href="{{ route('ruangan') }}">
                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="fa fa-users text-dark text-sm opacity-10"></i>
+                    <i class="fa fa-hospital-o text-info text-sm opacity-10" aria-hidden="true"></i>
                    </div>
                    <span class="nav-link-text ms-1 text-capitalize">Ruangan</span>
+               </a>
+           </li>
+           <li class="nav-item">
+               <a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}" href="{{ route('outlet_map.index') }}">
+                   <div
+                       class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                       <i class="fa fa-map text-success text-sm opacity-10" aria-hidden="true"></i>
+                   </div>
+                   <span class="nav-link-text ms-1">Lokasi</span>
                </a>
            </li>
             @endif

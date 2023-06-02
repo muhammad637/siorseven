@@ -80,6 +80,9 @@
                                         Status</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        alamat</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aksi</th>
                                 </tr>
 
@@ -111,6 +114,11 @@
                                                 <span
                                                     class="badge badge-sm {{ $user->status == 'nonaktif' ? 'bg-gradient-secondary' : 'bg-gradient-success' }}">{{ $user->status }}</span>
                                             </td>
+                                            @if ($user->outlets_id == null)
+                                                <td> - </td>
+                                            @else
+                                            <td class="text-center text-sm">{{$user->outlets->address}}</td>
+                                            @endif
 
                                             <td class="align-middle text-end">
                                                 <div
