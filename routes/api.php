@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\OutletController;
+use App\Models\Outlet;
+use App\Http\Resources\Outlet as OutletResource;
 
 
 /*
@@ -16,4 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::group(['as' => 'api.', 'namespace' => 'Api'], function () {
+    /*
+     * Outlets Endpoints
+     */
+    Route::get('outlets', [OutletController::class,'index'])->name('outlets.index.lain');
 });

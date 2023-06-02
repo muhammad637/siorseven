@@ -21,10 +21,12 @@ class DatabaseSeeder extends Seeder
             // 'email' => 'admin@argon.com',
             'password' => bcrypt('secret'),
             'no_telephone' => '085156327536',
-            'alamat' => 'jl cokroaminoto'
+            // 'alamat' => 'jl cokroaminoto'
         ]);
+
         DB::table('merk_barangs')->insert([
             'merk' => 'samsung'
         ]);
+        // factory(Outlate::class,10)->create();
     }
 }

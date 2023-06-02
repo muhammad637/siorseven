@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // master barang
-   
-    
+
+
     $('#jenis').change(function () {
         if ($(this).val() === 'jenis_other') {
             $('#jenis_other').show();

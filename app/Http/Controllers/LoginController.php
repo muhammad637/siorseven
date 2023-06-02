@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Password;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -23,13 +25,13 @@ class LoginController extends Controller
     {
         // dd($request->all());
         $credentials = $request->validate([
-            'username' => ['required'],
-            'password' => ['required'],
+            'username' => 'required',
+            'password' => 'required',
         ]);
 
         if (Auth::attempt([...$credentials, "status" => "aktif"])) {
                 $request->session()->regenerate();
-                return redirect()->intended('dashboard');
+                return redirect()->intended('dashboard')->with('success',"selamat datang ".auth()->user()->nama);
             
         }
         elseif (Auth::attempt([...$credentials, "status" => "nonaktif"])) {
