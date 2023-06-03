@@ -4,7 +4,8 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'pages'])
-    <div class="row mt-4 mx-4">
+    <div class="container-fluid py-4">
+    {{-- <div class="row mt-4 mx-4"> --}}
         <div class="card mb-4">
             <div class="card-header pb-0">
                 <h5>List Service Request</h5>
@@ -151,7 +152,6 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn bg-gradient-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn bg-gradient-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>
