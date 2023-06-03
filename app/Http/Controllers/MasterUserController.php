@@ -115,10 +115,10 @@ class MasterUserController extends Controller
                 $validatedData['password'] = $user->password;
             }
             $user->update($validatedData);
-            return redirect()->back();
+            return redirect()->back()->with('toast_success','data user berhasil diupdate');
         } catch (\Throwable $th) {
             //throw $th;
-            return $th->getMessage();
+            return redirect()->back()->with('error',$th->getMessage());
         }
     }
 

@@ -285,10 +285,9 @@
                                     <label for="password">Password</label>
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="Password" name="password"
-                                            type="password" id="current_password">
-                                        <div class="border rounded-md px-1 pt-2" id="mybutton">
+                                            type="password" id="currentPassword">
+                                        <span class="border rounded-md px-1 pt-2" id="mybutton">
                                             <i id="eye1"></i>
-                                        </div>
                                         </span>
                                     </div>
                                 </div>
