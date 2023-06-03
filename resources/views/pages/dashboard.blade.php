@@ -220,7 +220,6 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn bg-gradient-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn bg-gradient-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>

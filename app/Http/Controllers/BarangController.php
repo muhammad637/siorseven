@@ -114,7 +114,7 @@ class BarangController extends Controller
             $tipeData = $request->validate(['tipe' => 'required|unique:tipe_barangs']);
             TipeBarang::create($tipeData);
             $tipe_id = TipeBarang::latest()->first()->id;
-            return $tipe_id;
+            
         }
 
         // $validatedData = Validator::make(['jenis_id','merk_id','tipe_id'],[
