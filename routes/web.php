@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 		// master user
 		Route::resource('/master/user', MasterUserController::class);
+		Route::get('/master/user/1/edit',[MasterUserController::class,'syalal']);
 		Route::get('/master/user/{user:id}/nonaktif', [MasterUserController::class, 'nonaktif'])->name('user.nonaktif');
 		Route::get('/master/user/{user:id}/aktif', [MasterUserController::class, 'aktif'])->name('user.aktif');
 

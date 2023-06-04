@@ -26,6 +26,15 @@ class MasterUserController extends Controller
             ]
         );
     }
+
+    public function syalal()
+    {
+        if (view()->exists("pages.profile-static")) {
+            return view("pages.profile-static");
+        }
+
+        return abort(404);
+    }
     /**
      * Show the form for creating a new resource.
      *

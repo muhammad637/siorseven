@@ -1,4 +1,4 @@
-<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
+<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 {{ Route::currentRouteName() == 'outlets.show' || Route::currentRouteName() == 'outlets.edit' || Route::currentRouteName() == 'outlets.delete' ? 'd-none d-md-block' : ''}}"
     id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
@@ -10,7 +10,7 @@
         </a>
     </div>
     <hr class="horizontal dark mt-0">
-    <div class="navbar w-auto shadow-none" id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse w-auto shadow-none" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}" href="{{ route('home') }}">
@@ -99,6 +99,8 @@
             @endif
         </ul>
     </div>
-    
 </aside>
+
+
+
 
