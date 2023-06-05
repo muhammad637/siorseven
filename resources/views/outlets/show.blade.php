@@ -20,30 +20,32 @@
                     <h4 class="text-uppercase">detail</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-sm">
-                        <tbody>
-                            <tr>
-                                <td>{{ __('name') }}</td>
-                                <td>{{ $outlet->name }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('user') }}</td>
-                                <td>{{ $outlet->user[0]->nama }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('address') }}</td>
-                                <td>{{ $outlet->address }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('latitude') }}</td>
-                                <td>{{ $outlet->latitude }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('longitude') }}</td>
-                                <td>{{ $outlet->longitude }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>{{ __('name') }}</td>
+                                    <td>{{ $outlet->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ __('user') }}</td>
+                                    <td>{{ $outlet->user[0]->nama }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ __('address') }}</td>
+                                    <td>{{ $outlet->address }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ __('latitude') }}</td>
+                                    <td>{{ $outlet->latitude }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ __('longitude') }}</td>
+                                    <td>{{ $outlet->longitude }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="card-footer">
                     @can('update', $outlet)
