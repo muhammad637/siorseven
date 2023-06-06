@@ -4,7 +4,7 @@
     <div class="row mt-4 mx-4 ">
 
         <div class="card px-3 pt-0 pb-2">
-            <div class="">
+            <div class="mt-3 mx-3">
                 <h5>List Barang</h5>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
                     Tambah
