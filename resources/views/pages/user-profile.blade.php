@@ -42,7 +42,7 @@
 
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#profile-change-password">ubah
+                                        data-bs-target="#profile-change-password">Ubah
                                         Password</button>
                                 </li>
 

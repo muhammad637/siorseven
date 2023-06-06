@@ -77,7 +77,7 @@
         <div class="col-md-6">
             <div class="card my-2">
                 <div class="card-header">
-                    <h4 class="text-uppercase">detail</h4>
+                    <h4 class="text-uppercase">Detail</h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-sm">

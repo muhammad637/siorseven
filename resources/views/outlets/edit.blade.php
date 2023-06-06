@@ -8,7 +8,7 @@
 
     <style>
         #mapid {
-            height: 300px;
+            height: 50px;
         }
     </style>
 @endsection
