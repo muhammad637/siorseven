@@ -1,15 +1,15 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'Master'])
-
-
     <div class="row mt-4 mx-4">
         <div class="card mb-4">
             <div class="card-header pb-0">
-                <h5>List Users</h5>
-                <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
-                    Tambah
-                </button>
+                <div class="mx-3">
+                    <h5>List Users</h5>
+                    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
+                        Tambah
+                    </button>
+                </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0" id="myTable">
@@ -285,10 +285,9 @@
                                     <label for="password">Password</label>
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="Password" name="password"
-                                            type="password" id="current_password">
-                                        <div class="border rounded-md px-1 pt-2" id="mybutton">
+                                            type="password" id="currentPassword">
+                                        <span class="border rounded-md px-1 pt-2" id="mybutton">
                                             <i id="eye1"></i>
-                                        </div>
                                         </span>
                                     </div>
                                 </div>

@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
         integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
         crossorigin="" />
-
     <style>
         #mapid {
             height: 400px;
@@ -13,65 +12,6 @@
     </style>
 @endsection
 @section('content')
-    {{-- @include('layouts.navbars.auth.topnav', ['title' => 'Otlets', 'master' => 'Map'])
-    <div class="row mt-4 mx-4 text-capitalize">
-        <div class="col-md-6">
-            <div class="card my-2">
-                <div class="card-header">
-                    <h4 class="text-uppercase">detail</h4>
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm">
-                        <tbody>
-                            <tr>
-                                <td>{{ __('name') }}</td>
-                                <td>{{ $outlet->name }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('user') }}</td>
-                                <td>{{ $outlet->user[0]->nama }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('address') }}</td>
-                                <td>{{ $outlet->address }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('latitude') }}</td>
-                                <td>{{ $outlet->latitude }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('longitude') }}</td>
-                                <td>{{ $outlet->longitude }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer">
-                    @can('update', $outlet)
-                        <a href="{{ route('outlets.edit', $outlet) }}" id="edit-outlet-{{ $outlet->id }}"
-                            class="btn btn-warning">{{ __('edit') }}</a>
-                    @endcan
-                    @if (auth()->check())
-                        <a href="{{ route('outlet_map.index') }}" class="btn btn-secondary">{{ __('back') }}</a>
-                    @else
-                        <a href="{{ route('outlet_map.index') }}" class="btn btn-secondary">{{ __('back') }}</a>
-                    @endif
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card h-100">
-                @if ($outlet->coordinate)
-                    <div class="card-body">
-                        <div class="" id="mapid" style="height:80vh;"></div>
-                    </div>
-                @else
-                    <div class="card-body">{{ __('no_coordinate') }}</div>
-                @endif
-            </div>
-        </div>
-
-    </div> --}}
     @include('layouts.navbars.auth.topnav', ['title' => 'Otlets', 'master' => 'Map'])
     <div class="row mt-4 mx-4">
         <div class="col-md-6">
@@ -80,30 +20,32 @@
                     <h4 class="text-uppercase">Detail</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-sm">
-                        <tbody>
-                            <tr>
-                                <td>{{ __('name') }}</td>
-                                <td>{{ $outlet->name }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('user') }}</td>
-                                <td>{{ $outlet->user[0]->nama }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('address') }}</td>
-                                <td>{{ $outlet->address }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('latitude') }}</td>
-                                <td>{{ $outlet->latitude }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('longitude') }}</td>
-                                <td>{{ $outlet->longitude }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>{{ __('name') }}</td>
+                                    <td>{{ $outlet->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ __('user') }}</td>
+                                    <td>{{ $outlet->user[0]->nama }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ __('address') }}</td>
+                                    <td>{{ $outlet->address }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ __('latitude') }}</td>
+                                    <td>{{ $outlet->latitude }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ __('longitude') }}</td>
+                                    <td>{{ $outlet->longitude }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="card-footer">
                     @can('update', $outlet)
@@ -123,7 +65,7 @@
                 <div class="card-body" id="mapid" style="height:80vh;"></div>
             </div>
         </div>
-        
+
 
     </div>
 @endsection
