@@ -12,20 +12,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
 use RealRashid\SweetAlert\Facades\Alert;
-
-
 class OrderController extends Controller
 {
     public function index()
     {
-        $orders =  Order::where('user_id', auth()->user()->id)->where('status', null)->orWhere('status', 'on progress')->orderBy('created_at','desc')->get();
+        $orders =  Order::where('user_id', auth()->user()->id)->where('status', null)->orWhere('status', 'on progress')->orderBy('created_at', 'desc')->get();
         $ruangans =  Ruangan::all();
         if (auth()->user()->cekLevel == 'admin') {
-            $orders =  Order::where('status', null)->orWhere('status', 'on progress')->orderBy('created_at','desc')->get();
+            $orders =  Order::where('status', null)->orWhere('status', 'on progress')->orderBy('created_at', 'desc')->get();
         }
         // return $orders;
         return view('auth.admin.pages.order', [
-            'barangs' => Barang::all(),
+            'barangs' => Barang::where('status','aktif')->get(),
             'users' => User::where('cekLevel', 'teknisi')->get(),
             'orders' => $orders,
             'ruangans' => $ruangans,
@@ -43,7 +41,9 @@ class OrderController extends Controller
             'pesan_kerusakan' => 'required',
             'user_id' => 'required',
             'tanggal_order' => '',
-            'ruangan_id' => 'required'
+            'ruangan_id' => 'required',
+            'nama_pelapor' => 'required',
+            'no_pelapor' => 'required'
         ]);
         $validatedData['tanggal_order'] = now()->format('Y-m-d');
         // ambil data barang dan teknisi
@@ -57,14 +57,14 @@ class OrderController extends Controller
             $order = Order::latest()->first();
 
             // membuat pesan untuk notifikasi
-            $pesan = "orderan dari dengan id $order->id : barang ".$order->barang->jenis->jenis." ".$order->barang->merk->merk." " . $order->barang->merk->merk." dari" .auth()->user()->nama . "berhasil dibuat untuk teknisi : $teknisi->nama";
+            $pesan = "orderan dari dengan id $order->id : barang " . $order->barang->jenis->jenis . " " . $order->barang->merk->merk . " " . $order->barang->merk->merk . " dari" . auth()->user()->nama . "berhasil dibuat untuk teknisi : $teknisi->nama";
             // pembuatan dan emanggilan fungsi notif di kelas Notifikasi
             $notif = Notifikasi::notif('order', $pesan, 'buat', 'berhasil');
             // create notifikasi buat teknisi dan admin
             Notifikasi::create($notif)->user()->attach($request->user_id);
             Notifikasi::create($notif)->user()->sync(User::adminId());
             // memunculkan sweetalert
-            Alert::success('success', "orderan barang  ".$barang->jenis->jenis." " . $barang->merk->merk . " ".$barang->tipe->tipe. "dari " . auth()->user()->nama . " berhasil dibuat untuk teknisi : $teknisi->nama dengan pesan kerusakan $request->pesan_kerusakan");
+            Alert::success('success', "orderan barang  " . $barang->jenis->jenis . " " . $barang->merk->merk . " " . $barang->tipe->tipe . "dari " . auth()->user()->nama . " berhasil dibuat untuk teknisi : $teknisi->nama dengan pesan kerusakan $request->pesan_kerusakan");
             return redirect()->back();
             // return $order->user;
             // membuat langsung redirect ke whatsapp
@@ -87,11 +87,11 @@ class OrderController extends Controller
         $validatedData = $request->validate([
             'status' => 'required',
             'pesan_status' => 'required',
-            'tanggal_selesai' => 'required',
+            'tanggal_selesai' => '',
         ]);
         // $validatedData = ['tanggal_selesai' => Carbon::parse('25-8-2022')->format('d-m-Y')];
         try {
-            $pesan = "orderan dengan id $order->id barang ".$barang->jenis->jenis. " " . $barang->merk->merk ." " .$barang->tipe->tipe." berhasil diupdate oleh $teknisi->nama dengan perubahan status : $request->status";
+            $pesan = "orderan dengan id $order->id barang " . $barang->jenis->jenis . " " . $barang->merk->merk . " " . $barang->tipe->tipe . " berhasil diupdate oleh $teknisi->nama dengan perubahan status : $request->status";
             $notif = Notifikasi::notif('order', $pesan, 'update', 'berhasil');
             Notifikasi::create($notif)->user()->attach(auth()->user()->id);
             Notifikasi::create($notif)->user()->sync(User::adminId());
@@ -99,6 +99,9 @@ class OrderController extends Controller
             $order->update($validatedData);
             if ($request->status == "selesai") {
                 $order->update(['status_selesai' => $request->status_selesai]);
+                if($request->tanggal_selesai == null ){
+                    $order->update(['tanggal_selesai' => now()]);
+                }
             }
             return redirect()->back();
         } catch (\Throwable $th) {

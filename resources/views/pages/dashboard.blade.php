@@ -89,7 +89,7 @@
                 <div class="card p-2">
                     <div class="card-header pb-0 p-3">
                         <div class="d-flex justify-content-between">
-                            <h6 class="mb-2">list Order</h6>
+                            <h6 class="mb-2">list servisan terakhir</h6>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -376,5 +376,5 @@
 
         @include('layouts.footers.auth.footer')
     </div>
-    </section>
+    <div class="" style="height:80vh;"></div>
 @endsection

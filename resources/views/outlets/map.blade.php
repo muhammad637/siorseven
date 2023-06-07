@@ -12,9 +12,12 @@
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Otlets', 'master' => 'Map'])
     <div class="row mt-4 mx-4">
+        <div class="col-md-12">
+            <div class="card-body" id="map" style="height:80vh;"></div>
+        </div>
         <div class="col-md-5">
             <div class="card mb-4">
-              <h4 class="px-4 pt-5">List Outlet</h4>
+                <h4 class="px-4 pt-5">List Outlet</h4>
                 <div class="table-responsive">
                     <table class="table table-sm table-responsive" id="myTable">
                         <thead>
@@ -51,7 +54,7 @@
                 <div class="card-body" id="mapid" style="height:80vh;"></div>
             </div>
         </div>
-        
+
 
     </div>
 @endsection
@@ -62,9 +65,24 @@
         crossorigin=""></script>
 
     <script>
-        var map = L.map('mapid').setView([{{ config('leaflet.map_center_latitude') }},
+        var map_rsud = L.map('map').setView([{{ config('leaflet.map_center_latitude') }},
             {{ config('leaflet.map_center_longitude') }}
-        ], {{ config('leaflet.zoom_level') }});
+        ], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map_rsud);
+
+        L.marker([{{ config('leaflet.map_center_latitude') }},
+                {{ config('leaflet.map_center_longitude') }}
+            ]).addTo(map_rsud)
+            .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+            .openPopup();
+
+
+
+
+        var map = L.map('mapid').setView([-8.208683652225, 114.36582847952], {{ config('leaflet.zoom_level') }});
         var baseUrl = "{{ url('/') }}";
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -73,7 +91,9 @@
 
         axios.get('{{ route('api.outlets.index.lain') }}')
             .then(function(response) {
-                console.log(response.data);
+                @if (auth()->user()->cekLevel == 'admin')
+                    console.log(response.data);
+                @endif
                 L.geoJSON(response.data, {
                         pointToLayer: function(geoJsonPoint, latlng) {
                             return L.marker(latlng);

@@ -64,16 +64,23 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/our_outlets', [OutletMapController::class, 'index'])->name('outlet_map.index');
 	Route::resource('outlets', OutletController::class);
 
+	// history
+	Route::post('/pages/history/bulan', [HistoryController::class, 'historyBulan'])->name('history.bulan');
+	Route::post('/pages/history/barang', [HistoryController::class, 'historyBarang'])->name('history.barang');
+	Route::post('/pages/history/jenis_barang', [HistoryController::class, 'historyJenisBarang'])->name('history.jenis.barang');
+	Route::post('/pages/history/status', [HistoryController::class, 'historyStatus'])->name('history.status');
+	Route::get('/our_outlets', [OutletMapController::class, 'index'])->name('outlet_map.index');
+
+
+	
 
 	Route::group(['middleware' => 'cekLevel:admin'], function () {
 
-		// history
-		Route::post('/pages/history/bulan', [HistoryController::class, 'historyBulan'])->name('history.bulan');
-		Route::post('/pages/history/barang', [HistoryController::class, 'historyBarang'])->name('history.barang');
-		Route::post('/pages/history/status', [HistoryController::class, 'historyStatus'])->name('history.status');
+		// export
 		Route::get('/pages/history/exportAll', [HistoryController::class, 'exportAll'])->name('history.exportAll');
 		Route::post('/pages/history/exportBulan', [HistoryController::class, 'exportBulan'])->name('history.exportBulan');
 		Route::post('/pages/history/exportBarang', [HistoryController::class, 'exportBarang'])->name('history.exportBarang');
+		Route::post('/pages/history/exportJenisBarang', [HistoryController::class, 'exportJenisBarang'])->name('history.exportJenisBarang');
 
 		Route::post('pages/order', [OrderController::class, 'store'])->name('store.order');
 
@@ -90,15 +97,7 @@ Route::group(['middleware' => 'auth'], function () {
 		// barang
 		Route::get('master/barang', [BarangController::class, 'index'])->name('barang');
 		Route::post('master/barang', [BarangController::class, 'store'])->name('store.barang');
-		// jenis barang
-		Route::get('master/barang/jenis/{jenis:id}/aktif', [BarangController::class, 'jenisAktif'])->name('jenis.barang.aktif');
-		Route::get('master/barang/jenis/{jenis:id}/nonaktif', [BarangController::class, 'jenisNonaktif'])->name('jenis.barang.nonaktif');
-		// merk barang
-		Route::get('master/barang/merk/{merk:id}/aktif', [BarangController::class, 'merkAktif'])->name('merk.barang.aktif');
-		Route::get('master/barang/merk/{merk:id}/nonaktif', [BarangController::class, 'merkNonaktif'])->name('merk.barang.nonaktif');
-		// tipe barang
-		Route::get('master/barang/tipe/{tipe:id}/aktif', [BarangController::class, 'tipeAktif'])->name('tipe.barang.aktif');
-		Route::get('master/barang/tipe/{tipe:id}/nonaktif', [BarangController::class, 'tipeNonaktif'])->name('tipe.barang.nonaktif');
+		
 
 		Route::put('master/barang/{barang:id}/update', [BarangController::class, 'update'])->name('update.barang');
 		Route::put('master/barang/{barang:id}/aktif', [BarangController::class, 'aktif'])->name('aktif.barang');
@@ -113,14 +112,10 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::put('master/ruangan/{ruangan:id}/nonaktif', [RuanganController::class, 'ruanganNonaktif'])->name('ruangan.nonaktif');
 
 
-		Route::get('/our_outlets', [OutletMapController::class, 'index'])->name('outlet_map.index');
 		Route::resource('outlets', OutletController::class);
 	});
 
 	Route::group(['middleware' => 'cekLevel:teknisi'], function () {
-		Route::get('/coba2', function () {
-			return 'ini buat teknisi';
-		});
 		Route::put('pages/order/{order:id}/update', [OrderController::class, 'update'])->name('update.order');
 	});
 
