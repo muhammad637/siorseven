@@ -65,16 +65,16 @@ class OrderController extends Controller
             Notifikasi::create($notif)->user()->sync(User::adminId());
             // memunculkan sweetalert
             Alert::success('success', "orderan barang  ".$barang->jenis->jenis." " . $barang->merk->merk . " ".$barang->tipe->tipe. "dari " . auth()->user()->nama . " berhasil dibuat untuk teknisi : $teknisi->nama dengan pesan kerusakan $request->pesan_kerusakan");
-            redirect(route('barang'));
+            return redirect()->back();
             // return $order->user;
             // membuat langsung redirect ke whatsapp
-            $nohp = $order->user->no_telephone;
-            if (substr(trim($nohp), 0, 1) == '0') {
-                $nohp = '62' . substr(trim($nohp), 1);
-            }
-            $url = "https://wa.me/".$nohp."/?text=SIORSEVEN%0Auntuk : ".$order->ruangan->nama."%0Aorderan barang dari barang ". $order->barang->jenis->jenis ." ". $order->barang->merk->merk ." ".  $order->barang->tipe->tipe ." mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: " .auth()->user()->nama;
-            $script = "<script>window.open('$url', '_blank');</script>";
-            return Response::make($script);
+            // $nohp = $order->user->no_telephone;
+            // if (substr(trim($nohp), 0, 1) == '0') {
+            //     $nohp = '62' . substr(trim($nohp), 1);
+            // }
+            // $url = "https://wa.me/".$nohp."/?text=SIORSEVEN%0Auntuk : ".$order->ruangan->nama."%0Aorderan barang dari barang ". $order->barang->jenis->jenis ." ". $order->barang->merk->merk ." ".  $order->barang->tipe->tipe ." mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: " .auth()->user()->nama;
+            // $script = "<script>window.open('$url', '_blank');</script>";
+            // return Response::make($script);
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

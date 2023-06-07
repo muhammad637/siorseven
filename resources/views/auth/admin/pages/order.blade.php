@@ -5,13 +5,13 @@
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'pages'])
     <div class="container-fluid py-4">
-    {{-- <div class="row mt-4 mx-4"> --}}
+        {{-- <div class="row mt-4 mx-4"> --}}
         <div class="card mb-4">
             <div class="card-header pb-0">
                 <h5>List Service Request</h5>
                 @if (auth()->user()->cekLevel == 'admin')
                     <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
-                          <i class="ni ni-settings text-sm opacity-10"></i> Request
+                        <i class="ni ni-settings text-sm opacity-10"></i> Request
                     </button>
                 @endif
                 <div class="card-body px-0 pt-0 pb-2">
@@ -24,6 +24,10 @@
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         Barang</th>
+                                    @if (auth()->user()->cekLevel == 'admin')
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
+                                            Ruangan</th>
+                                    @endif
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pesan
@@ -65,6 +69,10 @@
                                                 {{ $order->barang->jenis->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe->tipe }}
                                             </p>
                                         </td>
+                                        @if (auth()->user()->cekLevel == 'admin')
+                                            <td class="text-sm font-weight-bold mb-0">
+                                                {{$order->ruangan->nama}}</td>
+                                        @endif
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
                                                 {{ $order->status == null ? 'pending' : $order->status }}</p>
@@ -88,7 +96,7 @@
                                             <p class="text-sm font-weight-bold mb-0">
                                                 {{ $order->tanggal_selesai ? $parse($order->tanggal_selesai) : '-' }}</p>
                                         </td>
-                                       
+
                                         {{-- <td>
                                             <p class="text-sm font-weight-bold mb-0">
 
@@ -102,16 +110,23 @@
                                         </td>
                                         @if (auth()->user()->cekLevel == 'admin')
                                             <td>
-                                                <div class="d-flex px-3 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $order->user->nama }}</h6>
-                                                    </div>
-                                                </div>
+
+                                                <a href="https://wa.me/{{ $nohp }}/?text=SIORSEVEN%0Auntuk ruangan: {{ $order->ruangan->nama }}%0Aorderan barang dari barang {{ $order->barang->jenis->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe->tipe }}mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: {{ auth()->user()->nama }}"
+                                                    target="_blank"
+                                                    class="badge bg-info p-2"><span>{{ $order->user->nama }} </span> <i
+                                                        class="fa fa-whatsapp fs-6" aria-hidden="true"></i> </a>
+                                                {{-- <div class="d-flex justify-content-center align-items-center">
+
+                                                            <h6 class="mb-0 text-sm">{{ $order->user->nama }}</h6> | <a
+                                                                href="https://wa.me/{{ $nohp }}/?text=SIORSEVEN%0Auntuk ruangan: {{ $order->ruangan->nama }}%0Aorderan barang dari barang{{ $order->barang->jenis->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe->tipe }}mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: {{ auth()->user()->nama }}"
+                                                                target="_blank" class="badge bg-info p-2"><i
+                                                                    class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a>
+                                                        </div> --}}
 
                                             </td>
-                                            @else
+                                        @else
                                             <td>
-                                                <a href="#update-{{$order->id}}" data-bs-toggle="modal"
+                                                <a href="#update-{{ $order->id }}" data-bs-toggle="modal"
                                                     class="badge bg-warning">edit</a>
                                             </td>
                                         @endif
@@ -180,7 +195,8 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="recipient-name" class="col-form-label">Nama
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">Nama
                                                                         Barang</label>
                                                                     <input type="text" class="form-control"
                                                                         value="{{ $order->barang->jenis->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe->tipe }}"
@@ -252,7 +268,8 @@
                                                                         class="col-form-label">Tanggal Order</label>
                                                                     <input type="date"
                                                                         value="{{ $order->tanggal_order }}"
-                                                                        name="tanggal_order" readonly class="form-control">
+                                                                        name="tanggal_order" readonly
+                                                                        class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
