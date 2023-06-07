@@ -12,6 +12,8 @@
         }
     </style>
 @endsection
+@section('title') Lokasi Edit
+@endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Edit', 'master' => 'Outlet'])
     <div class="row mt-4 mx-4">

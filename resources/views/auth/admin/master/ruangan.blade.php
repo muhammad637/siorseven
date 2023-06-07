@@ -1,4 +1,6 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
+@section('title') Master Ruangan
+@endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Barang', 'master' => 'Master Data'])
     <div class="row mt-4 mx-4 ">
@@ -42,7 +44,7 @@
 
                                 <td>
                                     <p class="text-sm text-uppercase font-weight-bold mb-0">
-                                        {{ $ruangan->no_hp }}</p>
+                                        {{ $ruangan->no_ruangan }}</p>
                                 </td>
                                 <td>
                                     <span
@@ -155,9 +157,9 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="">No Hp </label>
+                                <label for="">Nomer Ruangan </label>
                                 <div class="input-group mb-4">
-                                    <input type="text" class="form-control" name="no_hp" placeholder="example 0823xxxxxx" >
+                                    <input type="text" class="form-control" name="no_ruangan" placeholder="example 123" >
                                     <span class="input-group-text">
                                         <i class="fa fa-exchange" aria-hidden="true"></i></span>
                                 </div>

@@ -2,6 +2,8 @@
     use Carbon\Carbon;
 @endphp
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
+@section('title') Service Request
+@endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'pages'])
     <div class="container-fluid py-4">
@@ -27,7 +29,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pesan
-                                        Status</th>
+                                        Service</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Kerusakan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -227,7 +229,7 @@
                                                                         class="form-control">
                                                                         <option value=""
                                                                             {{ $order->status_selesai == '' ? 'selected' : '' }}>
-                                                                            notselected</option>
+                                                                            Pilih Status Selesai</option>
                                                                         <option value="rusak berat"
                                                                             {{ $order->status_selesai == 'rusak berat' ? 'selected' : '' }}>
                                                                             tidak bisa diperbaiki</option>
@@ -357,7 +359,7 @@
                                 <div class="form-group">
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="Kerusakan Barang" name="pesan_kerusakan"
-                                            type="text" value="matot">
+                                            type="text" value="Tulis Kendala Disini">
                                         <span class="input-group-text"><i class="fa fa-hand-rock-o"
                                                 aria-hidden="true"></i></span>
                                     </div>

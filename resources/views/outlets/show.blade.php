@@ -11,6 +11,8 @@
         }
     </style>
 @endsection
+@section('title') Lokasi
+@endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Otlets', 'master' => 'Map'])
     <div class="row mt-4 mx-4">

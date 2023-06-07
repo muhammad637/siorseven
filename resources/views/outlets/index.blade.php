@@ -3,6 +3,7 @@
 {{-- @section('title', __('outlet.list')) --}}
 
 @section('content')
+
 @include('layouts.navbars.auth.topnav',["title" => "Outlets","master" => "index"])
 
 {{-- <div class="row mt-4 mx-4">
