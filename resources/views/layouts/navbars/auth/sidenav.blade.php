@@ -6,7 +6,7 @@
         <a class="navbar-brand m-0" href="{{ route('home') }}"
             target="_blank">
             <img src="{{asset('./img/logo.png')}}" class="navbar-brand-img h-100 ms-5" alt="main_logo">
-            <span class="ms-1 fw-bold text-uppercase fs-6">SIORSEVEN</span>
+            <span class="ms-1 fw-bold text-uppercase fs-6">SIFORSEVEN</span>
         </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -42,18 +42,7 @@
                     </div>
                     <span class="nav-link-text ms-1 text-capitalize">history</span>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa fa-users text-secondary text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Profile</span>
-                </a>
-            </li>
-            
-            
+            </li> 
             @if (auth()->user()->cekLevel == 'admin')    
             <li class="nav-item mt-3 d-flex align-items-center">
                <div class="ps-4">
@@ -96,6 +85,16 @@
                    <span class="nav-link-text ms-1">Lokasi</span>
                </a>
            </li>
+           
+           <li class="nav-item">
+            <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
+                <div
+                    class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fa fa-users text-secondary text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Profile</span>
+            </a>
+        </li>
             @endif
         </ul>
     </div>

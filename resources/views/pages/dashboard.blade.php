@@ -1,5 +1,6 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
-
+@section('title') Dashboard
+@endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'dashboard', 'master' => 'home'])
     <div class="container-fluid py-4">
@@ -103,7 +104,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pesan
-                                        Status</th>
+                                        Service</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Kerusakan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">

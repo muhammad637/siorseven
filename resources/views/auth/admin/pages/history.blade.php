@@ -2,6 +2,8 @@
     use Carbon\Carbon;
 @endphp
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
+@section('title') History
+@endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'history', 'master' => 'Pages'])
     {{-- <div class="card shadow-lg mx-4 card-profile-bottom">
@@ -90,6 +92,7 @@
                     </div>
 
                 </div>
+                @endif
                 <div class="d-md-flex d-sm-block gap-2 mb-4">
                     <p class="mb-0">Tampilkan : </p>
                     <a href="{{ route('history') }}" class="badge bg-gradient-success btn-block mb-0 border-0">Semua</a>
@@ -107,7 +110,7 @@
                         Status
                     </button>
                 </div>
-                @endif
+                
 
 
                 <div class="card-body px-0 pt-0 pb-2">

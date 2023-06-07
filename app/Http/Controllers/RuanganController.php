@@ -13,13 +13,13 @@ class RuanganController extends Controller
     public function index(){
         $ruangan = Ruangan::all();
         return view('auth.admin.master.ruangan', [
-            'ruangans' => $ruangan
+            'ruangans' => Ruangan::orderBy('nama', 'asc')->get(),
         ]);
     }
     public function store(Request $request){
         $validateData = $request->validate([
             'nama' => 'required',
-            'no_hp' => 'required',
+            'no_ruangan' => '',
         ]);
         try {
             //code...
@@ -48,10 +48,10 @@ class RuanganController extends Controller
     }
     public function ruanganAktif(Ruangan $ruangan)
     {
-        $status = 'nonaktif';
+        $status = 'aktif';
         // Barang::where('id', $ruangan->id)->update(['status' => $status]);
         $ruangan->update(['status' => $status]);
-        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan ruangan' . $ruangan->nama );
+        return redirect()->back()->with('toast_success', 'berhasil aktifkan ruangan' . $ruangan->nama );
     }
     public function ruanganNonaktif(Ruangan $ruangan)
     {

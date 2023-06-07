@@ -11,13 +11,15 @@
         }
     </style>
 @endsection
+@section('title') Lokasi
+@endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Otlets', 'master' => 'Map'])
     <div class="row mt-4 mx-4">
         <div class="col-md-6">
             <div class="card my-2">
                 <div class="card-header">
-                    <h4 class="text-uppercase">detail</h4>
+                    <h4 class="text-uppercase">Detail</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

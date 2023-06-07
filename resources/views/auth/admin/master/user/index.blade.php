@@ -1,4 +1,6 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
+@section('title') User Management
+@endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'Master'])
     <div class="row mt-4 mx-4">

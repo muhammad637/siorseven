@@ -8,9 +8,11 @@
 
     <style>
         #mapid {
-            height: 300px;
+            height: 50px;
         }
     </style>
+@endsection
+@section('title') Lokasi Edit
 @endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Edit', 'master' => 'Outlet'])
