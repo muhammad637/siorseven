@@ -151,12 +151,14 @@ class MasterUserController extends Controller
         $notif = Notifikasi::notif('user', 'user' . "$user->nama berhasil diaktifkan by ". auth()->user()->nama , 'aktif' , 'berhasil');
         Notifikasi::create($notif)->user()->sync(User::adminId());
         $user->update(['status' => 'aktif']);
-        return redirect()->back();
+        return redirect()->back()->with('toast_success', 'berhasil aktifkan user' . $user->nama );
+        // return redirect()->back();
     }
     public function nonaktif(User $user){
         $notif = Notifikasi::notif('user', 'user' . "$user->nama berhasil dinonaktifkan by " . auth()->user()->nama , 'nonaktif' , 'berhasil');
         Notifikasi::create($notif)->user()->sync(User::adminId());
         $user->update(['status' => 'nonaktif']);
-        return redirect()->back();
+        return redirect()->back()->with('toast_success', 'berhasil dinonaktifkan user' . $user->nama );
+        // return redirect()->back();
     }
 }
