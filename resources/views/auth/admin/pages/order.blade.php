@@ -84,7 +84,7 @@
                                             <td class="text-sm font-weight-bold mb-0">
                                                 <a href="https://wa.me/{{ $nohp }}/?text=SIFORSEVEN%0Auntuk : {{ $order->nama_pelapor }}%0Aservisan barang  {{ $order->barang->jenis->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe->tipe }} %0Astatus masih :{{ $order->status == null ? 'pending' : $order->status }} %0Adengan keterangan status: {{ $order->pesan_status == null ? 'masih menunggu' : $order->pesan_status }} %0Adari Admin SIFORSEVEN: {{ auth()->user()->nama }}"
                                                     target="_blank"
-                                                    class="badge bg-info p-2"><span>{{ $order->nama_pelapor }}
+                                                    class="badge bg-info p-2"><span> {{ $order->nama_pelapor }}
                                                     </span> <i class="fa fa-whatsapp fs-6" aria-hidden="true"></i> </a>
                                             </td>
                                         @endif
@@ -403,7 +403,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="ruangan_id" class="text-capitalize">pilih ruangan</label>
+                                    <label for="ruangan_id" class="text-capitalize">Pilih Ruangan</label>
                                     <div class="input-group mb-4">
                                         <select class="form-control" name="ruangan_id" type="text" id="ruangan_id">
                                             <option value="">Pilih Ruangan</option>
@@ -412,7 +412,7 @@
                                                     {{ $ruangan->no_hp }}</option>
                                             @endforeach
                                         </select>
-                                        <span class="input-group-text"><i class="fa fa-key"
+                                        <span class="input-group-text"><i class="fa fa-home"
                                                 aria-hidden="true"></i></span>
                                     </div>
                                 </div>
@@ -426,7 +426,7 @@
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="nama pelapor" name="nama_pelapor"
                                             id="nama_pelapor" type="text" value="">
-                                        <span class="input-group-text"><i class="fa fa-hand-rock-o"
+                                        <span class="input-group-text"><i class="fa fa-user-o"
                                                 aria-hidden="true"></i></span>
                                     </div>
 
@@ -435,11 +435,11 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="no_pelapor" class="text-capitalize">no hp pelapor</label>
+                                    <label for="no_pelapor" class="text-capitalize">No Handphone Pelapor</label>
                                     <div class="input-group mb-4">
                                         <input class="form-control" placeholder="ex: 081xxxxxxxx" name="no_pelapor"
                                             id="no_pelapor" type="text" value="">
-                                        <span class="input-group-text"><i class="fa fa-hand-rock-o"
+                                        <span class="input-group-text"><i class="fa fa-phone"
                                                 aria-hidden="true"></i></span>
                                     </div>
                                 </div>
