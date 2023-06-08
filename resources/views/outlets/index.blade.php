@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 {{-- @section('title', __('outlet.list')) --}}
-
+@section('title') Lokasi
+@endsection
 @section('content')
 
 @include('layouts.navbars.auth.topnav',["title" => "Outlets","master" => "index"])

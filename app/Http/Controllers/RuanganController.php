@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Notifikasi;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,12 +13,14 @@ class RuanganController extends Controller
 {
     //
     public function index(){
+      
         $ruangan = Ruangan::all();
         return view('auth.admin.master.ruangan', [
             'ruangans' => Ruangan::orderBy('nama', 'asc')->get(),
         ]);
     }
     public function store(Request $request){
+        $notif = Notifikasi::notif('Ruangan', "Ruangan : $request->nama berhasil di tambahkan by " . auth()->user()->nama, 'tambah' , 'berhasil');
         $validateData = $request->validate([
             'nama' => 'required',
             'no_ruangan' => '',
@@ -24,6 +28,8 @@ class RuanganController extends Controller
         try {
             //code...
             Ruangan::create($validateData);
+            Notifikasi::create($notif)->user()->sync(User::adminId());
+            // $user = User::where('username', $request->username)->first();
             Alert::success('berhasil menambahkan data');
             return redirect()->back();
         } catch (\Throwable $th) {
@@ -32,6 +38,7 @@ class RuanganController extends Controller
         }
     }
     public function update(Request $request, Ruangan $ruangan){
+        $notif = Notifikasi::notif('Ruangan', "user : $request->nama berhasil diupdate bu " . auth()->user()->nama, 'update' , 'berhasil');
         $validateData = $request->validate([
             'nama' => 'required',
             'no_hp' => 'required',
@@ -39,6 +46,7 @@ class RuanganController extends Controller
         try {
             //code...
             $ruangan->update($validateData);
+            Notifikasi::create($notif)->user()->sync(User::adminId());
             Alert::success('berhasil update data');
             return redirect()->back();
         } catch (\Throwable $th) {

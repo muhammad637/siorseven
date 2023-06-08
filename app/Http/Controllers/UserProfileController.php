@@ -28,9 +28,9 @@ class UserProfileController extends Controller
             'no_telephone' => 'required',
             'nama' => 'required'
         ]);
-        // Notifikasi::create($notif)->user()->attach(auth()->user()->id);
+        Notifikasi::create($notif)->user()->attach(auth()->user()->id);
         $user->update($validatedData);
-        return $user;
+        // return $user;
         return redirect(route('profile'))->with('toast_success', $notif['msg']);
     }
 
