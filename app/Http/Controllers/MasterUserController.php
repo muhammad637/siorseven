@@ -155,7 +155,8 @@ class MasterUserController extends Controller
         $notif = Notifikasi::notif('user', $pesan, 'aktif' , 'berhasil');
         Notifikasi::create($notif)->user()->sync(User::adminId());
         $user->update(['status' => 'aktif']);
-        return redirect()->back();
+        return redirect()->back()->with('toast_success', 'berhasil aktifkan user' . $user->nama );
+        // return redirect()->back();
     }
     public function nonaktif(User $user){
         $pesan = 'user ' . "$user->nama berhasil dinonaktifkan by " . auth()->user()->nama ;
@@ -163,6 +164,7 @@ class MasterUserController extends Controller
         $notif = Notifikasi::notif('user', $pesan, 'nonaktif' , 'berhasil');
         Notifikasi::create($notif)->user()->sync(User::adminId());
         $user->update(['status' => 'nonaktif']);
-        return redirect()->back();
+        return redirect()->back()->with('toast_success', 'berhasil dinonaktifkan user' . $user->nama );
+        // return redirect()->back();
     }
 }

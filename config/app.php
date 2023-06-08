@@ -71,6 +71,7 @@ return [
 
     'timezone' => env('APP_TIMEZON', 'Asia/Jakarta'),
 
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
