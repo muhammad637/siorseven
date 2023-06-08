@@ -191,7 +191,7 @@
                                                                         <label for="cekLevel">Level</label>
                                                                         <div class="input-group mb-4">
                                                                             <select class="form-control"
-                                                                                id="exampleFormControlSelect1"
+                                                                               
                                                                                 name="cekLevel">
 
                                                                                 <option value="admin"
@@ -335,7 +335,7 @@
                                 <div class="form-group">
                                     <label for="cekLevel">Level</label>
                                     <div class="input-group mb-4">
-                                        <select class="form-control" id="exampleFormControlSelect1" name="cekLevel">
+                                        <select class="form-control"  name="cekLevel">
                                             <option value="admin">admin</option>
                                             <option value="teknisi">teknisi</option>
                                         </select>
