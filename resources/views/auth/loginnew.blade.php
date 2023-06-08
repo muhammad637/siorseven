@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+    Landing Page
+@endsection
 @section('content')
 <main class="main-content mt-0">
 <section>

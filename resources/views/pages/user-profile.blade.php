@@ -1,5 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
-
+@section('title')
+    user
+@endsection
 @section('content')
 
     @include('layouts.navbars.auth.topnav', ['title' => 'profile', 'master' => 'pages'])
@@ -10,10 +12,10 @@
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             <div class="rounded-circle">
-                                <i class="fa fa-user-circle text-dark " style="font-size: 400%;"></i>
+                                <i class="fa fa-user-circle text-dark " style="font-size: 500%;"></i>
                             </div>
-                            <h2 class="text-dark" style="font-size: 36px;">{{ auth()->user()->nama }}</h2>
-                            <p style="font-size: 22px;">{{ auth()->user()->cekLevel }}</p>
+                            <h2 class="text-dark my-3 text-capitalize" style="font-size: 30px;">{{ auth()->user()->nama }}</h2>
+                            <p class="text-uppercase" style="font-size: 22px;">{{ auth()->user()->cekLevel }}</p>
                             <div class="social-links mt-0">
                                 <a href="" class="facebook"><i class="fa fa-facebook-square text-dark"></i></a>
                                 <a href="#" class="instagram"><i class="fa fa-whatsapp text-dark"></i></a>
@@ -50,7 +52,7 @@
                             <div class="tab-content pt-2">
 
                                 <div class="tab-pane fade show active profile-overview py-2" id="profile-overview">
-                                    <h5 class="card-title">Detail Profil</h5>
+                                    <h5 class="card-title">Detail Profile</h5>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label py-2">Nama</div>
                                         <div class="col-lg-9 col-md-8">{{ auth()->user()->nama }}</div>

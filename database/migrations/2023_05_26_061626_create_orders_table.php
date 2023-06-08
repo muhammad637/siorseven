@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('barang_id')->constrained('barangs')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('ruangan_id')->constrained('ruangans')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('nama_pelapor');
+            $table->string('no_pelapor');
             $table->date('tanggal_order');
             $table->text('pesan_kerusakan');
             $table->string('status')->nullable();
