@@ -26,7 +26,8 @@ class UserProfileController extends Controller
         $notif = Notifikasi::notif('user', "data anda berhasil diupdate", 'update', 'berhasil');
         $validatedData = $request->validate([
             'no_telephone' => 'required',
-            'nama' => 'required'
+            'nama' => 'required',
+            'username' => 'required|'.Rule::unique('users')->ignore($user->id)
         ]);
         Notifikasi::create($notif)->user()->attach(auth()->user()->id);
         $user->update($validatedData);

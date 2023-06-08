@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Notifikasi;
 use App\Models\User;
-use Illuminate\Validation\Rule;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MasterUserController extends Controller
 {
@@ -148,13 +150,17 @@ class MasterUserController extends Controller
     }
 
     public function aktif(Request $request, User $user){
-        $notif = Notifikasi::notif('user', 'user' . "$user->nama berhasil diaktifkan by ". auth()->user()->nama , 'aktif' , 'berhasil');
+        $pesan = 'user ' . "$user->nama berhasil diaktifkan by ". auth()->user()->nama ;
+        Alert::toast($pesan,'success');
+        $notif = Notifikasi::notif('user', $pesan, 'aktif' , 'berhasil');
         Notifikasi::create($notif)->user()->sync(User::adminId());
         $user->update(['status' => 'aktif']);
         return redirect()->back();
     }
     public function nonaktif(User $user){
-        $notif = Notifikasi::notif('user', 'user' . "$user->nama berhasil dinonaktifkan by " . auth()->user()->nama , 'nonaktif' , 'berhasil');
+        $pesan = 'user ' . "$user->nama berhasil dinonaktifkan by " . auth()->user()->nama ;
+        Alert::toast($pesan,'success');
+        $notif = Notifikasi::notif('user', $pesan, 'nonaktif' , 'berhasil');
         Notifikasi::create($notif)->user()->sync(User::adminId());
         $user->update(['status' => 'nonaktif']);
         return redirect()->back();

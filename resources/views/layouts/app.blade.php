@@ -25,10 +25,10 @@
     <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
 
     <link rel="stylesheet" href="{{ asset('assets/css/landing-page.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}"> --}}
 
     <link href="https://demos.creative-tim.com/test/argon-dashboard-pro/assets/css/argon-dashboard.min.css?v=2.0.0"
         rel="stylesheet">
