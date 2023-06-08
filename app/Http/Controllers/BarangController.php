@@ -34,7 +34,7 @@ class BarangController extends Controller
         );
     }
 
-    public function rules(Request $request ,$id)
+    public function rules(Request $request, $id)
     {
         // $id = $this->update('barang'); 
         // $id = Route::current()->parameter('barang');
@@ -44,19 +44,18 @@ class BarangController extends Controller
                 'required',
                 Rule::unique('barangs')->ignore($id)->where(function ($query) use ($request) {
                     return $query->where('merk_id', $request->merk_id)
-                                 ->where('jenis_id', $request->jenis_id);
+                        ->where('jenis_id', $request->jenis_id);
                 }),
             ],
             'merk_id' => 'required',
             'jenis_id' => 'required',
         ];
     }
-    
-  
+
+
     public function store(Request $request)
     {
-       
-       
+
         try {
             $jenis_id = $request->jenis_id;
             $merk_id = $request->merk_id;
@@ -77,9 +76,9 @@ class BarangController extends Controller
                 $tipe_id = MerkBarang::latest()->first()->id;
             }
             $barangs = Barang::all();
-            foreach($barangs as $b){
-                if($b->tipe_id == $request->tipe_id && $b->jenis_id == $request->jenis_id && $b->merk_id == $request->merk_id){
-                    return redirect()->back()->with('error','barang sudah ada');
+            foreach ($barangs as $b) {
+                if ($b->tipe_id == $request->tipe_id && $b->jenis_id == $request->jenis_id && $b->merk_id == $request->merk_id) {
+                    return redirect()->back()->with('error', 'barang sudah ada');
                 }
             }
             // if($request->jenis_id == ){}
@@ -88,10 +87,10 @@ class BarangController extends Controller
                 'merk_id' => $merk_id,
                 'tipe_id' => $tipe_id
             ]);
-            return redirect()->back()->with('success','data barang berhasil dibuat');
+            return redirect()->back()->with('success', 'data barang berhasil dibuat');
             // proses membuat product
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error',$th->getMessage());
+            return redirect()->back()->with('error', $th->getMessage());
             // peanganan jika error pada column tabel 
         }
     }
@@ -114,7 +113,6 @@ class BarangController extends Controller
             $tipeData = $request->validate(['tipe' => 'required|unique:tipe_barangs']);
             TipeBarang::create($tipeData);
             $tipe_id = TipeBarang::latest()->first()->id;
-            
         }
 
         // $validatedData = Validator::make(['jenis_id','merk_id','tipe_id'],[
@@ -124,7 +122,7 @@ class BarangController extends Controller
         //     return 'sama';
         // }
 
-        $validator = Validator::make($request->all(), $this->rules($request,$barang->id));
+        $validator = Validator::make($request->all(), $this->rules($request, $barang->id));
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -133,68 +131,4 @@ class BarangController extends Controller
         $barang->update(['jenis_id' => $jenis_id, 'tipe_id' => $tipe_id, 'merk_id' => $merk_id]);
         return redirect()->back()->with('success', 'Barang berhasil di updated');
     }
-
-
-
-    // status untuk semua tabel
-    public function nonaktif(Barang $barang)
-    {
-        //code...
-        $status = 'nonaktif';
-        // Barang::where('id', $barang->id)->update(['status' => $status]);
-        $barang->update(['status' => $status]);
-        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan barang' . $barang->jenis->jenis . ' ' . $barang->merk->merk . '' . $barang->tipe->tipe);
-    }
-    public function aktif(Barang $barang)
-    {
-        $status = 'aktif';
-        // Barang::where('id', $barang->id)->update(['status' => $status]);
-        $barang->update(['status' => $status]);
-        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan barang' . $barang->jenis->jenis . ' ' . $barang->merk->merk . '' . $barang->tipe->tipe);
-    }
-
-    public function jenisAktif(JenisBarang $jenis)
-    {
-        $status = 'aktif';
-        // Barang::where('id', $barang->id)->update(['status' => $status]);
-        $jenis->update(['status' => $status]);
-        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan barang' . $jenis->jenis );
-    }
-    public function merkAktif(MerkBarang $merk)
-    {
-        $status = 'aktif';
-        // Barang::where('id', $barang->id)->update(['status' => $status]);
-        $merk->update(['status' => $status]);
-        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan barang' . $merk->merk );
-    }
-    public function tipeAktif(TipeBarang $tipe)
-    {
-        $status = 'nonaktif';
-        // Barang::where('id', $barang->id)->update(['status' => $status]);
-        $tipe->update(['status' => $status]);
-        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan barang' . $tipe->tipe );
-    }
-    public function jenisNonaktif(JenisBarang $jenis)
-    {
-        $status = 'nonaktif';
-        // Barang::where('id', $barang->id)->update(['status' => $status]);
-        $jenis->update(['status' => $status]);
-        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan barang' . $jenis->jenis );
-    }
-    public function merkNonaktif(MerkBarang $merk)
-    {
-        $status = 'nonaktif';
-        // Barang::where('id', $barang->id)->update(['status' => $status]);
-        $merk->update(['status' => $status]);
-        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan barang' . $merk->merk );
-    }
-    public function tipeNonaktif(TipeBarang $tipe)
-    {
-        $status = 'nonaktif';
-        // Barang::where('id', $barang->id)->update(['status' => $status]);
-        $tipe->update(['status' => $status]);
-        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan barang' . $tipe->tipe );
-    }
-
-    
 }

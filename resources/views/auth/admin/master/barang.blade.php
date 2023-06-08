@@ -1,5 +1,6 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
-@section('title') Master Barang
+@section('title')
+    Master Barang
 @endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Barang', 'master' => 'Master Data'])
@@ -25,7 +26,7 @@
                             </th>
                             <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
                                 Tipe
-                                Barang</th>
+                                Barang/Seri</th>
                             <th
                                 class="text-center text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ">
                                 Status</th>
@@ -178,7 +179,7 @@
                                                     </div>
                                                     {{-- tipe barang --}}
                                                     <div class="col-md-6">
-                                                        <label for="">Tipe Barang</label>
+                                                        <label for="">Tipe Barang/Seri</label>
                                                         <div class="input-group mb-4">
                                                             {{-- <input type="text" class="form-control" name="merk" placeholder="merk barang .." > --}}
                                                             <select class="form-control text-capitalize" name="tipe_id"
@@ -200,7 +201,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group" id="tipe_other-{{ $barang->id }}"
                                                             style="display:none;">
-                                                            <label for="other" class="text-capitalize">tipe Barang
+                                                            <label for="other" class="text-capitalize">tipe Barang/Seri
                                                                 Lainnya</label>
                                                             <div class="input-group mb-4">
                                                                 <input class="form-control" placeholder="Tipe Barang ..."
@@ -273,12 +274,6 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Status
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Aksi
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -287,28 +282,6 @@
                                     <tr>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0 ps-3">{{ $j->jenis }}</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $j->status }}</p>
-                                        </td>
-                                        <td>
-                                            @if ($j->status == 'aktif')
-                                                <form action="{{ route('jenis.barang.nonaktif', ['jenis' => $j->id]) }}"
-                                                    method="post" class="inline-block">
-                                                    @method('get')
-                                                    @csrf
-                                                    <button type="submit" class="badge bg-gradient-danger border-0"><i
-                                                            class="fa fa-times-circle" aria-hidden="true"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('jenis.barang.aktif', ['jenis' => $j->id]) }}"
-                                                    method="post">
-                                                    @method('get')
-                                                    @csrf
-                                                    <button type="submit" class="badge bg-gradient-success border-0"><i
-                                                            class="fa fa-check-circle-o" aria-hidden="true"></i></button>
-                                                </form>
-                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -330,12 +303,6 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Merk
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Status
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Aksi
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -345,28 +312,6 @@
                                     <tr>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0 ps-3">{{ $merk->merk }}</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $merk->status }}</p>
-                                        </td>
-                                        <td>
-                                            @if ($merk->status == 'aktif')
-                                                <form action="{{ route('merk.barang.nonaktif', ['merk' => $merk->id]) }}"
-                                                    method="post" class="inline-block">
-                                                    @method('get')
-                                                    @csrf
-                                                    <button type="submit" class="badge bg-gradient-danger border-0"><i
-                                                            class="fa fa-times-circle" aria-hidden="true"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('merk.barang.aktif', ['merk' => $merk->id]) }}"
-                                                    method="post">
-                                                    @method('get')
-                                                    @csrf
-                                                    <button type="submit" class="badge bg-gradient-success border-0"><i
-                                                            class="fa fa-check-circle-o" aria-hidden="true"></i></button>
-                                                </form>
-                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -385,45 +330,14 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">tipe
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Status
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Aksi
-                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">tipe/seri
                                 </tr>
                             </thead>
                             <tbody>
-
-
                                 @foreach ($tipes as $tipe)
                                     <tr>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0 ps-3">{{ $tipe->tipe }}</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $tipe->status }}</p>
-                                        </td>
-                                        <td>
-                                            @if ($tipe->status == 'aktif')
-                                                <form action="{{ route('tipe.barang.nonaktif', ['tipe' => $tipe->id]) }}"
-                                                    method="post" class="inline-block">
-                                                    @method('get')
-                                                    @csrf
-                                                    <button type="submit" class="badge bg-gradient-danger border-0"><i
-                                                            class="fa fa-times-circle" aria-hidden="true"></i></button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('tipe.barang.aktif', ['tipe' => $tipe->id]) }}"
-                                                    method="post">
-                                                    @method('get')
-                                                    @csrf
-                                                    <button type="submit" class="badge bg-gradient-success border-0"><i
-                                                            class="fa fa-check-circle-o" aria-hidden="true"></i></button>
-                                                </form>
-                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -496,9 +410,10 @@
                                                 @if ($merk->status == 'aktif')
                                                     <option value="{{ $merk->id }}" class="text-uppercase">
                                                         {{ $merk->merk }}</option>
-                                                        @else
-                                                        <option value="{{ $merk->id }}" disabled class="text-uppercase text-secondary">
-                                                            {{ $merk->merk }}</option>
+                                                @else
+                                                    <option value="{{ $merk->id }}" disabled
+                                                        class="text-uppercase text-secondary">
+                                                        {{ $merk->merk }}</option>
                                                 @endif
                                             @endforeach
                                             <option value="merk_other">lainnya ...</option>

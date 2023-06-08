@@ -16,5 +16,9 @@ class OutletMapController extends Controller
             'outlets'=>$outlets
         ]);
     }
+    // public function map_rsud()
+    // {
+    //     return view('outlets.map');
+    // }
 
 }

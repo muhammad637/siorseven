@@ -2,18 +2,19 @@
     use Carbon\Carbon;
 @endphp
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
-@section('title') Service Request
+@section('title')
+    Service Request
 @endsection
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'User', 'master' => 'pages'])
     <div class="container-fluid py-4">
-    {{-- <div class="row mt-4 mx-4"> --}}
+        {{-- <div class="row mt-4 mx-4"> --}}
         <div class="card mb-4">
             <div class="card-header pb-0">
                 <h5>List Service Request</h5>
                 @if (auth()->user()->cekLevel == 'admin')
                     <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modaltambah">
-                          <i class="ni ni-settings text-sm opacity-10"></i> Request
+                        <i class="ni ni-settings text-sm opacity-10"></i> Request
                     </button>
                 @endif
                 <div class="card-body px-0 pt-0 pb-2">
@@ -26,6 +27,12 @@
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         Barang</th>
+                                    @if (auth()->user()->cekLevel == 'admin')
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
+                                            Ruangan</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
+                                            Pelapor</th>
+                                    @endif
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pesan
@@ -52,7 +59,11 @@
                                 @foreach ($orders as $order)
                                     @php
                                         // $i += $order->jumlah_order;
-                                        $nohp = $order->ruangan->no_hp;
+                                        $nohp = $order->no_pelapor;
+                                        if (substr(trim($nohp), 0, 1) == '0') {
+                                            $nohp = '62' . substr(trim($nohp), 1);
+                                        }
+                                        $nohpteknisi = $order->user->no_telephone;
                                         if (substr(trim($nohp), 0, 1) == '0') {
                                             $nohp = '62' . substr(trim($nohp), 1);
                                         }
@@ -67,6 +78,16 @@
                                                 {{ $order->barang->jenis->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe->tipe }}
                                             </p>
                                         </td>
+                                        @if (auth()->user()->cekLevel == 'admin')
+                                            <td class="text-sm font-weight-bold mb-0">
+                                                {{ $order->ruangan->nama }}</td>
+                                            <td class="text-sm font-weight-bold mb-0">
+                                                <a href="https://wa.me/{{ $nohp }}/?text=SIFORSEVEN%0Auntuk : {{ $order->nama_pelapor }}%0Aservisan barang  {{ $order->barang->jenis->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe->tipe }} %0Astatus masih :{{ $order->status == null ? 'pending' : $order->status }} %0Adengan keterangan status: {{ $order->pesan_status == null ? 'masih menunggu' : $order->pesan_status }} %0Adari Admin SIFORSEVEN: {{ auth()->user()->nama }}"
+                                                    target="_blank"
+                                                    class="badge bg-info p-2"><span>{{ $order->nama_pelapor }}
+                                                    </span> <i class="fa fa-whatsapp fs-6" aria-hidden="true"></i> </a>
+                                            </td>
+                                        @endif
                                         <td>
                                             <p class="text-sm font-weight-bold mb-0">
                                                 {{ $order->status == null ? 'pending' : $order->status }}</p>
@@ -75,7 +96,8 @@
                                             @if ($order->pesan_status != null)
                                                 <button type="button"
                                                     class="badge bg-gradient-success btn-block mb-0 border-0"
-                                                    data-bs-toggle="modal" data-bs-target="#keterangan-{{ $order->id }}">
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#keterangan-{{ $order->id }}">
                                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                                 </button>
                                             @else
@@ -90,30 +112,18 @@
                                             <p class="text-sm font-weight-bold mb-0">
                                                 {{ $order->tanggal_selesai ? $parse($order->tanggal_selesai) : '-' }}</p>
                                         </td>
-                                       
-                                        {{-- <td>
-                                            <p class="text-sm font-weight-bold mb-0">
 
-                                                @if (auth()->user()->cekLevel == 'admin')
-                                                    <a href="https://wa.me/{{ $nohp }}/?text=SIORSEVEN%0Auntuk : {{ $order->ruangan->nama }}%0Aorderan barang dari barang{{ $order->barang->jenis->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe->tipe }}mohon diambil ke ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIORSEVEN: {{ auth()->user()->nama }}"
-                                                        target="_blank" class="badge bg-info p-2"><i
-                                                            class="fa fa-whatsapp fs-4" aria-hidden="true"></i></a>
-                                                    <a href="#update-{{ $order->id }}" class="badge bg-secondary"
-                                                        data-bs-toggle="modal">update</a>
-                                                @endif --}}
-                                        </td>
                                         @if (auth()->user()->cekLevel == 'admin')
                                             <td>
-                                                <div class="d-flex px-3 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $order->user->nama }}</h6>
-                                                    </div>
-                                                </div>
 
+                                                <a href="https://wa.me/{{ $nohpteknisi }}/?text=SIFORSEVEN%0Auntuk : {{ $order->user->nama }}%0Aada orderan barang {{ $order->barang->jenis->jenis }} {{ $order->barang->merk->merk }} {{ $order->barang->tipe->tipe }}%0Adengan keluhan {{$order->pesan_kerusakan}} %0Adari ruangan {{ $order->ruangan->nama }} %0Amohon diambil di ruang IT RSUD Blambangan Banyuwangi%0Adari Admin SIFORSEVEN: {{ auth()->user()->nama }}%0ATerimakasih"
+                                                    target="_blank"
+                                                    class="badge bg-info p-2"><span>{{ $order->user->nama }} </span> <i
+                                                        class="fa fa-whatsapp fs-6" aria-hidden="true"></i> </a>
                                             </td>
-                                            @else
+                                        @else
                                             <td>
-                                                <a href="#update-{{$order->id}}" data-bs-toggle="modal"
+                                                <a href="#update-{{ $order->id }}" data-bs-toggle="modal"
                                                     class="badge bg-warning">edit</a>
                                             </td>
                                         @endif
@@ -182,7 +192,8 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="recipient-name" class="col-form-label">Nama
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">Nama
                                                                         Barang</label>
                                                                     <input type="text" class="form-control"
                                                                         value="{{ $order->barang->jenis->jenis . ' ' . $order->barang->merk->merk . ' ' . $order->barang->tipe->tipe }}"
@@ -207,15 +218,24 @@
                                                                     <select name="status"
                                                                         id="status-{{ $order->id }}"
                                                                         class="form-control">
-                                                                        <option value=""
-                                                                            {{ $order->status == '' ? 'selected' : '' }}>
-                                                                            pending</option>
-                                                                        <option value="on progress"
-                                                                            {{ $order->status == 'on progress' ? 'selected' : '' }}>
-                                                                            on progress</option>
-                                                                        <option value="selesai"
-                                                                            {{ $order->status == 'selesai' ? 'selected' : '' }}>
-                                                                            selesai</option>
+                                                                        @if ($order->status == 'on progress')
+                                                                            <option value="on progress"
+                                                                                {{ $order->status == 'on progress' ? 'selected' : '' }}>
+                                                                                on progress</option>
+                                                                            <option value="selesai"
+                                                                                {{ $order->status == 'selesai' ? 'selected' : '' }}>
+                                                                                selesai</option>
+                                                                        @else
+                                                                            <option value=""
+                                                                                {{ $order->status == '' ? 'selected' : '' }}>
+                                                                                pending</option>
+                                                                            <option value="on progress"
+                                                                                {{ $order->status == 'on progress' ? 'selected' : '' }}>
+                                                                                on progress</option>
+                                                                            <option value="selesai"
+                                                                                {{ $order->status == 'selesai' ? 'selected' : '' }}>
+                                                                                selesai</option>
+                                                                        @endif
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -227,7 +247,17 @@
                                                                         class="col-form-label">Status Selesai</label>
                                                                     <select name="status_selesai" id=""
                                                                         class="form-control">
+
                                                                         <option value=""
+                                                                            {{ $order->status_selesai == '' ? 'selected' : '' }}>
+                                                                            Pilih Status Selesai</option>
+                                                                        <option value="rusak berat"
+                                                                            {{ $order->status_selesai == 'rusak berat' ? 'selected' : '' }}>
+                                                                            rusak berat</option>
+                                                                        <option value="selesai"
+                                                                            {{ $order->status_selesai == 'selesai' ? 'selected' : '' }}>
+                                                                            selesai</option>
+                                                                        {{-- <option value=""
                                                                             {{ $order->status_selesai == '' ? 'selected' : '' }}>
                                                                             Pilih Status Selesai</option>
                                                                         <option value="rusak berat"
@@ -235,7 +265,7 @@
                                                                             tidak bisa diperbaiki</option>
                                                                         <option value="selesai"
                                                                             {{ $order->status_selesai == 'selesai' ? 'selected' : '' }}>
-                                                                            sudah bisa digunakan</option>
+                                                                            sudah bisa digunakan</option> --}}
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -254,7 +284,8 @@
                                                                         class="col-form-label">Tanggal Order</label>
                                                                     <input type="date"
                                                                         value="{{ $order->tanggal_order }}"
-                                                                        name="tanggal_order" readonly class="form-control">
+                                                                        name="tanggal_order" readonly
+                                                                        class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -325,6 +356,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="user_id" class="text-capitalize">pilih teknisi</label>
                                     <div class="input-group mb-4">
                                         <select class="form-control" name="user_id" type="text">
                                             <option value="">Pilih Teknisi</option>
@@ -339,6 +371,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="barang_id" class="text-capitalize">pilih Barang</label>
                                     <div class="input-group mb-4">
                                         <select class="form-control" name="barang_id" type="text">
                                             <option value="">Pilih Barang</option>
@@ -357,24 +390,22 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="pesan_kerusakan" class="text-capitalize">kerusakan barang</label>
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Kerusakan Barang" name="pesan_kerusakan"
-                                            type="text" value="Tulis Kendala Disini">
+                                        <input class="form-control" placeholder="Tulis Kendala Disini"
+                                            name="pesan_kerusakan" id="pesan_kerusakan" type="text" value="">
                                         <span class="input-group-text"><i class="fa fa-hand-rock-o"
                                                 aria-hidden="true"></i></span>
                                     </div>
-                                    {{-- <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="No Handphone" name="no_telephone"
-                                            type="number">
-                                        <span class="input-group-text"><i class="fa fa-mobile" aria-hidden="true"></i></i></span>
-                                    </div> --}}
+
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="ruangan_id" class="text-capitalize">pilih ruangan</label>
                                     <div class="input-group mb-4">
-                                        <select class="form-control" name="ruangan_id" type="text">
+                                        <select class="form-control" name="ruangan_id" type="text" id="ruangan_id">
                                             <option value="">Pilih Ruangan</option>
                                             @foreach ($ruangans as $ruangan)
                                                 <option value="{{ $ruangan->id }}">{{ $ruangan->nama }}||
@@ -388,11 +419,40 @@
                             </div>
 
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nama_pelapor" class="text-capitalize">Nama Pelapor</label>
+                                    <div class="input-group mb-4">
+                                        <input class="form-control" placeholder="nama pelapor" name="nama_pelapor"
+                                            id="nama_pelapor" type="text" value="">
+                                        <span class="input-group-text"><i class="fa fa-hand-rock-o"
+                                                aria-hidden="true"></i></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="no_pelapor" class="text-capitalize">no hp pelapor</label>
+                                    <div class="input-group mb-4">
+                                        <input class="form-control" placeholder="ex: 081xxxxxxxx" name="no_pelapor"
+                                            id="no_pelapor" type="text" value="">
+                                        <span class="input-group-text"><i class="fa fa-hand-rock-o"
+                                                aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn bg-gradient-primary">Save changes</button>
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">tutup</button>
+                        <button type="submit" class="btn bg-warning text-capitalize ">buat request</button>
                     </div>
 
                 </form>

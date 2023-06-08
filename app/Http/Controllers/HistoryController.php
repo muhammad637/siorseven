@@ -8,6 +8,7 @@ use App\Models\Barang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exports\OrderExport;
+use App\Models\JenisBarang;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -18,6 +19,7 @@ class HistoryController extends Controller
     {
         $history = Order::where('status', 'selesai')->orderBy('updated_at', 'desc')->get();
         $barang = Barang::orderBy('jenis_id', 'asc')->get();
+        $jns_barangs = JenisBarang::orderBy('jenis', 'asc')->get();
         if (auth()->user()->cekLevel == 'teknisi') {
             # code...
             $history = Order::where('user_id', auth()->user()->id)->where('status', 'selesai')->orderBy('updated_at', 'desc')->get();
@@ -30,6 +32,7 @@ class HistoryController extends Controller
         return view('auth.admin.pages.history', [
             'historys' => $history,
             'barangs' => $barang,
+            'jenis_barangs' => $jns_barangs,
         ]);
     }
 
@@ -41,6 +44,14 @@ class HistoryController extends Controller
             ->whereYear('created_at', $tahun)
             ->where('status', 'selesai')
             ->get();
+        // jika teknisi yang filter
+        if (auth()->user()->cekLevel == 'teknisi') {
+            $history = Order::whereMonth('created_at', $bulan)
+                ->whereYear('created_at', $tahun)
+                ->where('status', 'selesai')
+                ->where('user_id', auth()->user()->id)
+                ->get();
+        }
         session()->flash('pageTitle', 'bulan');
         $byBulan = Carbon::parse($request->bulan)->format('M - Y');
         session()->flash('header', " history  bulan $byBulan");
@@ -54,12 +65,46 @@ class HistoryController extends Controller
         return redirect()->back();
         // return 'tes';
     }
+    public function historyJenisBarang(Request $request)
+    {
+        $jenis = JenisBarang::findOrFail($request->jenis_id);
+        $jenis_id = $request->jenis_id;
+        $history = Order::where('status', 'selesai')->whereHas('barang', function ($query) use ($jenis_id) {
+            $query->where('jenis_id', $jenis_id);
+        })->get();
+
+        // jika teknisi yang filter
+        if (auth()->user()->cekLevel == 'teknisi') {
+            $history = Order::where('status', 'selesai')->whereHas('barang', function ($query) use ($jenis_id) {
+                $query->where('jenis_id', $jenis_id);
+            })->where('user_id', auth()->user()->id)->get();
+        }
+
+        session()->flash('header', " History Jenis Barang $jenis->jenis");
+        // session()->flash('teks', "orderan di ruangan $request->nama_ruangan masih kosong");
+        session()->flash('history', 'tidak ada');
+        if (count($history) > 0) {
+            # code...
+            // $header = $history[0]->ruangan->nama_ruangan;
+            session()->flash('history', $history);
+        }
+        session()->flash('pageTitle', 'barang');
+        return redirect()->back();
+    }
     public function historyBarang(Request $request)
     {
         $barang = Barang::find($request->barang_id);
+        $jenis = $barang->jenis->jenis;
         $merk = $barang->merk->merk;
+        $tipe = $barang->tipe->tipe;
         $history = Order::where('status', 'selesai')->where('barang_id', $request->barang_id)->get();
-        session()->flash('header', " History Barang $barang->jenis $merk $barang->tipe");
+        // jika teknisi yang filter
+        if (auth()->user()->cekLevel == 'teknisi') {
+            $history = Order::where('status', 'selesai')->where('barang_id', $request->barang_id)
+                ->where('user_id', auth()->user()->id)->get();
+            # code...
+        }
+        session()->flash('header', " History Barang $jenis $merk $tipe");
         // session()->flash('teks', "orderan di ruangan $request->nama_ruangan masih kosong");
         session()->flash('history', 'tidak ada');
         if (count($history) > 0) {
@@ -76,6 +121,11 @@ class HistoryController extends Controller
         // $barang = Barang::find($request->barang_id);
         // $merk = $barang->merk->merk;
         $history = Order::where('status_selesai', $request->status_selesai)->get();
+        // jika teknisi yang filter
+        if (auth()->user()->cekLevel == 'teknisi') {
+            $history = Order::where('status_selesai', $request->status_selesai)->where('user_id', auth()->user()->id)->get();
+            # code...
+        }
         session()->flash('header', " History service status $request->status_selesai");
         // session()->flash('teks', "orderan di ruangan $request->nama_ruangan masih kosong");
         session()->flash('history', 'tidak ada');
@@ -90,7 +140,7 @@ class HistoryController extends Controller
 
     public function exportAll()
     {
-        $data = $this->dataLaporan(Order::whereNotNull('status')->orderBy('updated_at', 'desc')->get(), 'LIST LAPORAN');
+        $data = $this->dataLaporan(Order::where('status','selesai')->orderBy('updated_at', 'desc')->get(), 'LIST LAPORAN SIFORSEVEN');
         return $data;
     }
     public function exportBulan(Request $request)
@@ -101,24 +151,38 @@ class HistoryController extends Controller
         $data = $this->dataLaporan(
             Order::whereMonth('created_at', $bulan)
                 ->whereYear('created_at', $tahun)
-                ->whereNotNull('status')
+                ->where('status','selesai')
                 ->get(),
-            "LIST LAPORAN BULAN $byBulan"
+            "LIST LAPORAN SIFORSEVEN BULAN $byBulan"
         );
         return $data;
     }
     public function exportBarang(Request $request)
     {
         $order = Barang::find($request->barang_id);
-        $namaBarang = $order->jenis . '-' . $order->merk->merk . '' . $order->tipe;
+        $namaBarang = $order->jenis->jenis . '-' . $order->merk->merk . '' . $order->tipe->tipe;
         $data = $this->dataLaporan(
-            Order::whereNotNull('status')->where('barang_id', $request->barang_id)->get(),
-            "LIST LAPORAN BY RUANGAN $order->barang-"
+            Order::where('status','selesai')->where('barang_id', $request->barang_id)->get(),
+            "LIST LAPORAN SIFORSEVEN BY BARANG $namaBarang"
+        );
+        return $data;
+    }
+    public function exportJenisBarang(Request $request)
+    {
+        $jenis_id = $request->jenis_id;
+        $jenis = JenisBarang::findOrFail($jenis_id);
+        // return $jenis;
+        $data = $this->dataLaporan(
+            Order::where('status','selesai')
+                ->whereHas('barang', function ($query) use ($jenis_id) {
+                    $query->where('jenis_id', $jenis_id);
+                })->get(),
+            "LIST LAPORAN SIFORSEVEN BY JENIS BARANG : $jenis->jenis"
         );
         return $data;
     }
 
-    private function dataLaporan($orders, $judul = 'LIST LAPORAN')
+    private function dataLaporan($orders, $judul = 'LIST LAPORAN SIFORSEVEN')
     {
 
         $dataLaporan = [];
@@ -127,19 +191,18 @@ class HistoryController extends Controller
                 'tanggal order' => Carbon::parse($order->tanggal_order)->format('d/M/Y'),
                 'tanggal selesai' => Carbon::parse($order->tanggal_selesai)->format('d/M/Y'),
                 'nama Teknisi' => $order->user->nama,
-                'nama Barang' => $order->barang->jenis . "-" . $order->barang->merk->merk . " " . $order->barang->tipe,
+                'nama Barang' => $order->barang->jenis->jenis . "-" . $order->barang->merk->merk . " " . $order->barang->tipe->tipe,
+                'nama ruangan' => $order->ruangan->nama,
                 'pesan kerusakan' => $order->pesan_kerusakan,
-                ($order->status == null) ? "pending" : "$order->status | $order->status_selesai",
+                'status' => "$order->status | $order->status_selesai",
                 'pesan satus' => $order->pesan_status,
-                // 'jumlah order' => $order->jumlah_order
-
             ]);
         }
         $laporan = new OrderExport([
             [$judul],
-            ['tanggal order', 'Tanggal Selesai', 'Nama Teknisi', 'Nama Barang', 'Kerusakan', 'Status', 'Pesan Status',],
+            ['Tanggal Order', 'Tanggal Selesai', 'Nama Teknisi', 'Nama Barang', 'Nama Ruangan', 'Kerusakan', 'Status', 'Pesan Status',],
             [...$dataLaporan]
         ]);
-        return Excel::download($laporan, 'laporan.xlsx');
+        return Excel::download($laporan, 'laporan siforseven.xlsx');
     }
 }
