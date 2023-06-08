@@ -9,51 +9,118 @@
         }
     </style>
 @endsection
+@section('title')
+    Lokasi
+@endsection
 @section('content')
+    @if (auth()->user()->cekLevel == 'admin')
     @include('layouts.navbars.auth.topnav', ['title' => 'Otlets', 'master' => 'Map'])
+    @else
+    @include('layouts.navbars.auth.topnav', ['title' => 'Lokasi', 'master' => 'Map'])
+    @endif
     <div class="row mt-4 mx-4">
-        <div class="col-md-12">
-            <div class="card-body" id="map" style="height:80vh;"></div>
-        </div>
-        <div class="col-md-5">
-            <div class="card mb-4">
-                <h4 class="px-4 pt-5">List Outlet</h4>
-                <div class="table-responsive">
-                    <table class="table table-sm table-responsive" id="myTable">
-                        <thead>
-                            <tr>
-                                <th class="text-center">No</th>
-                                <th>Nama Outlet</th>
-                                <th>Alamat</th>
-                                {{-- <th>Lattitude</th>
+        @if (auth()->user()->cekLevel == 'admin')
+            <div class="col-md-12">
+                <div class="card mb-4 p-2">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h4 class="px-4 pt-5">List Outlet</h4>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-responsive" id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th>Nama Outlet</th>
+                                            <th>Alamat</th>
+                                            {{-- <th>Lattitude</th>
                                 <th>Longitude</th> --}}
-                                <th class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($outlets as $outlet)
-                                <tr class="text-capitalize">
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td class="text-sm font-weight-bold mb-0">{!! $outlet->name_link !!}</td>
-                                    <td class="text-sm font-weight-bold mb-0">{{ $outlet->address }}</td>
-                                    {{-- <td class="text-sm font-weight-bold mb-0">{{ $outlet->latitude }}</td>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($outlets as $outlet)
+                                            <tr class="text-capitalize">
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-sm font-weight-bold mb-0">{!! $outlet->name_link !!}</td>
+                                                <td class="text-sm font-weight-bold mb-0">{{ $outlet->address }}</td>
+                                                {{-- <td class="text-sm font-weight-bold mb-0">{{ $outlet->latitude }}</td>
                                     <td class="text-sm font-weight-bold mb-0">{{ $outlet->longitude }}</td> --}}
-                                    <td class="text-center">
-                                        <a href="{{ route('outlets.show', $outlet) }}" id="show-outlet-{{ $outlet->id }}"
-                                            class="badge bg-warning">Show</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                                <td class="text-center">
+                                                    <a href="{{ route('outlets.show', $outlet) }}"
+                                                        id="show-outlet-{{ $outlet->id }}"
+                                                        class="badge bg-warning">Show</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {{-- <div class="col-md-7 mx-auto">
+                            <div class="card-body" id="map" style="height:80vh;"></div>
+                    </div> --}}
+                        <div class="col-md-7 mx-auto">
+                            <div class="card-body" id="mapid" style="height:80vh;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-7 mx-auto">
-            <div class="card mb-4 p-2 border-radius-lg">
-                <div class="card-body" id="mapid" style="height:80vh;"></div>
+        @else
+            <div class="col-md-12">
+                <div class="card mb-4 p-2">
+                    <div class="card-header">
+                        <h4 class="px-md-4">Lokasi RSUD Blambangan</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 ">
+                            <ul class="list-group ms-md-4 my-2">
+                                <li class="list-group-item text-sm mb-0">
+                                    <strong> Alamat:</strong> Jl. Letkol Istiqlah No.49, Singonegaran, Kec.
+                                    Banyuwangi, Kabupaten Banyuwangi, Jawa
+                                    Timur 68415
+                                </li>
+
+                                <li class="list-group-item text-sm  mb-0"><strong>Telepon:</strong> (0333) 421118</li>
+                                <li class="list-group-item text-sm  mb-0"> <strong>Provinsi:</strong> Jawa Timur</li>
+                                <li class="list-group-item text-sm  mb-0">
+                                    <div class="dropdown mt-1 p-0">
+                                        <button class="btn bg-gradient-info dropdown-toggle" type="button"
+                                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Jam Buka
+                                        </button>
+                                        <ul class="dropdown-menu list-group px-1 " aria-labelledby="dropdownMenuButton">
+                                            <li class="list-group-item text-sm  mb-0 border-0"> <strong>Senin</strong>
+                                                07.00–21.00</li>
+                                            <li class="list-group-item text-sm  mb-0 border-0"><strong>Selasa</strong>
+                                                07.00–21.00</li>
+                                            <li class="list-group-item text-sm  mb-0 border-0"><strong>Rabu</strong>
+                                                07.00–21.00</li>
+                                            <li class="list-group-item text-sm  mb-0 border-0"><strong>Kamis</strong>
+                                                07.00–21.00</li>
+                                            <li class="list-group-item text-sm  mb-0 border-0"><strong>Jumat</strong>
+                                                07.00–21.00</li>
+                                            <li class="list-group-item text-sm  mb-0 border-0"><strong>Sabtu</strong>
+                                                07.00–21.00</li>
+                                            <li class="list-group-item text-sm  mb-0 border-0"><strong>Minggu</strong>
+                                                07.00–21.00</li>
+                                        </ul>
+                                    </div>
+                                    {{-- <strong> Jam Buka</strong> --}}
+                                </li>
+                            </ul>
+                        </div>
+                        {{-- <div class="col-md-7 mx-auto">
+                        <div class="card-body" id="map" style="height:80vh;"></div>
+                </div> --}}
+                        <div class="col-md-7 mx-auto">
+                            <div class="card-body" id="mapid" style="height:60vh;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        @endif
+
+
 
 
     </div>
@@ -65,66 +132,74 @@
         crossorigin=""></script>
 
     <script>
-        var map_rsud = L.map('map').setView([{{ config('leaflet.map_center_latitude') }},
-            {{ config('leaflet.map_center_longitude') }}
-        ], 13);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map_rsud);
-
-        L.marker([{{ config('leaflet.map_center_latitude') }},
+        @if (auth()->user()->cekLevel == 'admin')
+            var map = L.map('mapid').setView([{{ config('leaflet.map_center_latitude') }},
                 {{ config('leaflet.map_center_longitude') }}
-            ]).addTo(map_rsud)
-            .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-            .openPopup();
+            ], {{ config('leaflet.zoom_level') }});
+            var baseUrl = "{{ url('/') }}";
 
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
 
+            L.marker([-8.208604611624, 114.36582023133]).addTo(map)
+                .bindPopup(
+                    'RSUD BLAMBANGAN.<br> Jl. Letkol Istiqlah No.49, Singonegaran, Kec. Banyuwangi, Kabupaten Banyuwangi, Jawa Timur 68415.'
+                )
+                .openPopup();
 
+            axios.get('{{ route('api.outlets.index.lain') }}')
+                .then(function(response) {
+                    @if (auth()->user()->cekLevel == 'admin')
+                        console.log(response.data);
+                    @endif
+                    L.geoJSON(response.data, {
+                            pointToLayer: function(geoJsonPoint, latlng) {
+                                return L.marker(latlng);
+                            }
+                        })
+                        .bindPopup(function(layer) {
+                            return layer.feature.properties.map_popup_content;
+                        }).addTo(map);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
 
-        var map = L.map('mapid').setView([-8.208683652225, 114.36582847952], {{ config('leaflet.zoom_level') }});
-        var baseUrl = "{{ url('/') }}";
+            @can('create', new App\Models\Outlet())
+                var theMarker;
+                map.on('click', function(e) {
+                    let latitude = e.latlng.lat.toString().substring(0, 15);
+                    let longitude = e.latlng.lng.toString().substring(0, 15);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+                    if (theMarker != undefined) {
+                        map.removeLayer(theMarker);
+                    };
 
-        axios.get('{{ route('api.outlets.index.lain') }}')
-            .then(function(response) {
-                @if (auth()->user()->cekLevel == 'admin')
-                    console.log(response.data);
-                @endif
-                L.geoJSON(response.data, {
-                        pointToLayer: function(geoJsonPoint, latlng) {
-                            return L.marker(latlng);
-                        }
-                    })
-                    .bindPopup(function(layer) {
-                        return layer.feature.properties.map_popup_content;
-                    }).addTo(map);
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+                    var popupContent = "Your location : " + latitude + ", " + longitude + ".";
+                    popupContent += '<br><a href="{{ route('outlets.create') }}?latitude=' + latitude +
+                        '&longitude=' +
+                        longitude + '">Add new outlet here</a>';
 
-        @can('create', new App\Models\Outlet())
-            var theMarker;
-            map.on('click', function(e) {
-                let latitude = e.latlng.lat.toString().substring(0, 15);
-                let longitude = e.latlng.lng.toString().substring(0, 15);
+                    theMarker = L.marker([latitude, longitude]).addTo(map);
+                    theMarker.bindPopup(popupContent)
+                        .openPopup();
+                });
+            @endcan
+        @else
+            var map_rsud = L.map('mapid').setView([{{ config('leaflet.map_center_latitude') }},
+                {{ config('leaflet.map_center_longitude') }}
+            ], 13);
 
-                if (theMarker != undefined) {
-                    map.removeLayer(theMarker);
-                };
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map_rsud);
 
-                var popupContent = "Your location : " + latitude + ", " + longitude + ".";
-                popupContent += '<br><a href="{{ route('outlets.create') }}?latitude=' + latitude + '&longitude=' +
-                    longitude + '">Add new outlet here</a>';
-
-                theMarker = L.marker([latitude, longitude]).addTo(map);
-                theMarker.bindPopup(popupContent)
-                    .openPopup();
-            });
-        @endcan
+            L.marker([-8.208604611624, 114.36582023133]).addTo(map_rsud)
+                .bindPopup(
+                    'RSUD BLAMBANGAN.<br> Jl. Letkol Istiqlah No.49, Singonegaran, Kec. Banyuwangi, Kabupaten Banyuwangi, Jawa Timur 68415.'
+                )
+                .openPopup();
+        @endif
     </script>
 @endpush

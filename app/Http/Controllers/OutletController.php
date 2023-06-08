@@ -33,7 +33,10 @@ class OutletController extends Controller
     public function create()
     {
         $this->authorize('create', new Outlet);
-        $users = User::where('outlet_id', null)->get();
+        $users = User::where('outlet_id', null)
+            ->where('cekLevel', 'teknisi')
+            ->orderBy('nama', 'asc')
+            ->get();
         return view('outlets.create', [
             'users' => $users
         ]);
@@ -85,7 +88,9 @@ class OutletController extends Controller
     public function edit(Outlet $outlet)
     {
         $this->authorize('update', $outlet);
-        $users = User::all();
+        $users = User::where('cekLevel', 'teknisi')
+        ->orderBy('nama', 'asc')
+        ->get();
         return view('outlets.edit', [
             'outlet' => $outlet,
             'users' => $users
