@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Barang;
 use App\Models\MerkBarang;
 use App\Models\Notifikasi;
@@ -82,11 +83,14 @@ class BarangController extends Controller
                 }
             }
             // if($request->jenis_id == ){}
-            Barang::create([
+            $create_b = Barang::create([
                 'jenis_id' => $jenis_id,
                 'merk_id' => $merk_id,
                 'tipe_id' => $tipe_id
             ]);
+            $pesan = "data barang" . $create_b->jenis->jenis .' '.$create_b->merk->merk.' '.$create_b->tipe->tipe. " berhasil dibuat oleh " . auth()->user()->nama;
+            $notif = Notifikasi::notif('barang', $pesan, 'buat', 'berhasil');
+            Notifikasi::create($notif)->user()->sync(User::adminId());
             return redirect()->back()->with('success', 'data barang berhasil dibuat');
             // proses membuat product
         } catch (\Throwable $th) {
@@ -115,13 +119,6 @@ class BarangController extends Controller
             $tipe_id = TipeBarang::latest()->first()->id;
         }
 
-        // $validatedData = Validator::make(['jenis_id','merk_id','tipe_id'],[
-        //     'jenis_id' 
-        // ]);
-        // if($request->current_barang == $barang->id){
-        //     return 'sama';
-        // }
-
         $validator = Validator::make($request->all(), $this->rules($request, $barang->id));
 
         if ($validator->fails()) {
@@ -129,6 +126,32 @@ class BarangController extends Controller
         }
 
         $barang->update(['jenis_id' => $jenis_id, 'tipe_id' => $tipe_id, 'merk_id' => $merk_id]);
+        $pesan = "data barang" . $barang->jenis->jenis . ' ' . $barang->merk->merk . ' ' . $barang->tipe->tipe . " berhasil update oleh " . auth()->user()->nama;
+        $notif = Notifikasi::notif('barang', $pesan, 'update', 'berhasil');
+        Notifikasi::create($notif)->user()->sync(User::adminId());
         return redirect()->back()->with('success', 'Barang berhasil di updated');
+    }
+
+    // status untuk semua tabel
+    public function nonaktif(Barang $barang)
+    {
+        //code...
+        $status = 'nonaktif';
+        // Barang::where('id', $barang->id)->update(['status' => $status]);
+        $barang->update(['status' => $status]);
+        $pesan = "data barang " . $barang->jenis->jenis . ' ' . $barang->merk->merk . ' ' . $barang->tipe->tipe . " berhasil dinonaktifkan oleh " . auth()->user()->nama;
+        $notif = Notifikasi::notif('barang', $pesan, 'nonaktif', 'berhasil');
+        Notifikasi::create($notif)->user()->sync(User::adminId());
+        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan barang' . $barang->jenis->jenis . ' ' . $barang->merk->merk . '' . $barang->tipe->tipe);
+    }
+    public function aktif(Barang $barang)
+    {
+        $status = 'aktif';
+        // Barang::where('id', $barang->id)->update(['status' => $status]);
+        $barang->update(['status' => $status]);
+        $pesan = "data barang" . $barang->jenis->jenis . ' ' . $barang->merk->merk . ' ' . $barang->tipe->tipe . " berhasil aktifkan oleh " . auth()->user()->nama;
+        $notif = Notifikasi::notif('barang', $pesan, 'nonaktif', 'berhasil');
+        Notifikasi::create($notif)->user()->sync(User::adminId());
+        return redirect()->back()->with('toast_success', 'berhasil nonaktifkan barang' . $barang->jenis->jenis . ' ' . $barang->merk->merk . '' . $barang->tipe->tipe);
     }
 }
