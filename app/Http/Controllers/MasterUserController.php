@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notifikasi;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class MasterUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $notif = Notifikasi::notif('user', "user: $request->nama berhasil di tambahkan by " . auth()->user()->nama, 'tambah' , 'berhasil');
         $validatedData = $request->validate(
             [
                 'nama' => 'required',
@@ -66,6 +67,8 @@ class MasterUserController extends Controller
         );
         try{
             User::create($validatedData);
+            Notifikasi::create($notif)->user()->sync(User::adminId());
+            $user = User::where('username', $request->username)->first();
             return redirect()->back()->with('toast_success','data berhasil ditambahkan');
         }
         catch(\Throwable $th){
@@ -123,6 +126,8 @@ class MasterUserController extends Controller
             
                 $validatedData['password'] = $user->password;
             }
+            $notif= Notifikasi::notif('user', "user: $request->nama berhasil diupdate by " . auth()->user()->nama, 'update', 'berhasil');
+            Notifikasi::create($notif)->user()->sync(User::adminId());
             $user->update($validatedData);
             return redirect()->back()->with('toast_success','data user berhasil diupdate');
         } catch (\Throwable $th) {
@@ -143,10 +148,14 @@ class MasterUserController extends Controller
     }
 
     public function aktif(Request $request, User $user){
+        $notif = Notifikasi::notif('user', 'user' . "$user->nama berhasil diaktifkan by ". auth()->user()->nama , 'aktif' , 'berhasil');
+        Notifikasi::create($notif)->user()->sync(User::adminId());
         $user->update(['status' => 'aktif']);
         return redirect()->back();
     }
     public function nonaktif(User $user){
+        $notif = Notifikasi::notif('user', 'user' . "$user->nama berhasil dinonaktifkan by " . auth()->user()->nama , 'nonaktif' , 'berhasil');
+        Notifikasi::create($notif)->user()->sync(User::adminId());
         $user->update(['status' => 'nonaktif']);
         return redirect()->back();
     }
