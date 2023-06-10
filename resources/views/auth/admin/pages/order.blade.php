@@ -252,11 +252,11 @@
                                                                             {{ $order->status_selesai == '' ? 'selected' : '' }}>
                                                                             Pilih Status Selesai</option>
                                                                         <option value="rusak berat"
-                                                                            {{ $order->status_selesai == 'rusak berat' ? 'selected' : '' }}>
-                                                                            rusak berat</option>
+                                                                            {{ $order->status_selesai == 'Rusak Berat' ? 'selected' : '' }}>
+                                                                            Rusak Berat</option>
                                                                         <option value="selesai"
-                                                                            {{ $order->status_selesai == 'selesai' ? 'selected' : '' }}>
-                                                                            selesai</option>
+                                                                            {{ $order->status_selesai == 'Bisa dipakai' ? 'selected' : '' }}>
+                                                                            Bisa Dipakai</option>
                                                                         {{-- <option value=""
                                                                             {{ $order->status_selesai == '' ? 'selected' : '' }}>
                                                                             Pilih Status Selesai</option>
