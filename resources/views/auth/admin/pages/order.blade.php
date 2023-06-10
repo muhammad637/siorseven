@@ -64,8 +64,8 @@
                                             $nohp = '62' . substr(trim($nohp), 1);
                                         }
                                         $nohpteknisi = $order->user->no_telephone;
-                                        if (substr(trim($nohp), 0, 1) == '0') {
-                                            $nohp = '62' . substr(trim($nohp), 1);
+                                        if (substr(trim($nohpteknisi), 0, 1) == '0') {
+                                            $nohpteknisi = '62' . substr(trim($nohpteknisi), 1);
                                         }
                                         // $array = json_decode($order->pesan, true);
                                     @endphp
