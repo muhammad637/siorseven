@@ -408,7 +408,7 @@
                                         <select class="form-control" name="ruangan_id" type="text" id="ruangan_id">
                                             <option value="">Pilih Ruangan</option>
                                             @foreach ($ruangans as $ruangan)
-                                                <option value="{{ $ruangan->id }}">{{ $ruangan->nama }}||
+                                                <option value="{{ $ruangan->id }}">{{ $ruangan->nama }}
                                                     {{ $ruangan->no_hp }}</option>
                                             @endforeach
                                         </select>
