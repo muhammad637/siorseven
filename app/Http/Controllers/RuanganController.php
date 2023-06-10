@@ -41,7 +41,7 @@ class RuanganController extends Controller
         $notif = Notifikasi::notif('Ruangan', "user : $request->nama berhasil diupdate bu " . auth()->user()->nama, 'update' , 'berhasil');
         $validateData = $request->validate([
             'nama' => 'required',
-            'no_hp' => 'required',
+            'no_ruangan' => '',
         ]);
         try {
             //code...

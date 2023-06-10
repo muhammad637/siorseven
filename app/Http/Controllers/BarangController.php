@@ -74,7 +74,7 @@ class BarangController extends Controller
             if ($request->tipe_id == 'tipe_other') {
                 $tipeData = $request->validate(['tipe' => 'required|unique:tipe_barangs']);
                 TipeBarang::create($tipeData);
-                $tipe_id = MerkBarang::latest()->first()->id;
+                $tipe_id = TipeBarang::latest()->first()->id;
             }
             $barangs = Barang::all();
             foreach ($barangs as $b) {

@@ -105,7 +105,7 @@
                                                     <div class="col-md-6">
                                                         <label for="">No Ruangan </label>
                                                         <div class="input-group mb-4">
-                                                            <input type="text" class="form-control" name="" placeholder="example 123" >
+                                                            <input type="text" class="form-control" name="no_ruangan" placeholder="example 123" >
                                                             <span class="input-group-text">
                                                                 <i class="fa fa-exchange" aria-hidden="true"></i></span>
                                                         </div>
